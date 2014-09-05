@@ -1,7 +1,7 @@
 package com.diosoft.trsine.calendar.service;
 
 import com.diosoft.trsine.calendar.common.Event;
-import com.diosoft.trsine.calendar.satastore.DataStore;
+import com.diosoft.trsine.calendar.datastore.DataStore;
 
 import java.util.Date;
 import java.util.List;
