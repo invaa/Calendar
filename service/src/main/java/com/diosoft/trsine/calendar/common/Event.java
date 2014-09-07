@@ -2,23 +2,26 @@ package com.diosoft.trsine.calendar.common;
 
 import com.rits.cloning.Cloner;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Set;
 
 public class Event {
 
     private final String description;
     private final Set<String> attenders;
-    private final Date date;
+    private final Date dateBegin;
+    private final Date dateEnd;
 
-    //format date
+    //format dateBegin, dateEnd
     private SimpleDateFormat df = new SimpleDateFormat ("E dd MMMM yyyy 'at' hh:mm", new Locale("en","En"));
 
     private Event(Builder builder) {
         this.description = builder.description;
         this.attenders = builder.attenders;
-        this.date = builder.date;
+        this.dateBegin = builder.dateBegin;
+        this.dateEnd = builder.dateEnd;
     }
 
     public String getDescription() {
@@ -26,23 +29,17 @@ public class Event {
     }
 
     public Set<String> getAttenders() {
-        Cloner cloner=new Cloner();
-
-        Set<String> clone=cloner.deepClone(attenders);
+        Cloner cloner = new Cloner();
+        Set<String> clone = cloner.deepClone(attenders);
         return clone;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateBegin() {
+        return dateBegin;
     }
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "description = '" + description + '\'' +
-                ", attenders = " + attenders +
-                ", date = " + df.format(date) +
-                '}';
+    public Date getDateEnd() {
+        return dateEnd;
     }
 
     @Override
@@ -53,7 +50,8 @@ public class Event {
         Event event = (Event) o;
 
         if (!attenders.equals(event.attenders)) return false;
-        if (!date.equals(event.date)) return false;
+        if (!dateBegin.equals(event.dateBegin)) return false;
+        if (!dateEnd.equals(event.dateEnd)) return false;
         if (!description.equals(event.description)) return false;
 
         return true;
@@ -63,15 +61,27 @@ public class Event {
     public int hashCode() {
         int result = description.hashCode();
         result = 31 * result + attenders.hashCode();
-        result = 31 * result + date.hashCode();
+        result = 31 * result + dateBegin.hashCode();
+        result = 31 * result + dateEnd.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "description='" + description + '\'' +
+                ", attenders=" + attenders +
+                ", dateBegin=" + dateBegin +
+                ", dateEnd=" + dateEnd +
+                '}';
     }
 
     public static abstract class Builder {
 
         private String description;
         private Set<String> attenders;
-        private Date date;
+        private Date dateBegin;
+        private Date dateEnd;
 
         public Builder() {
         }
@@ -79,7 +89,8 @@ public class Event {
         public Builder(Event original) {
             this.description = original.description;
             this.attenders = original.attenders;
-            this.date = original.date;
+            this.dateBegin = original.dateBegin;
+            this.dateEnd = original.dateEnd;
         }
 
         public Builder setDescription(String description) {
@@ -92,8 +103,13 @@ public class Event {
             return this;
         }
 
-        public Builder setDate(Date date) {
-            this.date = date;
+        public Builder setDateBegin(Date dateBegin) {
+            this.dateBegin = dateBegin;
+            return this;
+        }
+
+        public Builder setDateEnd(Date dateEnd) {
+            this.dateEnd = dateEnd;
             return this;
         }
 
