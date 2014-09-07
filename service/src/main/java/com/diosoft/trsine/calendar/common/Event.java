@@ -1,5 +1,7 @@
 package com.diosoft.trsine.calendar.common;
 
+import com.rits.cloning.Cloner;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,7 +26,10 @@ public class Event {
     }
 
     public Set<String> getAttenders() {
-        return attenders;
+        Cloner cloner=new Cloner();
+
+        Set<String> clone=cloner.deepClone(attenders);
+        return clone;
     }
 
     public Date getDate() {
