@@ -13,13 +13,7 @@ public class Event {
     //format date
     private SimpleDateFormat df = new SimpleDateFormat ("E dd MMMM yyyy 'at' hh:mm", new Locale("en","En"));
 
-    public Event(String description, Set<String> attenders, Date data) {
-        this.description = description;
-        this.attenders = attenders;
-        this.date = data;
-    }
-
-    public Event(Builder builder) {
+    private Event(Builder builder) {
         this.description = builder.description;
         this.attenders = builder.attenders;
         this.date = builder.date;
@@ -93,8 +87,8 @@ public class Event {
             return this;
         }
 
-        public Builder setData(Date data) {
-            this.date = data;
+        public Builder setDate(Date date) {
+            this.date = date;
             return this;
         }
 
