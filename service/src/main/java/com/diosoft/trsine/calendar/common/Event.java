@@ -117,7 +117,10 @@ public class Event {
 
         private void checkAttenders() {
             if (attenders == null){
-                attenders = newSet();
+                synchronized(this) {
+                    if (attenders == null)
+                        attenders = newSet();
+                }
             }
         }
 
