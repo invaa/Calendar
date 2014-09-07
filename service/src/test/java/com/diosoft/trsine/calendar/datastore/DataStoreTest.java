@@ -1,4 +1,4 @@
-package com.diosoft.trsine.calendar.test.datastore;
+package com.diosoft.trsine.calendar.datastore;
 
 import org.junit.Assert;
 import org.junit.Test;
