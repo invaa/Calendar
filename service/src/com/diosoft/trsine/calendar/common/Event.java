@@ -99,22 +99,35 @@ public class Event {
             return this;
         }
 
-//        public boolean addParticipant(String participant){
-//            checkAttenders();
-//            return attenders.add(participant);
-//        }
-//
-//
-//        public boolean removeParticipant(String participant){
-//            checkAttenders();
-//            return attenders.remove(participant);
-//        }
-//
-//        private void checkAttenders() {
-//            if (attenders == null){
-//                attenders = new HashSet<String>();
-//            }
-//        }
+        public Builder addParticipant(String participant){
+            checkAttenders();
+            attenders.add(participant);
+            return this;
+        }
+
+
+        public Builder removeParticipant(String participant){
+            checkAttenders();
+            attenders.remove(participant);
+            return this;
+        }
+        public Builder addParticipant(String participant, boolean resultAdd){
+            checkAttenders();
+            resultAdd = attenders.add(participant);
+            return this;
+        }
+
+        public Builder removeParticipant(String participant, boolean resultRemove){
+            checkAttenders();
+            resultRemove = attenders.remove(participant);
+            return this;
+        }
+
+        private void checkAttenders() {
+            if (attenders == null){
+                attenders = new HashSet<String>();
+            }
+        }
 
         public Event build(){
             return new Event(this);
