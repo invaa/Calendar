@@ -18,7 +18,7 @@ public class EventTest {
                 return new HashSet<String>();
             }
         }//end of Builder implementation
-        .setData(new Date())
+        .setDate(new Date())
         .setDescription("Test event")
         .addParticipant("alex@zamkovyi.name")
         .addParticipant("igor.vartanian@gmail.com")
