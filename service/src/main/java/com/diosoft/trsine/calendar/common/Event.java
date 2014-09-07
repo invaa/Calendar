@@ -69,10 +69,10 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "description='" + description + '\'' +
-                ", attenders=" + attenders +
-                ", dateBegin=" + dateBegin +
-                ", dateEnd=" + dateEnd +
+                "description = '" + description + '\'' +
+                ", attenders = " + attenders +
+                ", dateBegin = " + df.format(dateBegin) +
+                ", dateEnd = " + df.format(dateEnd) +
                 '}';
     }
 
