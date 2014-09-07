@@ -68,7 +68,7 @@ public class Event {
         return result;
     }
 
-    public static class Builder {
+    public static abstract class Builder {
 
         private String description;
         private Set<String> attenders;
@@ -82,7 +82,6 @@ public class Event {
             this.attenders = original.attenders;
             this.date = original.date;
         }
-
 
         public Builder setDescription(String description) {
             this.description = description;
@@ -105,7 +104,6 @@ public class Event {
             return this;
         }
 
-
         public Builder removeParticipant(String participant){
             checkAttenders();
             attenders.remove(participant);
@@ -125,9 +123,11 @@ public class Event {
 
         private void checkAttenders() {
             if (attenders == null){
-                attenders = new HashSet<String>();
+                attenders = newSet();
             }
         }
+
+        abstract public Set newSet();
 
         public Event build(){
             return new Event(this);
