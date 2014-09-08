@@ -17,21 +17,26 @@ public class CalendarServiceImp implements CalendarService {
 
     @Override
     public void add(Event event) {
-
+        dataStore.add(event);
     }
 
     @Override
     public void remove(UUID id) {
-
+        dataStore.remove(id);
     }
 
     @Override
     public List<Event> searchByTitle(String title) {
-        return null;
+        return dataStore.searchByTitle(title);
+    }
+
+    @Override
+    public List<Event> searchByDescription(String description) {
+        return dataStore.searchByDescription(description);
     }
 
     @Override
     public List<Event> searchByDay(Date day) {
-        return null;
+        return dataStore.searchByDay(day);
     }
 }

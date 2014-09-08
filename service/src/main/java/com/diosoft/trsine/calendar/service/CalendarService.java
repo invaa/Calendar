@@ -10,5 +10,6 @@ public interface CalendarService {
     void add(Event event);
     void remove(UUID id);
     List<Event> searchByTitle(String title);
+    List<Event> searchByDescription(String description);
     List<Event> searchByDay(Date day);
 }

@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by a.zamkovyi on 07.09.2014.
- */
 public class EventTest {
     public static void main(String ... args) {
 
@@ -19,6 +16,7 @@ public class EventTest {
             }
         }//end of Builder implementation
         .setDateBegin(new Date())
+        .setDateEnd(new Date())
         .setDescription("Test event")
         .addParticipant("alex@zamkovyi.name")
         .addParticipant("igor.vartanian@gmail.com")
