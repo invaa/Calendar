@@ -4,26 +4,112 @@ import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import org.junit.Test;
 
-import java.text.SimpleDateFormat;
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class EventTest {
 
     @Test
-    public void testEquals() {
+    public void testEqualsIsTrueIfIdsAreEqual() {
         //init
+        UUID id = UUID.randomUUID();
+
+        Event testEvent1 = null;
+        try {
+            testEvent1 = new Event.Builder() {
+                @Override
+                public Set newSet() {
+                    return new HashSet<String>();
+                }
+            }//end of Builder implementation
+                    .setDateBegin(new Date())
+                    .setDateEnd(new Date())
+                    .setId(id)
+                    .setTitle("Daily Scrum")
+                    .setDescription("Next daily scrum meeting")
+                    .addAttender("alex@zamkovyi.name")
+                    .addAttender("igor.vartanian@gmail.com")
+                    .build();
+        } catch (IdIsNullException e) {
+            fail(e.getMessage());
+        } catch (DateIntervalIsIncorrectException e) {
+            fail(e.getMessage());
+        }
+
+        Event testEvent2 = null;
+        try {
+            testEvent2 = new Event.Builder() {
+                @Override
+                public Set newSet() {
+                    return new HashSet<String>();
+                }
+            }//end of Builder implementation
+                    .setDateBegin(new Date())
+                    .setDateEnd(new Date())
+                    .setId(id)
+                    .setTitle("")
+                    .setDescription("")
+                    .addAttender("igor.vartanian@gmail.com")
+                    .build();
+        } catch (IdIsNullException e) {
+            fail(e.getMessage());
+        } catch (DateIntervalIsIncorrectException e) {
+            fail(e.getMessage());
+        }
 
         //check
+        assertTrue(testEvent1.equals(testEvent2));
+        assertTrue(testEvent2.equals(testEvent1));
     }
 
     @Test
-    public void testToString() {
+    public void testHashCodeReturnsZeroIfIdIsNull() {
 
+        //init
+        Event testEvent = null;
+        try {
+            testEvent = new Event.Builder() {
+                @Override
+                public Set newSet() {
+                    return new HashSet<String>();
+                }
+            }//end of Builder implementation
+                    .setDateBegin(new Date())
+                    .setDateEnd(new Date())
+                    .setId(UUID.randomUUID())
+                    .setTitle("Daily Scrum")
+                    .setDescription("Next daily scrum meeting")
+                    .addAttender("alex@zamkovyi.name")
+                    .addAttender("igor.vartanian@gmail.com")
+                    .build();
+        } catch (IdIsNullException e) {
+            fail(e.getMessage());
+        } catch (DateIntervalIsIncorrectException e) {
+            fail(e.getMessage());
+        }
+
+        Field field1 = null;
+        try {
+            field1 = testEvent.getClass().getDeclaredField("id");
+        } catch (NoSuchFieldException e) {
+            fail(e.getMessage());
+        }
+
+        //field1 is not null
+        field1.setAccessible(true);
+        try {
+            field1.set(testEvent, null);
+        } catch (IllegalAccessException e) {
+            fail(e.getMessage());
+        }
+
+        assertEquals(0, testEvent.hashCode());
     }
 
     @Test
@@ -199,7 +285,5 @@ public class EventTest {
         assertEquals(dateEndAsLongBefore, testEvent.getDateEnd().getTime());
 
     }
-
-
 
 }

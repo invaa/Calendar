@@ -101,7 +101,6 @@ public class Event {
         Event event = (Event) o;
 
         return !(id != null ? !id.equals(event.id) : event.id != null);
-
     }
 
     /**
