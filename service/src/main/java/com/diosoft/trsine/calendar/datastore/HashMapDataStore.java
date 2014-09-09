@@ -20,16 +20,16 @@ public class HashMapDataStore implements DataStore {
     HashMap<Date, List<UUID>> daysMap;
     HashMap<Date, List<UUID>> descriptionsMap;
 
-    ArrayList<Event> events = new ArrayList<>();
+    Set<Event> events;
 
     @Override
     public void add(Event event) {
-        //events.add(event);
+        events.add(event);
     }
 
     @Override
     public void addAll(Collection<Event> events) {
-        //events.addAll(events);
+        events.addAll(events);
     }
 
     @Override
