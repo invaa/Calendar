@@ -29,7 +29,8 @@ public class Event {
         this.dateBegin = builder.dateBegin;
         this.dateEnd = builder.dateEnd;
         this.title = builder.title;
-        this.id = builder.id;
+        id = UUID.randomUUID();
+
     }
 
     public String getDescription() {
@@ -82,18 +83,17 @@ public class Event {
                 ", title = '" + title +
                 ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
-                ", dateBegin = " + dateBegin +
-                ", dateEnd = " + dateEnd + '\'' +
+                ", dateBegin = " + df.format(dateBegin) +
+                ", dateEnd = " + df.format(dateEnd) + '\'' +
                 '}';
     }
 
-    public static abstract class Builder {
+    public abstract static class Builder {
 
         private String description;
         private Set<String> attenders;
         private Date dateBegin;
         private Date dateEnd;
-        private UUID id;
         private String title;
 
         public Builder() {
@@ -104,13 +104,7 @@ public class Event {
             this.attenders = original.attenders;
             this.dateBegin = original.dateBegin;
             this.dateEnd = original.dateEnd;
-            this.id = original.id;
             this.title = original.title;
-        }
-
-        public Builder setId(UUID id) {
-            this.id = id;
-            return this;
         }
 
         public Builder setTitle(String title) {
@@ -171,7 +165,7 @@ public class Event {
             }
         }
 
-        abstract public Set newSet();
+        abstract Set newSet();
 
         public Event build() {
 
@@ -181,6 +175,7 @@ public class Event {
 
             return new Event(this);
         }
+
 
     }
 

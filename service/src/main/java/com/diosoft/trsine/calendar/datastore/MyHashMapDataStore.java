@@ -14,7 +14,8 @@ import java.util.*;
 
 public abstract class MyHashMapDataStore implements DataStore {
 
-    HashMap<UUID,Event> eventsMap = new HashMap<>();
+    HashMap<UUID, Event> eventsMap = new HashMap<>();
+
     HashMap<String, Set<UUID>> titlesMap = new HashMap<>();
     HashMap<Date, Set<UUID>> daysMap = new HashMap<>();
     HashMap<String, Set<UUID>> descriptionsMap = new HashMap<>();

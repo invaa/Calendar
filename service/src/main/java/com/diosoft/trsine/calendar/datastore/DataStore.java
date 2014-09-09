@@ -2,10 +2,7 @@ package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Contract of data store of <code>Event</code>s

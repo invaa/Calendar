@@ -18,7 +18,7 @@ public class EventTest {
         }//end of Builder implementation
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
+                //.setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
                 .addParticipant("alex@zamkovyi.name")
