@@ -20,8 +20,11 @@ public class Event {
     private final UUID id;
     private final String title;
 
+    //cloning objects
+    protected final Cloner cloner = new Cloner();
+
     //format dateBegin, dateEnd
-    private SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
+    protected SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
 
     private Event(Builder builder) {
         this.description = builder.description;
@@ -38,17 +41,15 @@ public class Event {
     }
 
     public Set<String> getAttenders() {
-        Cloner cloner = new Cloner();
-        Set<String> clone = cloner.deepClone(attenders);
-        return clone;
+        return cloner.deepClone(attenders);
     }
 
     public Date getDateBegin() {
-        return dateBegin;
+        return cloner.deepClone(dateBegin);
     }
 
     public Date getDateEnd() {
-        return dateEnd;
+        return cloner.deepClone(dateBegin);
     }
 
     public String getTitle() {
@@ -56,7 +57,7 @@ public class Event {
     }
 
     public UUID getId() {
-        return id;
+        return cloner.deepClone(id);
     }
 
     @Override
