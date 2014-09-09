@@ -21,15 +21,8 @@ public class ArrayListDataStore implements DataStore {
 
     @Override
     public void remove(UUID id) {
-        ArrayList<Event> eventsToBeDeleted = new ArrayList<>();
-
-        for (Event event: events) {
-            if (event.getId().equals(id)) eventsToBeDeleted.add(event);
-        }
-
-        for (Event event: eventsToBeDeleted) {
-            events.remove(event);
-        }
+        events.removeAll(events.parallelStream()
+                .filter(p -> p.getId().equals(id)).collect(Collectors.toList()));
     }
 
     @Override
