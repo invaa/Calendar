@@ -15,15 +15,38 @@ import java.util.UUID;
  */
 
 public interface DataStore {
-//    Map<UUID,Event>
-//    Map<String, List<UUID>>
-//    Map<Date, List<UUID>>
-
+    /**
+     * Adds <code>Event</code> to data store
+     * @param event to be added
+     */
     void add(Event event);
+    /**
+     * Adds the <code>Event</code> collection to data store
+     * @param events to be added
+     */
     void addAll(Collection<Event> events);
+    /**
+     * Removes the <code>Event</code> from data store
+     * @param id of <code>Event</code>
+     */
     void remove(UUID id);
+    /** Search for all <code>Event</code> in data store by given description
+     *
+     * @param description to search by
+     * @return the list of <code>Event</code>s
+     */
     List<Event> searchByDescription(String description);
+    /** Search for all <code>Event</code> in data store by given title
+     *
+     * @param title to search by
+     * @return the list of <code>Event</code>s
+     */
     List<Event> searchByTitle(String title);
+    /** Search for all <code>Event</code> in data store by given date of begining
+     *
+     * @param day date of begining to search by
+     * @return the list of <code>Event</code>s
+     */
     List<Event> searchByDay(Date day);
 
 }

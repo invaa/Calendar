@@ -17,6 +17,7 @@ import java.util.UUID;
 
 public class CalendarServiceImp implements CalendarService {
 
+    //DataStore is the resource
     private final DataStore dataStore;
 
     public CalendarServiceImp(DataStore dataStore) {
