@@ -14,38 +14,31 @@ public class HashSetDataStore implements DataStore {
 
     @Override
     public void add(Event event) {
-        events.add(event);
+        //events.add(event);
     }
 
     @Override
     public void addAll(Collection<Event> events) {
-        events.addAll(events);
+        //events.addAll(events);
     }
 
     @Override
     public void remove(UUID id) {
-        events.removeAll(events.parallelStream()
-                .filter(p -> p.getId().equals(id)).collect(Collectors.toList()));
+        //
     }
 
     @Override
     public List<Event> searchByDescription(String description) {
-        return events.parallelStream()
-                .filter(p -> p.getDescription().equals(description))
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public List<Event> searchByTitle(String title) {
-        return events.parallelStream()
-                .filter(p -> p.getTitle().equals(title))
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public List<Event> searchByDay(Date day) {
-        return events.parallelStream()
-                .filter(p -> p.getDateBegin().equals(day))
-                .collect(Collectors.toList());
+        return null;
     }
 }
