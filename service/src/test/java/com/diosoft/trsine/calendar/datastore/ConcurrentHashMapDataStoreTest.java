@@ -126,17 +126,77 @@ public class ConcurrentHashMapDataStoreTest {
         }
 
     @Test
-    public void testSearchByDescription() throws Exception {
+    public void testSearchByDescriptionFindsDesiredEvent() throws Exception {
+        Event testEvent1 = getDailyScrumTestEvent();
+        Event testEvent2 = getAnnualMeetingTestEvent();
 
+        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
+            @Override
+            public Set<UUID> newSet() {
+                return new HashSet<>();
+            }
+        };
+        ArrayList<Event> arrayToAdd = new ArrayList<>();
+        arrayToAdd.add(testEvent1);
+        arrayToAdd.add(testEvent2);
+        store.addAll(arrayToAdd);
+
+        assertTrue(store
+                 .searchByDescription(testEvent1.getDescription())
+                 .contains(testEvent1));
+
+        assertTrue(store
+                .searchByDescription(testEvent2.getDescription())
+                .contains(testEvent2));
     }
 
     @Test
     public void testSearchByTitle() throws Exception {
+        Event testEvent1 = getDailyScrumTestEvent();
+        Event testEvent2 = getAnnualMeetingTestEvent();
 
+        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
+            @Override
+            public Set<UUID> newSet() {
+                return new HashSet<>();
+            }
+        };
+        ArrayList<Event> arrayToAdd = new ArrayList<>();
+        arrayToAdd.add(testEvent1);
+        arrayToAdd.add(testEvent2);
+        store.addAll(arrayToAdd);
+
+        assertTrue(store
+                .searchByTitle(testEvent1.getTitle())
+                .contains(testEvent1));
+
+        assertTrue(store
+                .searchByTitle(testEvent2.getTitle())
+                .contains(testEvent2));
     }
 
     @Test
     public void testSearchByDay() throws Exception {
+        Event testEvent1 = getDailyScrumTestEvent();
+        Event testEvent2 = getAnnualMeetingTestEvent();
 
+        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
+            @Override
+            public Set<UUID> newSet() {
+                return new HashSet<>();
+            }
+        };
+        ArrayList<Event> arrayToAdd = new ArrayList<>();
+        arrayToAdd.add(testEvent1);
+        arrayToAdd.add(testEvent2);
+        store.addAll(arrayToAdd);
+
+        assertTrue(store
+                .searchByDay(testEvent1.getDateBegin())
+                .contains(testEvent1));
+
+        assertTrue(store
+                .searchByDay(testEvent2.getDateBegin())
+                .contains(testEvent2));
     }
 }
