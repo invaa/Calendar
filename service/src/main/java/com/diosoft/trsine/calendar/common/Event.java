@@ -1,7 +1,6 @@
 package com.diosoft.trsine.calendar.common;
 
 import com.rits.cloning.Cloner;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
 

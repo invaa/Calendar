@@ -2,10 +2,8 @@ package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ArrayListDataStore implements DataStore {
 
@@ -14,6 +12,11 @@ public class ArrayListDataStore implements DataStore {
     @Override
     public void add(Event event) {
         events.add(event);
+    }
+
+    @Override
+    public void addAll(Collection<Event> events) {
+        events.addAll(events);
     }
 
     @Override
@@ -31,34 +34,22 @@ public class ArrayListDataStore implements DataStore {
 
     @Override
     public List<Event> searchByDescription(String description) {
-        ArrayList<Event> eventsFound = new ArrayList<>();
-
-        for (Event event: events) {
-            if (event.getDescription().equals(description)) eventsFound.add(event);
-        }
-
-        return eventsFound;
+        return events.parallelStream()
+                .filter(p -> p.getDescription().equals(description))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Event> searchByTitle(String title) {
-        ArrayList<Event> eventsFound = new ArrayList<>();
-
-        for (Event event: events) {
-            if (event.getTitle().equals(title)) eventsFound.add(event);
-        }
-
-        return eventsFound;
+        return events.parallelStream()
+                .filter(p -> p.getTitle().equals(title))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Event> searchByDay(Date day) {
-        ArrayList<Event> eventsFound = new ArrayList<>();
-
-        for (Event event: events) {
-            if (event.getDateBegin().equals(day)) eventsFound.add(event);
-        }
-
-        return eventsFound;
+        return events.parallelStream()
+                .filter(p -> p.getDateBegin().equals(day))
+                .collect(Collectors.toList());
     }
 }

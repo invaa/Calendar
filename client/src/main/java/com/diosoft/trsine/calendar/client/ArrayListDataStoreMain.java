@@ -1,15 +1,17 @@
-package nonunittests;
+package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
+import com.diosoft.trsine.calendar.datastore.ArrayListDataStore;
+import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class EventTest {
-    public static void main(String ... args) {
+public class ArrayListDataStoreMain {
 
+    public static void main(String ... args) {
         Event testEvent = new Event.Builder() {
             @Override
             public Set newSet() {
@@ -25,19 +27,11 @@ public class EventTest {
                 .addParticipant("igor.vartanian@gmail.com")
                 .build();
 
-        //Output
-        System.out.println(testEvent.getAttenders().toString());
+        CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
+        service.add(testEvent);
 
-        //assuming that testEvent is immutable let's try to change participants
-        HashSet<String> attenders = (HashSet<String>) testEvent.getAttenders();
-        attenders.remove("igor.vartanian@gmail.com");
-
-        //Output
-        System.out.println(testEvent.getAttenders().toString());
-
-
+        System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
 
     }
-
 
 }
