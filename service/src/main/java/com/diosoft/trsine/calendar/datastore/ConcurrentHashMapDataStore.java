@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implements <code>DataStore</code> interface
  * Stores <code>Event</>s, event descriptions, titles and begin dates
  * as <code>ConcurrentHashMap</code>s to optimize access speed
+ * implement method <code>newSet()</code> to instantiate <code>Set</code> of <code>UUID</code>s
  *
  * @author  Alexander Zamkovyi
  * @since 1.8
@@ -17,10 +18,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class ConcurrentHashMapDataStore implements DataStore {
 
     ConcurrentHashMap<UUID,Event> eventsMap = new ConcurrentHashMap<>();
+
+    //index maps
     ConcurrentHashMap<Object, Set<UUID>> titlesMap = new ConcurrentHashMap<>();
     ConcurrentHashMap<Object, Set<UUID>> daysMap = new ConcurrentHashMap<>();
     ConcurrentHashMap<Object, Set<UUID>> descriptionsMap = new ConcurrentHashMap<>();
 
+    /**
+     * method to instantiate the attenders <code>Set</code>
+     */
     abstract public Set<UUID> newSet();
 
     @Override
@@ -34,6 +40,12 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         rebuildIndexOnAdd(descriptionsMap, event.getDescription(), eventId);
     }
 
+    /** Rebuilds HashMaps intended to optimize search operations after new Event added
+     *
+     * @param indexMap index map to be updated
+     * @param key index map key that needs an update
+     * @param eventId id to be added to index map
+     */
     private void rebuildIndexOnAdd(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key, UUID eventId) {
         Set<UUID> currentSet;
         currentSet = indexMap.get(key);
@@ -46,6 +58,12 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         } //end if
     }
 
+    /** Rebuilds HashMaps intended to optimize search operations after Event was removed
+     *
+     * @param indexMap index map to be updated
+     * @param key index map key that needs an update
+     * @param eventId id to be removed from the index map
+     */
     private void rebuildIndexOnRemove(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key, UUID eventId) {
         Set<UUID> currentSet;
         currentSet = indexMap.get(key);
@@ -76,11 +94,17 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         rebuildIndexOnRemove(descriptionsMap, event.getDescription(), id);
     }
 
-    @Override
-    public List<Event> searchByDescription(String description) {
+    /**
+     * Search events by key using index map
+     *
+     * @param indexMap index map to use
+     * @param key search criteria
+     * @return collection of events found
+     */
+    private List<Event> searchByField(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key) {
         List<Event> eventsFound = new ArrayList<>();
 
-        descriptionsMap.get(description)
+        indexMap.get(key)
                 .parallelStream()
                 .forEach(p -> {
                     Event event = eventsMap.get(p);
@@ -91,12 +115,17 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     }
 
     @Override
+    public List<Event> searchByDescription(String description) {
+        return searchByField(descriptionsMap, description);
+    }
+
+    @Override
     public List<Event> searchByTitle(String title) {
-        return null;
+        return searchByField(titlesMap, title);
     }
 
     @Override
     public List<Event> searchByDay(Date day) {
-        return null;
+        return searchByField(daysMap, day);
     }
 }

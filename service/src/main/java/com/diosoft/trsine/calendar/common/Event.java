@@ -243,8 +243,8 @@ public class Event {
                 synchronized (this) {
                     if (attenders == null)
                         attenders = newSet();
-                }
-            }
+                } //end if
+            } //end if
         }
 
         /**
