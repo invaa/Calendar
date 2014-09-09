@@ -188,11 +188,15 @@ public class EventTest {
         attendersAfter.remove("igor.vartanian@gmail.com");
         assertEquals(attendersBefore, testEvent.getAttenders());
 
-        //Date
+        //Date begin
         long dateBeginAsLongBefore = testEvent.getDateBegin().getTime();
         testEvent.getDateBegin().setTime(dateBeginAsLongBefore + 1000);
-
         assertEquals(dateBeginAsLongBefore, testEvent.getDateBegin().getTime());
+
+        //Date end
+        long dateEndAsLongBefore = testEvent.getDateEnd().getTime();
+        testEvent.getDateEnd().setTime(dateEndAsLongBefore + 1000);
+        assertEquals(dateEndAsLongBefore, testEvent.getDateEnd().getTime());
 
     }
 

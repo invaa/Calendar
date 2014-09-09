@@ -22,6 +22,8 @@ public class Event {
     private final UUID id;
     private final String title;
 
+    private final Cloner cloner = new Cloner();
+
     //format for dateBegin, dateEnd
     private SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
 
@@ -52,7 +54,6 @@ public class Event {
      * @return Set<String> of Event attenders
      */
     public Set<String> getAttenders() {
-        Cloner cloner = new Cloner();
         return cloner.deepClone(attenders);
     }
 
@@ -61,7 +62,7 @@ public class Event {
      * @return Date when Event begins
      */
     public Date getDateBegin() {
-        return dateBegin;
+        return cloner.deepClone(dateBegin);
     }
 
     /**
@@ -69,7 +70,7 @@ public class Event {
      * @return Date when Event ends
      */
     public Date getDateEnd() {
-        return dateEnd;
+        return cloner.deepClone(dateEnd);
     }
 
     /**
@@ -85,7 +86,7 @@ public class Event {
      * @return Event id
      */
     public UUID getId() {
-        return id;
+        return cloner.deepClone(id);
     }
 
     /**
