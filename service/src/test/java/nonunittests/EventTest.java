@@ -29,7 +29,7 @@ public class EventTest {
         System.out.println(testEvent.getAttenders().toString());
 
         //assuming that testEvent is immutable let's try to change participants
-        HashSet<String> attenders = (HashSet<String>) testEvent.getAttenders();
+        Set<String> attenders = (Set<String>) testEvent.getAttenders();
         attenders.remove("igor.vartanian@gmail.com");
 
         //Output
