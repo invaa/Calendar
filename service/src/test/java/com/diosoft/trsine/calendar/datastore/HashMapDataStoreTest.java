@@ -1,7 +1,12 @@
 package com.diosoft.trsine.calendar.datastore;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class HashMapDataStoreTest extends TestCase {
+public class HashMapDataStoreTest {
 
+    @Test
+    public void testDataStore(){
+        Assert.assertTrue(true);
+    }
 }

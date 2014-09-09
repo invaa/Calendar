@@ -2,6 +2,8 @@ package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.ConcurrentHashMapDataStore;
+import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
+import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
 import java.util.Date;
@@ -10,7 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Basic demo of how to cope with the Calendar service and ArrayList data store
+ * Basic demo of how to cope with the Calendar service and ConcurrentHashMap data store
  *
  * @author  Alexander Zamkovyi
  * @since 1.8
@@ -18,7 +20,17 @@ import java.util.UUID;
 
 public class ConcurrentHashMapDataStoreMain {
 
-    public static void main(String ... args) {
+    public static void main(String ... args) throws IdIsNullException, DateIntervalIsIncorrectException {
+
+        for (String parameter: args) {
+            System.out.println(parameter);
+
+            //TODO: add some event creating code
+            //extend with date begin, date end, title, attenders and id
+        }
+
+
+
         Event testEvent = new Event.Builder() {
             @Override
             public Set newSet() {
@@ -30,8 +42,8 @@ public class ConcurrentHashMapDataStoreMain {
                 .setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
-                .addParticipant("alex@zamkovyi.name")
-                .addParticipant("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
                 .build();
 
         CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
@@ -41,6 +53,8 @@ public class ConcurrentHashMapDataStoreMain {
             }
         });
         service.add(testEvent);
+
+        System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
 
         //find  all occurencies by description and remove by ids
         service.searchByDescription("Next daily scrum meeting")

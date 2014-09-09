@@ -2,6 +2,8 @@ package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.ArrayListDataStore;
+import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
+import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
 import java.util.Date;
@@ -18,7 +20,7 @@ import java.util.UUID;
 
 public class ArrayListDataStoreMain {
 
-    public static void main(String ... args) {
+    public static void main(String ... args) throws IdIsNullException, DateIntervalIsIncorrectException {
         Event testEvent = new Event.Builder() {
             @Override
             public Set newSet() {
@@ -30,8 +32,8 @@ public class ArrayListDataStoreMain {
                 .setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
-                .addParticipant("alex@zamkovyi.name")
-                .addParticipant("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
                 .build();
 
         CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());

@@ -1,5 +1,7 @@
 package com.diosoft.trsine.calendar.common;
 
+import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
+import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.rits.cloning.Cloner;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -20,9 +22,14 @@ public class Event {
     private final UUID id;
     private final String title;
 
-    //format dateBegin, dateEnd
+    //format for dateBegin, dateEnd
     private SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
 
+    /**
+     * Private constructor according to the Builder Pattern
+     *
+     * @param  builder  Event Builder object
+     */
     private Event(Builder builder) {
         this.description = builder.description;
         this.attenders = builder.attenders;
@@ -32,32 +39,59 @@ public class Event {
         this.id = builder.id;
     }
 
+    /**
+     *
+     * @return Event description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return Set<String> of Event attenders
+     */
     public Set<String> getAttenders() {
         Cloner cloner = new Cloner();
-        Set<String> clone = cloner.deepClone(attenders);
-        return clone;
+        return cloner.deepClone(attenders);
     }
 
+    /**
+     *
+     * @return Date when Event begins
+     */
     public Date getDateBegin() {
         return dateBegin;
     }
 
+    /**
+     *
+     * @return Date when Event ends
+     */
     public Date getDateEnd() {
         return dateEnd;
     }
 
+    /**
+     *
+     * @return Event title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * @return Event id
+     */
     public UUID getId() {
         return id;
     }
 
+    /**
+     *
+     * @return true if reference class type and id value are equal and false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,11 +99,14 @@ public class Event {
 
         Event event = (Event) o;
 
-        if (id != null ? !id.equals(event.id) : event.id != null) return false;
+        return !(id != null ? !id.equals(event.id) : event.id != null);
 
-        return true;
     }
 
+    /**
+     *
+     * @return 0 when id is null and id.hashCode() otherwise
+     */
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
@@ -82,11 +119,15 @@ public class Event {
                 ", title = '" + title +
                 ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
-                ", dateBegin = " + dateBegin +
-                ", dateEnd = " + dateEnd + '\'' +
+                ", dateBegin = " + df.format(dateBegin) +
+                ", dateEnd = " + df.format(dateEnd) + '\'' +
                 '}';
     }
 
+    /**
+     * <code>Event</coder> Builder
+     * in order to use it you should implement newSet() method to instantiate the attenders <code>Set</code>
+     */
     public static abstract class Builder {
 
         private String description;
@@ -99,6 +140,10 @@ public class Event {
         public Builder() {
         }
 
+        /**
+         * Сopy constructor
+         *
+         */
         public Builder(Event original) {
             this.description = original.description;
             this.attenders = original.attenders;
@@ -138,30 +183,61 @@ public class Event {
             return this;
         }
 
-        public Builder addParticipant(String participant) {
+        /**
+         * Adds attender to attenders <code>Set</code>
+         *
+         * @param attender attenders e-mail
+         * @return Builder
+         */
+        public Builder addAttender(String attender) {
             checkAttenders();
-            attenders.add(participant);
+            attenders.add(attender);
             return this;
         }
 
-        public Builder removeParticipant(String participant) {
+        /**
+         * Removes attender from attenders <code>Set</code>
+         *
+         * @param attender attenders e-mail
+         * @return Builder
+         */
+        public Builder removeAttender(String attender) {
             checkAttenders();
-            attenders.remove(participant);
+            attenders.remove(attender);
             return this;
         }
 
-        public Builder addParticipant(String participant, OperationResult resultAdd) {
+        /**
+         * Add attender to attenders <code>Set</code>
+         *
+         * @param attender attenders e-mail
+         * @param resultAdd class encapsulating operation result
+         * @return Builder
+         * @see OperationResult
+         */
+        public Builder addAttender(String attender, OperationResult resultAdd) {
             checkAttenders();
-            resultAdd.setResult(attenders.add(participant));
+            resultAdd.setResult(attenders.add(attender));
             return this;
         }
 
-        public Builder removeParticipant(String participant, OperationResult resultRemove) {
+        /**
+         * Add attender to attenders <code>Set</code>
+         *
+         * @param attender attenders e-mail
+         * @param resultRemove class encapsulating operation result
+         * @return Builder
+         * @see OperationResult
+         */
+        public Builder removeAttender(String attender, OperationResult resultRemove) {
             checkAttenders();
-            resultRemove.setResult(attenders.remove(participant));
+            resultRemove.setResult(attenders.remove(attender));
             return this;
         }
 
+        /**
+         * Lazy instantiation of attenders set using abstract method <code>newSet()</code>
+         */
         private void checkAttenders() {
             if (attenders == null) {
                 synchronized (this) {
@@ -171,12 +247,25 @@ public class Event {
             }
         }
 
+        /**
+         * method to instantiate the attenders <code>Set</code>
+         */
         abstract public Set newSet();
 
-        public Event build() {
+        /** Builds the <code>Event</code> POJO object
+         *
+         * @return <code>Event</code> POJO object
+         * @throws IdIsNullException when Event id is null
+         * @throws DateIntervalIsIncorrectException when left date is null, or left date is greater than right date
+         */
+        public Event build() throws IdIsNullException, DateIntervalIsIncorrectException {
 
-            if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
-                //TODO throw exception;
+            if (id == null) {
+                throw new IdIsNullException();
+            }
+
+            if (dateBegin == null || (dateEnd != null && dateBegin.compareTo(dateEnd) > 0)) {
+                throw new DateIntervalIsIncorrectException();
             }
 
             return new Event(this);
@@ -184,9 +273,12 @@ public class Event {
 
     }
 
+    /**
+     * Helper that helps to return Set add() and remove() operation results by reference
+     */
     public class OperationResult {
 
-        public boolean isResult() {
+        public boolean resultOk() {
             return result;
         }
 
