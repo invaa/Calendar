@@ -3,6 +3,7 @@ package com.diosoft.trsine.calendar.common;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.rits.cloning.Cloner;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -13,7 +14,7 @@ import java.util.*;
  * @since 1.5
  */
 
-public class Event implements Comparable {
+public class Event implements Comparable<Event> {
 
     private final String description;
     private final Set<String> attenders;
@@ -124,9 +125,20 @@ public class Event implements Comparable {
                 '}';
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public int compareTo(Object o) {
-        return id.compareTo(((Event)o).id);
+    public int compareTo(Event event) {
+        if (event == null || id == null) {
+            throw new NullPointerException();
+        } //end if
+
+        final int EQUAL = 0;
+
+        if (this == event) {
+            return EQUAL;
+        } else {
+            return id.compareTo(event.id);
+        } //end if
     }
 
     /**
@@ -220,6 +232,7 @@ public class Event implements Comparable {
          * @return Builder
          * @see OperationResult
          */
+        @SuppressWarnings("unused")
         public Builder addAttender(String attender, OperationResult resultAdd) {
             checkAttenders();
             resultAdd.setResult(attenders.add(attender));
@@ -234,6 +247,7 @@ public class Event implements Comparable {
          * @return Builder
          * @see OperationResult
          */
+        @SuppressWarnings("unused")
         public Builder removeAttender(String attender, OperationResult resultRemove) {
             checkAttenders();
             resultRemove.setResult(attenders.remove(attender));
@@ -244,18 +258,20 @@ public class Event implements Comparable {
          * Lazy instantiation of attenders set using abstract method <code>newSet()</code>
          */
         private void checkAttenders() {
-            if (attenders == null) {
+            if (this.attenders == null) {
                 synchronized (this) {
-                    if (attenders == null)
-                        attenders = newSet();
+                    if (this.attenders == null) {
+                        this.attenders = newSet();
+                    }
                 } //end if
-            } //end if
+            }
+            //end if
         }
 
         /**
          * method to instantiate the attenders <code>Set</code>
          */
-        abstract public Set newSet();
+        abstract public Set<String> newSet();
 
         /** Builds the <code>Event</code> POJO object
          *
@@ -279,9 +295,16 @@ public class Event implements Comparable {
     }
 
     final public static class HashSetBuilder extends Builder {
+        public HashSetBuilder() {
+        }
+
+        public HashSetBuilder(Event original) {
+            super(original);
+        }
+
         @Override
-        public Set newSet() {
-            return new HashSet<Set>();
+        public Set<String> newSet() {
+            return new HashSet<>();
         }
     }
 
@@ -290,6 +313,7 @@ public class Event implements Comparable {
      */
     public class OperationResult {
 
+        @SuppressWarnings("unused")
         public boolean resultOk() {
             return result;
         }

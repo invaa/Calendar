@@ -7,8 +7,6 @@ import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -21,7 +19,7 @@ import java.util.UUID;
 public class ArrayListDataStoreMain {
 
     public static void main(String ... args) throws IdIsNullException, DateIntervalIsIncorrectException {
-        Event testEvent = new Event.HashSetBuilder()
+        Event testEvent1 = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -31,8 +29,17 @@ public class ArrayListDataStoreMain {
                 .addAttender("igor.vartanian@gmail.com")
                 .build();
 
+        Event testEvent2 = new Event.HashSetBuilder(testEvent1)
+                .setDateBegin(new Date())
+                .setDateEnd(new Date())
+                .setId(UUID.randomUUID())
+                .setTitle("New event")
+                .setDescription("Next scheduled event")
+                .build();
+
         CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
-        service.add(testEvent);
+        service.add(testEvent1);
+        service.add(testEvent2);
 
         //find  all occurencies by description and remove by ids
         service.searchByDescription("Next daily scrum meeting")

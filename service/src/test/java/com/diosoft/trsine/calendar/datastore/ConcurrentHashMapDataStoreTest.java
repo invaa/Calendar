@@ -3,7 +3,6 @@ package com.diosoft.trsine.calendar.datastore;
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
-import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 import org.junit.Test;
 
 import java.util.*;

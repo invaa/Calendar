@@ -12,14 +12,13 @@ import java.util.*;
  * @since 1.8
 */
 
+@SuppressWarnings("unused")
 public class HashMapDataStore implements DataStore {
 
-    HashMap<UUID,Event> eventsMap;
-    HashMap<String, List<UUID>> titlesMap;
-    HashMap<Date, List<UUID>> daysMap;
-    HashMap<Date, List<UUID>> descriptionsMap;
-
-    ArrayList<Event> events = new ArrayList<>();
+//    HashMap<UUID,Event> eventsMap;
+//    HashMap<String, List<UUID>> titlesMap;
+//    HashMap<Date, List<UUID>> daysMap;
+//    HashMap<Date, List<UUID>> descriptionsMap;
 
     @Override
     public void add(Event event) {

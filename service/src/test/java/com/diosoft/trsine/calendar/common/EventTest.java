@@ -26,8 +26,8 @@ public class EventTest {
     private Event getUntitledTestEvent(UUID id) throws IdIsNullException, DateIntervalIsIncorrectException {
         return new Event.Builder() {
             @Override
-            public Set newSet() {
-                return new HashSet<String>();
+            public Set<String> newSet() {
+                return new HashSet<>();
             }
         }//end of Builder implementation
                 .setDateBegin(new Date())
@@ -70,18 +70,14 @@ public class EventTest {
         Event testEvent1 = null;
         try {
             testEvent1 = getDailyScrumTestEvent(new Date(), new Date(), id);
-        } catch (IdIsNullException e) {
-            fail(e.getMessage());
-        } catch (DateIntervalIsIncorrectException e) {
+        } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
 
         Event testEvent2 = null;
         try {
             testEvent2 = getUntitledTestEvent(id);
-        } catch (IdIsNullException e) {
-            fail(e.getMessage());
-        } catch (DateIntervalIsIncorrectException e) {
+        } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
 
@@ -97,9 +93,7 @@ public class EventTest {
         Event testEvent = null;
         try {
             testEvent = getDailyScrumTestEvent(new Date(), new Date(), UUID.randomUUID());
-        } catch (IdIsNullException e) {
-            fail(e.getMessage());
-        } catch (DateIntervalIsIncorrectException e) {
+        } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
 
@@ -125,6 +119,7 @@ public class EventTest {
     public void testThrowsIdIsNullExceptionWhenIdIsNull() {
         //init
         try {
+            @SuppressWarnings("unused")
             Event testEvent = getDailyScrumTestEvent(new Date(), new Date(), null);
         } catch (IdIsNullException e) {
             //ok
@@ -141,6 +136,7 @@ public class EventTest {
     public void testThrowsDateIntervalIsIncorrectExceptionWhenLeftDateIsNull() {
         //init
         try {
+            @SuppressWarnings("unused")
             Event testEvent = getDailyScrumTestEvent(null, new Date(), UUID.randomUUID());
         } catch (IdIsNullException e) {
             //not the subject of the test
@@ -160,6 +156,7 @@ public class EventTest {
         Date rightDate = new Date(leftDate.getTime() - 1);
 
         try {
+            @SuppressWarnings("unused")
             Event testEvent = getDailyScrumTestEvent(leftDate, rightDate, UUID.randomUUID());
         } catch (IdIsNullException e) {
             //not the subject of the test
@@ -180,18 +177,14 @@ public class EventTest {
         Event testEvent1 = null;
         try {
             testEvent1 = getDailyScrumTestEvent(new Date(), new Date(), id);
-        } catch (IdIsNullException e) {
-            fail(e.getMessage());
-        } catch (DateIntervalIsIncorrectException e) {
+        } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
 
         Event testEvent2 = null;
         try {
             testEvent2 = getUntitledTestEvent(id);
-        } catch (IdIsNullException e) {
-            fail(e.getMessage());
-        } catch (DateIntervalIsIncorrectException e) {
+        } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
 
@@ -204,9 +197,7 @@ public class EventTest {
         Event testEvent = null;
         try {
             testEvent = getDailyScrumTestEvent(new Date(), new Date(), UUID.randomUUID());
-        } catch (IdIsNullException e) {
-            fail(e.getMessage());
-        } catch (DateIntervalIsIncorrectException e) {
+        } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
 

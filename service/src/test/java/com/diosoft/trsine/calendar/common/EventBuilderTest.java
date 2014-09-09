@@ -2,9 +2,7 @@ package com.diosoft.trsine.calendar.common;
 
 import org.junit.Test;
 
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +17,7 @@ public class EventBuilderTest {
                 .addAttender("alex@zamkovyi.name")
                 .addAttender("igor.vartanian@gmail.com");
 
-        HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<>();
         set.add("alex@zamkovyi.name");
         set.add("igor.vartanian@gmail.com");
 
@@ -40,7 +38,7 @@ public class EventBuilderTest {
                 .addAttender("igor.vartanian@gmail.com")
                 .removeAttender("alex@zamkovyi.name");
 
-        HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<>();
         set.add("igor.vartanian@gmail.com");
 
         Event.Builder builder2 = new Event.HashSetBuilder();
