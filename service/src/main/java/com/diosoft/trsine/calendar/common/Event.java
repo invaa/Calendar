@@ -14,7 +14,7 @@ public class Event {
     private final String title;
 
     //format dateBegin, dateEnd
-    private SimpleDateFormat df = new SimpleDateFormat ("E dd MMMM yyyy 'at' hh:mm", new Locale("en","En"));
+    private SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
 
     private Event(Builder builder) {
         this.description = builder.description;
@@ -58,32 +58,25 @@ public class Event {
 
         Event event = (Event) o;
 
-        if (!description.equals(event.id)) return false;
+        if (id != null ? !id.equals(event.id) : event.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-
-        //id is enough
-        //result = 31 * result + description.hashCode();
-        //result = 31 * result + dateBegin.hashCode();
-        //result = 31 * result + dateEnd.hashCode();
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Event{" +
-                "description='" + description + '\'' +
-                ", attenders=" + attenders +
-                ", dateBegin=" + dateBegin +
-                ", dateEnd=" + dateEnd +
-                ", id=" + id +
-                ", title='" + title + '\'' +
-                ", df=" + df +
+                "id = " + id +
+                ", title = '" + title +
+                ", description = '" + description + '\'' +
+                ", attenders = " + attenders +
+                ", dateBegin = " + dateBegin +
+                ", dateEnd = " + dateEnd + '\'' +
                 '}';
     }
 
@@ -138,32 +131,33 @@ public class Event {
             return this;
         }
 
-        public Builder addParticipant(String participant){
+        public Builder addParticipant(String participant) {
             checkAttenders();
             attenders.add(participant);
             return this;
         }
 
-        public Builder removeParticipant(String participant){
+        public Builder removeParticipant(String participant) {
             checkAttenders();
             attenders.remove(participant);
             return this;
         }
-        public Builder addParticipant(String participant, OperationResult resultAdd){
+
+        public Builder addParticipant(String participant, OperationResult resultAdd) {
             checkAttenders();
             resultAdd.setResult(attenders.add(participant));
             return this;
         }
 
-        public Builder removeParticipant(String participant, OperationResult resultRemove){
+        public Builder removeParticipant(String participant, OperationResult resultRemove) {
             checkAttenders();
             resultRemove.setResult(attenders.remove(participant));
             return this;
         }
 
         private void checkAttenders() {
-            if (attenders == null){
-                synchronized(this) {
+            if (attenders == null) {
+                synchronized (this) {
                     if (attenders == null)
                         attenders = newSet();
                 }
@@ -172,13 +166,19 @@ public class Event {
 
         abstract public Set newSet();
 
-        public Event build(){
+        public Event build() {
+
+            if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
+                //TODO throw exception;
+            }
+
             return new Event(this);
         }
 
     }
 
     public class OperationResult {
+
         public boolean isResult() {
             return result;
         }
@@ -188,5 +188,6 @@ public class Event {
         }
 
         boolean result = false;
+
     }
 }
