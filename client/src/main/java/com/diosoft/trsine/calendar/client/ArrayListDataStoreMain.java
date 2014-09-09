@@ -30,8 +30,12 @@ public class ArrayListDataStoreMain {
         CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
         service.add(testEvent);
 
-        System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
+        //find all occurencies by id and remove
+        service.searchByDescription("Next daily scrum meeting")
+                .parallelStream()
+                .forEach(p -> service.remove(p.getId()));
 
+        System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
     }
 
 }
