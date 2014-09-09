@@ -30,7 +30,7 @@ public class ArrayListDataStoreMain {
         CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
         service.add(testEvent);
 
-        //find all occurencies by id and remove
+        //find  all occurencies by description and remove by ids
         service.searchByDescription("Next daily scrum meeting")
                 .parallelStream()
                 .forEach(p -> service.remove(p.getId()));
