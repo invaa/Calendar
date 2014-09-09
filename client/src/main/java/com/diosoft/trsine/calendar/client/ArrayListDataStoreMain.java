@@ -21,12 +21,7 @@ import java.util.UUID;
 public class ArrayListDataStoreMain {
 
     public static void main(String ... args) throws IdIsNullException, DateIntervalIsIncorrectException {
-        Event testEvent = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())

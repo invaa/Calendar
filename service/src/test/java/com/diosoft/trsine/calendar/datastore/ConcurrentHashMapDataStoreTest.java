@@ -13,12 +13,7 @@ public class ConcurrentHashMapDataStoreTest {
     @Test
     public void testAddReturnsListContainingEvent() throws Exception {
 
-        Event testEvent = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -46,12 +41,7 @@ public class ConcurrentHashMapDataStoreTest {
     @Test
     public void testAddAllOfTwoEventsReturnsListContainingTwoEvents() throws Exception {
         //init
-        Event testEvent1 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent1 = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -60,12 +50,7 @@ public class ConcurrentHashMapDataStoreTest {
                 .addAttender("alex@zamkovyi.name")
                 .addAttender("igor.vartanian@gmail.com")
                 .build();
-        Event testEvent2 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent2 = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -100,12 +85,7 @@ public class ConcurrentHashMapDataStoreTest {
     @Test
     public void testRemoveEventReturnsListNotContainingEvent() throws Exception {
             //init
-            Event testEvent1 = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
+            Event testEvent1 = new Event.HashSetBuilder()
                     .setDateBegin(new Date())
                     .setDateEnd(new Date())
                     .setId(UUID.randomUUID())
@@ -114,12 +94,7 @@ public class ConcurrentHashMapDataStoreTest {
                     .addAttender("alex@zamkovyi.name")
                     .addAttender("igor.vartanian@gmail.com")
                     .build();
-            Event testEvent2 = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
+            Event testEvent2 = new Event.HashSetBuilder()
                     .setDateBegin(new Date())
                     .setDateEnd(new Date())
                     .setId(UUID.randomUUID())

@@ -13,12 +13,7 @@ public class EventBuilderTest {
     @Test
     public void testSetAttendersWithHashSet() throws Exception {
         //init
-        Event.Builder builder1 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        };
+        Event.Builder builder1 = new Event.HashSetBuilder();
 
         builder1
                 .addAttender("alex@zamkovyi.name")
@@ -28,12 +23,7 @@ public class EventBuilderTest {
         set.add("alex@zamkovyi.name");
         set.add("igor.vartanian@gmail.com");
 
-        Event.Builder builder2 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        };
+        Event.Builder builder2 = new Event.HashSetBuilder();
         builder2.setAttenders(set);
 
         //check
@@ -43,12 +33,7 @@ public class EventBuilderTest {
     @Test
     public void testRemoveAttender() throws Exception {
         //init
-        Event.Builder builder1 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        };
+        Event.Builder builder1 = new Event.HashSetBuilder();
 
         builder1
                 .addAttender("alex@zamkovyi.name")
@@ -58,12 +43,7 @@ public class EventBuilderTest {
         HashSet<String> set = new HashSet<String>();
         set.add("igor.vartanian@gmail.com");
 
-        Event.Builder builder2 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        };
+        Event.Builder builder2 = new Event.HashSetBuilder();
         builder2.setAttenders(set);
 
         //check

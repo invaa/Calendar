@@ -176,12 +176,7 @@ public class EventTest {
         Date rightDate = new Date(leftDate.getTime() - 1);
 
         try {
-            Event testEvent = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
+            Event testEvent = new Event.HashSetBuilder()
                     .setDateBegin(leftDate)
                     .setDateEnd(rightDate)
                     .setId(UUID.randomUUID())
@@ -204,12 +199,7 @@ public class EventTest {
     @Test
     public void testHashCodeIsZeroWhenIdIsNull() throws Exception {
         //if equals then hash codes are equals
-        Event testEvent1 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent1 = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -219,12 +209,7 @@ public class EventTest {
                 .addAttender("igor.vartanian@gmail.com")
                 .build();
 
-        Event testEvent2 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent2 = new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -245,12 +230,7 @@ public class EventTest {
     public void testEventIsImmutable() {
         Event testEvent = null;
         try {
-            testEvent = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
+            testEvent = new Event.HashSetBuilder()
                     .setDateBegin(new Date())
                     .setDateEnd(new Date())
                     .setId(UUID.randomUUID())

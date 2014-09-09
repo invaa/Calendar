@@ -16,171 +16,85 @@ public class CalendarServiceImpTest {
 
     @Test
     public void testVerifyServiceCallDataStoreAddOnAdding() throws Exception {
-
         //Mocks
         Event eventMock = mock(Event.class);
+        DataStore storeMock = mock(DataStore.class);
+        CalendarService service = new CalendarServiceImp(storeMock);
+
+        //checks
+        service.add(eventMock);
+        verify(storeMock, times(1)).add(eventMock);
+        service.add(eventMock);
+        verify(storeMock, times(2)).add(eventMock);
+    }
+
+    @Test
+    public void testVerifyServiceCallDataStoreAddAllOnAddingAll() throws Exception {
+        //Mocks
+        Collection<Event> collectionMock = mock(Collection.class);
 
         DataStore storeMock = mock(DataStore.class);
-        //when(storeMock.add(eventMock)).thenReturn();
-
         CalendarService service = new CalendarServiceImp(storeMock);
-        service.add(eventMock);
 
-        //add(eventMock)
-        verify(storeMock).remove(UUID.randomUUID());
-
-
-
-//        Event testEvent = new Event.Builder() {
-//            @Override
-//            public Set newSet() {
-//                return new HashSet<String>();
-//            }
-//        }//end of Builder implementation
-//                .setDateBegin(new Date())
-//                .setDateEnd(new Date())
-//                .setId(UUID.randomUUID())
-//                .setTitle("Daily Scrum")
-//                .setDescription("Next daily scrum meeting")
-//                .addAttender("alex@zamkovyi.name")
-//                .addAttender("igor.vartanian@gmail.com")
-//                .build();
-//
-//        CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
-//            @Override
-//            public Set<UUID> newSet() {
-//                return new HashSet<>();
-//            }
-//        });
-//        service.add(testEvent);
-//        List<Event> eventsAfterAdding = service.searchByDescription("Next daily scrum meeting");
-//
-//        List<Event> result = new ArrayList<>();
-//        result.add(testEvent);
-//
-//        assertEquals(result, eventsAfterAdding);
+        //checks
+        service.addAll(collectionMock);
+        verify(storeMock, times(1)).addAll(collectionMock);
+        service.addAll(collectionMock);
+        verify(storeMock, times(2)).addAll(collectionMock);
     }
 
     @Test
-    public void testAddAllOfTwoEventsReturnsListContainingTwoEvents() throws Exception {
-        //init
-        Event testEvent1 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
-                .build();
-        Event testEvent2 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Annual meeting")
-                .setDescription("Just ordinary annual meeting")
-                .addAttender("igor.vartanian@gmail.com")
-                .addAttender("alex@zamkovyi.name")
-                .build();
+    public void testVerifyServiceCallDataStoreRemoveOnRemoving() throws Exception {
+        //Mocks
+        UUID id = UUID.randomUUID();
+        DataStore storeMock = mock(DataStore.class);
+        CalendarService service = new CalendarServiceImp(storeMock);
 
-        ArrayList<Event> arrayToAdd = new ArrayList<>();
-        arrayToAdd.add(testEvent1);
-        arrayToAdd.add(testEvent2);
-
-        CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-        });
-        service.addAll(arrayToAdd);
-
-        service
-                .searchByTitle("Daily Scrum")
-                .parallelStream()
-                .forEach(p -> assertTrue(arrayToAdd.contains(p)));
-        service
-                .searchByTitle("Annual meeting")
-                .parallelStream()
-                .forEach(p -> assertTrue(arrayToAdd.contains(p)));
+        //checks
+        service.remove(id);
+        verify(storeMock, times(1)).remove(id);
+        service.remove(id);
+        verify(storeMock, times(2)).remove(id);
     }
 
     @Test
-    public void testRemoveEventReturnsListNotContainingEvent() throws Exception {
-        //init
-        Event testEvent1 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
-                .build();
-        Event testEvent2 = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Annual meeting")
-                .setDescription("Just ordinary annual meeting")
-                .addAttender("igor.vartanian@gmail.com")
-                .addAttender("alex@zamkovyi.name")
-                .build();
+    public void testVerifyServiceCallDataStoreSearchByTitleOnSearchingByTitle() throws Exception {
+        //Mocks
+        DataStore storeMock = mock(DataStore.class);
+        CalendarService service = new CalendarServiceImp(storeMock);
 
-        CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-        });
-        service.add(testEvent1);
-        service.add(testEvent2);
-
-        service.searchByTitle("Daily Scrum")
-                .parallelStream()
-                .forEach(p -> service.remove(p.getId()));
-        List<Event> eventsAfterRemoving = service.searchByTitle("Daily Scrum");
-        List<Event> result = new ArrayList<>();
-        assertEquals(result, eventsAfterRemoving);
-
-        eventsAfterRemoving = service.searchByTitle("Annual meeting");
-        result.add(testEvent2);
-        assertEquals(result, eventsAfterRemoving);
-    }
-
-
-    @Test
-    public void testSearchByTitle() throws Exception {
-
+        //checks
+        service.searchByTitle("Some title");
+        verify(storeMock, times(1)).searchByTitle("Some title");
+        service.searchByTitle("Some title");
+        verify(storeMock, times(2)).searchByTitle("Some title");
     }
 
     @Test
-    public void testSearchByDescription() throws Exception {
+    public void testVerifyServiceCallDataStoreSearchByDescriptionOnSearchingByDescription() throws Exception {
+        //Mocks
+        DataStore storeMock = mock(DataStore.class);
+        CalendarService service = new CalendarServiceImp(storeMock);
 
+        //checks
+        service.searchByDescription("Some description");
+        verify(storeMock, times(1)).searchByDescription("Some description");
+        service.searchByDescription("Some description");
+        verify(storeMock, times(2)).searchByDescription("Some description");
     }
 
     @Test
-    public void testSearchByDay() throws Exception {
+    public void testVerifyServiceCallDataStoreSearchByDayOnSearchingByDay() throws Exception {
+        //Mocks
+        DataStore storeMock = mock(DataStore.class);
+        CalendarService service = new CalendarServiceImp(storeMock);
 
+        Date date = new Date();
+
+        //checks
+        service.searchByDay(date);
+        verify(storeMock, times(1)).searchByDay(date);
+        service.searchByDay(date);
+        verify(storeMock, times(2)).searchByDay(date);
     }
 }
