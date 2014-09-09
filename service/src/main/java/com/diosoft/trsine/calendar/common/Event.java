@@ -4,6 +4,13 @@ import com.rits.cloning.Cloner;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Calendar <code>Event</code> POJO
+ *
+ * @author  Igor Vartanian
+ * @since 1.5
+ */
+
 public class Event {
 
     private final String description;

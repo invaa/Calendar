@@ -7,6 +7,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Contract of Calendar service
+ *
+ * @author  Vasyl Tegza
+ * @since 1.5
+ */
+
 public interface CalendarService {
     void add(Event event);
     void addAll(Collection<Event> events);

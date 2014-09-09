@@ -5,6 +5,14 @@ import com.diosoft.trsine.calendar.common.Event;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Implements <code>DataStore</code> interface
+ * Stores <code>Event</>s as ArrayList
+ *
+ * @author  Alexander Zamkovyi
+ * @since 1.8
+ */
+
 public class ArrayListDataStore implements DataStore {
 
     ArrayList<Event> events = new ArrayList<>();

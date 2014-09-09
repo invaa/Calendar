@@ -5,11 +5,21 @@ import com.diosoft.trsine.calendar.common.Event;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HashSetDataStore implements DataStore {
+/**
+ * Implements <code>DataStore</code> interface
+ * Stores <code>Event</>s, event descriptions, titles and begin dates as HaspMaps to optimize access speed
+ *
+ * @author  Alexander Zamkovyi
+ * @since 1.8
+*/
 
-//    Map<UUID,Event>
-//    Map<String, List<UUID>>
-//    Map<Date, List<UUID>>
+public class HashMapDataStore implements DataStore {
+
+    HashMap<UUID,Event> eventsMap;
+    HashMap<String, List<UUID>> titlesMap;
+    HashMap<Date, List<UUID>> daysMap;
+    HashMap<Date, List<UUID>> descriptionsMap;
+
     ArrayList<Event> events = new ArrayList<>();
 
     @Override

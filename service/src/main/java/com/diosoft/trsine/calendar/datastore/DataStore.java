@@ -7,6 +7,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Contract of data store of <code>Event</code>s
+ *
+ * @author  Vasyl Tegza, Alexander Zamkovyi
+ * @since 1.5
+ */
+
 public interface DataStore {
 //    Map<UUID,Event>
 //    Map<String, List<UUID>>

@@ -9,6 +9,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Basic demo of how to cope with the Calendar service and ArrayList data store
+ *
+ * @author  Alexander Zamkovyi
+ * @since 1.8
+ */
+
 public class ArrayListDataStoreMain {
 
     public static void main(String ... args) {
