@@ -29,6 +29,10 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
      */
     abstract public Set<UUID> newSet();
 
+    /**
+     * Adds <code>Event</code> to data store
+     * @param event to be added
+     */
     @Override
     public void add(Event event) {
         UUID eventId = event.getId();
@@ -73,11 +77,19 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         } //end if
     }
 
+    /**
+     * Adds the <code>Event</code> collection to data store
+     * @param events to be added
+     */
     @Override
     public void addAll(Collection<Event> events) {
         events.parallelStream().forEach(this::add);
     }
 
+    /**
+     * Removes the <code>Event</code> from data store
+     * @param id of <code>Event</code>
+     */
     @Override
     public void remove(UUID id) {
         Event event = eventsMap.get(id);
@@ -114,16 +126,31 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return eventsFound;
     }
 
+    /** Search for all <code>Event</code> in data store by given description
+     *
+     * @param description to search by
+     * @return the list of <code>Event</code>s
+     */
     @Override
     public List<Event> searchByDescription(String description) {
         return searchByField(descriptionsMap, description);
     }
 
+    /** Search for all <code>Event</code> in data store by given title
+     *
+     * @param title to search by
+     * @return the list of <code>Event</code>s
+     */
     @Override
     public List<Event> searchByTitle(String title) {
         return searchByField(titlesMap, title);
     }
 
+    /** Search for all <code>Event</code> in data store by given date of begining
+     *
+     * @param day date of begining to search by
+     * @return the list of <code>Event</code>s
+     */
     @Override
     public List<Event> searchByDay(Date day) {
         return searchByField(daysMap, day);

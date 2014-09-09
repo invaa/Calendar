@@ -29,8 +29,6 @@ public class ConcurrentHashMapDataStoreMain {
             //extend with date begin, date end, title, attenders and id
         }
 
-
-
         Event testEvent = new Event.Builder() {
             @Override
             public Set newSet() {

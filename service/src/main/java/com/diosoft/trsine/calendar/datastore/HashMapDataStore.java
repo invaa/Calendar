@@ -3,11 +3,10 @@ package com.diosoft.trsine.calendar.datastore;
 import com.diosoft.trsine.calendar.common.Event;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Implements <code>DataStore</code> interface
- * Stores <code>Event</>s, event descriptions, titles and begin dates as HaspMaps to optimize access speed
+ * Stores <code>Event</>s, event descriptions, titles and begin dates as HaspMaps
  *
  * @author  Alexander Zamkovyi
  * @since 1.8
