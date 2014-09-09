@@ -14,6 +14,54 @@ import static org.junit.Assert.*;
 
 public class EventTest {
 
+    /**
+     * Gets test event
+     *
+     * @param id <code>Event</code> id
+     *
+     * @return test <code>Event</code>
+     * @throws IdIsNullException
+     * @throws DateIntervalIsIncorrectException
+     */
+    private Event getUntitledTestEvent(UUID id) throws IdIsNullException, DateIntervalIsIncorrectException {
+        return new Event.Builder() {
+            @Override
+            public Set newSet() {
+                return new HashSet<String>();
+            }
+        }//end of Builder implementation
+                .setDateBegin(new Date())
+                .setDateEnd(new Date())
+                .setId(id)
+                .setTitle("")
+                .setDescription("")
+                .addAttender("igor.vartanian@gmail.com")
+                .build();
+    }
+
+    /**
+     * Gets test event
+     *
+     * @param leftDate begining of event
+     * @param rightDate end of event
+     * @param id of event
+     *
+     * @return test <code>Event</code>
+     * @throws IdIsNullException
+     * @throws DateIntervalIsIncorrectException
+     */
+    private Event getDailyScrumTestEvent(Date leftDate, Date rightDate, UUID id) throws IdIsNullException, DateIntervalIsIncorrectException {
+        return new Event.HashSetBuilder()
+                .setDateBegin(leftDate)
+                .setDateEnd(rightDate)
+                .setId(id)
+                .setTitle("Daily Scrum")
+                .setDescription("Next daily scrum meeting")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
+                .build();
+    }
+
     @Test
     public void testEqualsIsTrueIfIdsAreEqual() {
         //init
@@ -21,20 +69,7 @@ public class EventTest {
 
         Event testEvent1 = null;
         try {
-            testEvent1 = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(id)
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            testEvent1 = getDailyScrumTestEvent(new Date(), new Date(), id);
         } catch (IdIsNullException e) {
             fail(e.getMessage());
         } catch (DateIntervalIsIncorrectException e) {
@@ -43,19 +78,7 @@ public class EventTest {
 
         Event testEvent2 = null;
         try {
-            testEvent2 = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(id)
-                    .setTitle("")
-                    .setDescription("")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            testEvent2 = getUntitledTestEvent(id);
         } catch (IdIsNullException e) {
             fail(e.getMessage());
         } catch (DateIntervalIsIncorrectException e) {
@@ -73,20 +96,7 @@ public class EventTest {
         //init
         Event testEvent = null;
         try {
-            testEvent = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(UUID.randomUUID())
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            testEvent = getDailyScrumTestEvent(new Date(), new Date(), UUID.randomUUID());
         } catch (IdIsNullException e) {
             fail(e.getMessage());
         } catch (DateIntervalIsIncorrectException e) {
@@ -115,20 +125,7 @@ public class EventTest {
     public void testThrowsIdIsNullExceptionWhenIdIsNull() {
         //init
         try {
-            Event testEvent = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(null)
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            Event testEvent = getDailyScrumTestEvent(new Date(), new Date(), null);
         } catch (IdIsNullException e) {
             //ok
             return;
@@ -144,20 +141,7 @@ public class EventTest {
     public void testThrowsDateIntervalIsIncorrectExceptionWhenLeftDateIsNull() {
         //init
         try {
-            Event testEvent = new Event.Builder() {
-                @Override
-                public Set newSet() {
-                    return new HashSet<String>();
-                }
-            }//end of Builder implementation
-                    .setDateBegin(null)
-                    .setDateEnd(new Date())
-                    .setId(UUID.randomUUID())
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            Event testEvent = getDailyScrumTestEvent(null, new Date(), UUID.randomUUID());
         } catch (IdIsNullException e) {
             //not the subject of the test
         } catch (DateIntervalIsIncorrectException e) {
@@ -176,15 +160,7 @@ public class EventTest {
         Date rightDate = new Date(leftDate.getTime() - 1);
 
         try {
-            Event testEvent = new Event.HashSetBuilder()
-                    .setDateBegin(leftDate)
-                    .setDateEnd(rightDate)
-                    .setId(UUID.randomUUID())
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            Event testEvent = getDailyScrumTestEvent(leftDate, rightDate, UUID.randomUUID());
         } catch (IdIsNullException e) {
             //not the subject of the test
         } catch (DateIntervalIsIncorrectException e) {
@@ -197,48 +173,37 @@ public class EventTest {
     }
 
     @Test
-    public void testHashCodeIsZeroWhenIdIsNull() throws Exception {
-        //if equals then hash codes are equals
-        Event testEvent1 = new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
-                .build();
-
-        Event testEvent2 = new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
-                .build();
-    }
-
-    @Test
     public void testHashCodesAreEqualsWhenIdsAreTheSame() throws Exception {
-        //if equals then hash codes are equals
+        //init
+        UUID id = UUID.randomUUID();
 
+        Event testEvent1 = null;
+        try {
+            testEvent1 = getDailyScrumTestEvent(new Date(), new Date(), id);
+        } catch (IdIsNullException e) {
+            fail(e.getMessage());
+        } catch (DateIntervalIsIncorrectException e) {
+            fail(e.getMessage());
+        }
+
+        Event testEvent2 = null;
+        try {
+            testEvent2 = getUntitledTestEvent(id);
+        } catch (IdIsNullException e) {
+            fail(e.getMessage());
+        } catch (DateIntervalIsIncorrectException e) {
+            fail(e.getMessage());
+        }
+
+        //check
+        assertEquals(testEvent1.hashCode(), testEvent2.hashCode());
     }
 
     @Test
     public void testEventIsImmutable() {
         Event testEvent = null;
         try {
-            testEvent = new Event.HashSetBuilder()
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(UUID.randomUUID())
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
+            testEvent = getDailyScrumTestEvent(new Date(), new Date(), UUID.randomUUID());
         } catch (IdIsNullException e) {
             fail(e.getMessage());
         } catch (DateIntervalIsIncorrectException e) {

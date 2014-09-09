@@ -1,14 +1,10 @@
 package com.diosoft.trsine.calendar.service;
 
 import com.diosoft.trsine.calendar.common.Event;
-import com.diosoft.trsine.calendar.datastore.ConcurrentHashMapDataStore;
 import com.diosoft.trsine.calendar.datastore.DataStore;
 import org.junit.Test;
 
 import java.util.*;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 import static org.mockito.Mockito.*;
 
@@ -31,6 +27,7 @@ public class CalendarServiceImpTest {
     @Test
     public void testVerifyServiceCallDataStoreAddAllOnAddingAll() throws Exception {
         //Mocks
+        @SuppressWarnings("unchecked")
         Collection<Event> collectionMock = mock(Collection.class);
 
         DataStore storeMock = mock(DataStore.class);

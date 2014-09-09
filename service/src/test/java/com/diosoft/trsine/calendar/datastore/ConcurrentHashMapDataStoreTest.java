@@ -1,6 +1,8 @@
 package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
+import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
+import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 import org.junit.Test;
 
@@ -10,10 +12,15 @@ import static org.junit.Assert.*;
 
 public class ConcurrentHashMapDataStoreTest {
 
-    @Test
-    public void testAddReturnsListContainingEvent() throws Exception {
-
-        Event testEvent = new Event.HashSetBuilder()
+    /**
+     * Gets test event
+     *
+     * @return test <code>Event</code>
+     * @throws IdIsNullException
+     * @throws DateIntervalIsIncorrectException
+     */
+    private Event getDailyScrumTestEvent() throws IdIsNullException, DateIntervalIsIncorrectException {
+        return new Event.HashSetBuilder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
                 .setId(UUID.randomUUID())
@@ -22,6 +29,31 @@ public class ConcurrentHashMapDataStoreTest {
                 .addAttender("alex@zamkovyi.name")
                 .addAttender("igor.vartanian@gmail.com")
                 .build();
+    }
+
+    /**
+     * Gets test event
+     *
+     * @return test <code>Event</code>
+     * @throws IdIsNullException
+     * @throws DateIntervalIsIncorrectException
+     */
+    private Event getAnnualMeetingTestEvent() throws IdIsNullException, DateIntervalIsIncorrectException {
+        return new Event.HashSetBuilder()
+                .setDateBegin(new Date())
+                .setDateEnd(new Date())
+                .setId(UUID.randomUUID())
+                .setTitle("Annual meeting")
+                .setDescription("Just ordinary annual meeting")
+                .addAttender("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .build();
+    }
+
+    @Test
+    public void testAddReturnsListContainingEvent() throws Exception {
+
+        Event testEvent = getDailyScrumTestEvent();
 
         ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
             @Override
@@ -41,24 +73,8 @@ public class ConcurrentHashMapDataStoreTest {
     @Test
     public void testAddAllOfTwoEventsReturnsListContainingTwoEvents() throws Exception {
         //init
-        Event testEvent1 = new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
-                .build();
-        Event testEvent2 = new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Annual meeting")
-                .setDescription("Just ordinary annual meeting")
-                .addAttender("igor.vartanian@gmail.com")
-                .addAttender("alex@zamkovyi.name")
-                .build();
+        Event testEvent1 = getDailyScrumTestEvent();
+        Event testEvent2 = getAnnualMeetingTestEvent();
 
         ArrayList<Event> arrayToAdd = new ArrayList<>();
         arrayToAdd.add(testEvent1);
@@ -85,24 +101,8 @@ public class ConcurrentHashMapDataStoreTest {
     @Test
     public void testRemoveEventReturnsListNotContainingEvent() throws Exception {
             //init
-            Event testEvent1 = new Event.HashSetBuilder()
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(UUID.randomUUID())
-                    .setTitle("Daily Scrum")
-                    .setDescription("Next daily scrum meeting")
-                    .addAttender("alex@zamkovyi.name")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .build();
-            Event testEvent2 = new Event.HashSetBuilder()
-                    .setDateBegin(new Date())
-                    .setDateEnd(new Date())
-                    .setId(UUID.randomUUID())
-                    .setTitle("Annual meeting")
-                    .setDescription("Just ordinary annual meeting")
-                    .addAttender("igor.vartanian@gmail.com")
-                    .addAttender("alex@zamkovyi.name")
-                    .build();
+            Event testEvent1 = getDailyScrumTestEvent();
+            Event testEvent2 = getAnnualMeetingTestEvent();
 
             ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
                 @Override
