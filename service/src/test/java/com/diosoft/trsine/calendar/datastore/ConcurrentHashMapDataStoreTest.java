@@ -28,14 +28,14 @@ public class ConcurrentHashMapDataStoreTest {
                 .addAttender("igor.vartanian@gmail.com")
                 .build();
 
-        CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
+        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
             @Override
             public Set<UUID> newSet() {
                return new HashSet<>();
             }
-        });
-        service.add(testEvent);
-        List<Event> eventsAfterAdding = service.searchByDescription("Next daily scrum meeting");
+        };
+        store.add(testEvent);
+        List<Event> eventsAfterAdding = store.searchByDescription("Next daily scrum meeting");
 
         List<Event> result = new ArrayList<>();
         result.add(testEvent);
@@ -79,19 +79,19 @@ public class ConcurrentHashMapDataStoreTest {
         arrayToAdd.add(testEvent1);
         arrayToAdd.add(testEvent2);
 
-        CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
+        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
             @Override
             public Set<UUID> newSet() {
                 return new HashSet<>();
             }
-        });
-        service.addAll(arrayToAdd);
+        };
+        store.addAll(arrayToAdd);
 
-        service
+        store
                 .searchByTitle("Daily Scrum")
                 .parallelStream()
                 .forEach(p -> assertTrue(arrayToAdd.contains(p)));
-        service
+        store
                 .searchByTitle("Annual meeting")
                 .parallelStream()
                 .forEach(p -> assertTrue(arrayToAdd.contains(p)));
@@ -129,23 +129,23 @@ public class ConcurrentHashMapDataStoreTest {
                     .addAttender("alex@zamkovyi.name")
                     .build();
 
-            CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
+            ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
                 @Override
                 public Set<UUID> newSet() {
-                    return new HashSet<>();
-                }
-            });
-            service.add(testEvent1);
-            service.add(testEvent2);
+                return new HashSet<>();
+            }
+            };
+            store.add(testEvent1);
+            store.add(testEvent2);
 
-            service.searchByTitle("Daily Scrum")
+            store.searchByTitle("Daily Scrum")
                     .parallelStream()
-                    .forEach(p -> service.remove(p.getId()));
-            List<Event> eventsAfterRemoving = service.searchByTitle("Daily Scrum");
+                    .forEach(p -> store.remove(p.getId()));
+            List<Event> eventsAfterRemoving = store.searchByTitle("Daily Scrum");
             List<Event> result = new ArrayList<>();
             assertEquals(result, eventsAfterRemoving);
 
-            eventsAfterRemoving = service.searchByTitle("Annual meeting");
+            eventsAfterRemoving = store.searchByTitle("Annual meeting");
             result.add(testEvent2);
             assertEquals(result, eventsAfterRemoving);
         }

@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class EventTest {
 

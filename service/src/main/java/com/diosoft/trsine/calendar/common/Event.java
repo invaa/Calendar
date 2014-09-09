@@ -13,7 +13,7 @@ import java.util.*;
  * @since 1.5
  */
 
-public class Event {
+public class Event implements Comparable {
 
     private final String description;
     private final Set<String> attenders;
@@ -122,6 +122,11 @@ public class Event {
                 ", dateBegin = " + df.format(dateBegin) +
                 ", dateEnd = " + df.format(dateEnd) + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return id.compareTo(((Event)o).id);
     }
 
     /**
@@ -271,6 +276,13 @@ public class Event {
             return new Event(this);
         }
 
+    }
+
+    final public static class HashSetBuilder extends Builder {
+        @Override
+        public Set newSet() {
+            return new HashSet<Set>();
+        }
     }
 
     /**
