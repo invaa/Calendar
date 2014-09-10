@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Implements <code>DataStore</code> interface
- * Stores <code>Event</>s, event descriptions, titles and begin dates as HaspMaps
+ * Stores <code>Event</code>s, event descriptions, titles and begin dates as HaspMaps
  *
  * @author  Alexander Zamkovyi
  * @since 1.8

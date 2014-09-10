@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Implements <code>DataStore</code> interface
- * Stores <code>Event</>s, event descriptions, titles and begin dates
+ * Stores <code>Event</code>s, event descriptions, titles and begin dates
  * as <code>ConcurrentHashMap</code>s to optimize access speed
  * implement method <code>newSet()</code> to instantiate <code>Set</code> of <code>UUID</code>s
  *
@@ -27,11 +27,15 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
 
     /**
      * method to instantiate the <code>Set</code> of UUIDs
+     *
+     * @return <code>Set</code> of <code>UUID</code>s
      */
     abstract public Set<UUID> newUUIDSet();
 
     /**
      * method to instantiate the <code>List</code> of Events
+     *
+     * @return <code>Set</code> of <code>Event</code>s
      */
     abstract public List<Event> newResultList();
 

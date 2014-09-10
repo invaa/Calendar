@@ -7,12 +7,13 @@ import java.util.stream.Collectors;
 
 /**
  * Implements <code>DataStore</code> interface
- * Stores <code>Event</>s as ArrayList
+ * Stores <code>Event</code>s as ArrayList
  *
  * @author  Alexander Zamkovyi
  * @since 1.8
  */
 
+@SuppressWarnings("unused")
 public class ArrayListDataStore implements DataStore {
 
     ArrayList<Event> events = new ArrayList<>();

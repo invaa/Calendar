@@ -52,7 +52,7 @@ public class Event implements Comparable<Event> {
 
     /**
      *
-     * @return Set<String> of Event attenders
+     * @return Set&lt;String&gt; of Event attenders
      */
     public Set<String> getAttenders() {
         return cloner.deepClone(attenders);
@@ -142,7 +142,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * <code>Event</coder> Builder
+     * <code>Event</code> Builder
      * in order to use it you should implement newSet() method to instantiate the attenders <code>Set</code>
      */
     public static abstract class Builder {
@@ -160,6 +160,8 @@ public class Event implements Comparable<Event> {
 
         /**
          * Сopy constructor
+         *
+         * @param original event to clone
          *
          */
         public Builder(Event original) {
@@ -275,6 +277,8 @@ public class Event implements Comparable<Event> {
 
         /**
          * method to instantiate the attenders <code>Set</code>
+         *
+         * @return <code>Set</code> of strings
          */
         abstract public Set<String> newSet();
 
@@ -303,6 +307,7 @@ public class Event implements Comparable<Event> {
         public HashSetBuilder() {
         }
 
+        @SuppressWarnings("unused")
         public HashSetBuilder(Event original) {
             super(original);
         }
