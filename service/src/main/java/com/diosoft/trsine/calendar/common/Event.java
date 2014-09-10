@@ -166,7 +166,7 @@ public class Event {
             }
         }
 
-        abstract Set newSet();
+        protected abstract Set newSet();
 
         public Event build() {
 

@@ -2,12 +2,10 @@ package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.ArrayListDataStore;
+import com.diosoft.trsine.calendar.datastore.DataStoreImp;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Basic demo of how to cope with the Calendar service and ArrayList data store
@@ -27,14 +25,15 @@ public class ArrayListDataStoreMain {
         }//end of Builder implementation
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
+                //.setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
                 .addParticipant("alex@zamkovyi.name")
                 .addParticipant("igor.vartanian@gmail.com")
                 .build();
 
-        CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
+        //CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
+        CalendarServiceImp service = new CalendarServiceImp(new DataStoreImp<>());
         service.add(testEvent);
 
         //find  all occurencies by description and remove by ids
