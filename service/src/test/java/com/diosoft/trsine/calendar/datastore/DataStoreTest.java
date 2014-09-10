@@ -1,6 +1,7 @@
 package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
+import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +14,7 @@ import java.util.Set;
 public class DataStoreTest {
 
     @Test
-    public void testDataStore(){
+    public void testDataStore() throws IncorrectPeriodDates {
         Event testEvent = new Event.Builder() {
             @Override
             public Set newSet() {
@@ -24,8 +25,8 @@ public class DataStoreTest {
                 .setDateEnd(new Date())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
-                .addParticipant("alex@zamkovyi.name")
-                .addParticipant("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
                 .build();
 
         DataStore dataStore = new DataStoreImp();

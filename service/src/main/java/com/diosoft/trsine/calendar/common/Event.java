@@ -1,6 +1,6 @@
 package com.diosoft.trsine.calendar.common;
 
-import com.diosoft.trsine.calendar.exeptions.IncorrectPeriodDates;
+import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
 import com.rits.cloning.Cloner;
 import java.text.SimpleDateFormat;
 import java.util.*;

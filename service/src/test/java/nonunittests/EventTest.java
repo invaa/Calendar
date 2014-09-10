@@ -1,6 +1,7 @@
 package nonunittests;
 
 import com.diosoft.trsine.calendar.common.Event;
+import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -8,7 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class EventTest {
-    public static void main(String ... args) {
+    public static void main(String ... args) throws IncorrectPeriodDates {
 
         Event testEvent = new Event.Builder() {
             @Override
@@ -21,8 +22,8 @@ public class EventTest {
                 //.setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
-                .addParticipant("alex@zamkovyi.name")
-                .addParticipant("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
                 .build();
 
         //Output
