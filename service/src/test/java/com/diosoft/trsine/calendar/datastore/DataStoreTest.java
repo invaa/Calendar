@@ -28,7 +28,8 @@ public class DataStoreTest {
                 .addParticipant("igor.vartanian@gmail.com")
                 .build();
 
-        CalendarServiceImp service = new CalendarServiceImp(new DataStoreImp<>(new HashMap<String, String>()));
+        DataStore dataStore = new DataStoreImp();
+        CalendarServiceImp service = new CalendarServiceImp(dataStore);
         service.add(testEvent);
     }
 
