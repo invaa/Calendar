@@ -1,5 +1,6 @@
 package com.diosoft.trsine.calendar.common;
 
+import com.diosoft.trsine.calendar.exeptions.IncorrectPeriodDates;
 import com.rits.cloning.Cloner;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -20,11 +21,11 @@ public class Event {
     private final UUID id;
     private final String title;
 
-    //cloning objects
-    protected final Cloner cloner = new Cloner();
-
     //format dateBegin, dateEnd
     protected SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
+
+    //clone objects
+    protected final Cloner cloner = new Cloner();
 
     private Event(Builder builder) {
         this.description = builder.description;
@@ -32,8 +33,7 @@ public class Event {
         this.dateBegin = builder.dateBegin;
         this.dateEnd = builder.dateEnd;
         this.title = builder.title;
-        id = UUID.randomUUID();
-
+        this.id = UUID.randomUUID();
     }
 
     public String getDescription() {
@@ -49,7 +49,7 @@ public class Event {
     }
 
     public Date getDateEnd() {
-        return cloner.deepClone(dateBegin);
+        return cloner.deepClone(dateEnd);
     }
 
     public String getTitle() {
@@ -80,16 +80,15 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "id = " + id +
-                ", title = '" + title +
+                "title = '" + title +
                 ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
                 ", dateBegin = " + df.format(dateBegin) +
-                ", dateEnd = " + df.format(dateEnd) + '\'' +
+                ", dateEnd = " + df.format(dateEnd) +
                 '}';
     }
 
-    public abstract static class Builder {
+    public static abstract class Builder {
 
         private String description;
         private Set<String> attenders;
@@ -133,27 +132,27 @@ public class Event {
             return this;
         }
 
-        public Builder addParticipant(String participant) {
+        public Builder addAttender(String attender) {
             checkAttenders();
-            attenders.add(participant);
+            attenders.add(attender);
             return this;
         }
 
-        public Builder removeParticipant(String participant) {
+        public Builder removeAttender(String attender) {
             checkAttenders();
-            attenders.remove(participant);
+            attenders.remove(attender);
             return this;
         }
 
-        public Builder addParticipant(String participant, OperationResult resultAdd) {
+        public Builder addAttender(String attender, OperationResult resultAdd) {
             checkAttenders();
-            resultAdd.setResult(attenders.add(participant));
+            resultAdd.setResult(attenders.add(attender));
             return this;
         }
 
-        public Builder removeParticipant(String participant, OperationResult resultRemove) {
+        public Builder removeAttender(String attender, OperationResult resultRemove) {
             checkAttenders();
-            resultRemove.setResult(attenders.remove(participant));
+            resultRemove.setResult(attenders.remove(attender));
             return this;
         }
 
@@ -166,17 +165,16 @@ public class Event {
             }
         }
 
-        protected abstract Set newSet();
+        abstract public Set newSet();
 
-        public Event build() {
+        public Event build() throws IncorrectPeriodDates {
 
             if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
-                //TODO throw exception;
+                 throw new IncorrectPeriodDates("Date begin can't be greater than date end");
             }
 
             return new Event(this);
         }
-
 
     }
 
