@@ -164,7 +164,7 @@ public class Event {
         public Event build() throws IncorrectPeriodDates {
 
             if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
-                throw new IncorrectPeriodDates();
+                 throw new IncorrectPeriodDates();
             }
 
             return new Event(this);
