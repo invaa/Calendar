@@ -9,29 +9,38 @@ import java.util.stream.Collectors;
  * Implements <code>DataStore</code> interface
  * Stores <code>Event</>s, event descriptions, titles and begin dates as HaspMaps to optimize access speed
  *
- * @author  Igor Vartanian
+ * @author  Alexander Zamkovyi
  * @since 1.8
 */
 
-public abstract class HashMapDataStore implements DataStore {
+public class HashMapDataStore implements DataStore {
 
-    Map<UUID, Event> eventsMap = new HashMap<>();
+    HashMap<UUID,Event> eventsMap;
+    HashMap<String, List<UUID>> titlesMap;
+    HashMap<Date, List<UUID>> daysMap;
+    HashMap<Date, List<UUID>> descriptionsMap;
 
-    Map<String, List<UUID>> titlesMap = new HashMap<>();
-    Map<Date, List<UUID>> daysMap = new HashMap<>();
-    Map<String, List<UUID>> descriptionsMap = new HashMap<>();
-
-    Set<Event> events;
+    ArrayList<Event> events = new ArrayList<>();
 
     @Override
     public void add(Event event) {
 
-        events.add(event);
+        if (event == null) {
+            return;
+        }
+
+        UUID currentId = event.getId();
+        eventsMap.putIfAbsent(currentId, event);
+
+        // add index title
+        String currentTitle = event.getTitle();
+        List<UUID> identificators = titlesMap.get(currentTitle);
+
     }
 
     @Override
     public void addAll(Collection<Event> events) {
-        events.addAll(events);
+        //events.addAll(events);
     }
 
     @Override
