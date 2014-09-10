@@ -303,6 +303,9 @@ public class Event implements Comparable<Event> {
 
     }
 
+    /**
+     * <code>Event</code> Builder implementation that encapsulates HashSet&lt;String&gt; of attenders
+     */
     final public static class HashSetBuilder extends Builder {
         public HashSetBuilder() {
         }
