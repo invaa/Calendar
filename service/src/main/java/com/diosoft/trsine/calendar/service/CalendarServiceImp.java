@@ -12,7 +12,8 @@ import java.util.UUID;
  * Implementation of Calendar service, using data store <code>DataStore</code>
  *
  * @author  Vasyl Tegza, Alexander Zamkovyi
- * @since 1.5
+ * @version 1.0
+ * @since 1.0
  */
 
 public class CalendarServiceImp implements CalendarService {

@@ -11,7 +11,8 @@ import java.util.UUID;
  * Contract of Calendar service
  *
  * @author  Vasyl Tegza
- * @since 1.5
+ * @version 1.0
+ * @since 1.0
  */
 
 public interface CalendarService {

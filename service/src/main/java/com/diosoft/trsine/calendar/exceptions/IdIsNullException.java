@@ -4,7 +4,8 @@ package com.diosoft.trsine.calendar.exceptions;
  * Checked exception throwing when id is null
  *
  * @author  Alexander Zamkovyi
- * @since 1.5
+ * @version 1.0
+ * @since 1.0
  */
 
 public class IdIsNullException extends Exception {

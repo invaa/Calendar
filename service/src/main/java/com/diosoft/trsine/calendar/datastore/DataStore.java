@@ -11,7 +11,8 @@ import java.util.UUID;
  * Contract of data store of <code>Event</code>s
  *
  * @author  Vasyl Tegza, Alexander Zamkovyi
- * @since 1.5
+ * @version 1.0
+ * @since 1.0
  */
 
 public interface DataStore {

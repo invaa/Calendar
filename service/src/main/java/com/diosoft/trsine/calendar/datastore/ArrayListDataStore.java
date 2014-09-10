@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
  * Stores <code>Event</code>s as ArrayList
  *
  * @author  Alexander Zamkovyi
- * @since 1.8
+ * @version 1.0
+ * @since 1.0
  */
 
 @SuppressWarnings("unused")

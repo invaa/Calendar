@@ -13,7 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * implement method <code>newSet()</code> to instantiate <code>Set</code> of <code>UUID</code>s
  *
  * @author  Alexander Zamkovyi
- * @since 1.8
+ * @version 1.0
+ * @since 1.0
 */
 
 public abstract class ConcurrentHashMapDataStore implements DataStore {

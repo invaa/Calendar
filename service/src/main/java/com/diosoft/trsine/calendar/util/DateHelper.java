@@ -9,7 +9,8 @@ import java.util.Date;
  * Help to handle simple <code>Date</code> operations
  *
  * @author  Alexander Zamkovyi
- * @since 1.5
+ * @version 1.0
+ * @since 1.0
  */
 
 public class DateHelper {

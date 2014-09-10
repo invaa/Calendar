@@ -11,7 +11,8 @@ import java.util.*;
  * Calendar <code>Event</code> POJO
  *
  * @author  Igor Vartanian
- * @since 1.5
+ * @version 1.0
+ * @since 1.0
  */
 
 public class Event implements Comparable<Event> {
