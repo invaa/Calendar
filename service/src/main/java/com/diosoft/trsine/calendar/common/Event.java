@@ -27,7 +27,7 @@ public class Event {
     //clone objects
     protected final Cloner cloner = new Cloner();
 
-    private Event(Builder builder) {
+    protected Event(Builder builder) {
         this.description = builder.description;
         this.attenders = builder.attenders;
         this.dateBegin = builder.dateBegin;
