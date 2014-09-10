@@ -129,7 +129,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
                         Event event = eventsMap.get(p);
                         if (event != null) eventsFound.add(event);
                     });
-        }
+        } //end if
         return eventsFound;
     }
 
@@ -170,7 +170,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
                         Event event = eventsMap.get(p);
                         if (event != null && event.getDateBegin().equals(day)) eventsFound.add(event);
                     });
-        }
+        } //end if
         return eventsFound;
     }
 
@@ -198,9 +198,9 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
                             if (event != null && event.getDateBegin().compareTo(leftDate) >= 0 && event.getDateBegin().compareTo(rightDate) <= 0)
                                 eventsFound.add(event);
                         });
-            }
+            } //end if
             currentDate = DateHelper.dayIncrement(currentDate);
-        }
+        } //end while
 
         return eventsFound;
     }
