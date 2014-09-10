@@ -14,8 +14,8 @@ public class EventTest {
 
         Event testEvent = new Event.Builder() {
             @Override
-            public Set newSet() {
-                return new HashSet<String>();
+            public Set<String> newSet() {
+                return new HashSet<>();
             }
         }//end of Builder implementation
                 .setDateBegin(new Date())

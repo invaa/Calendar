@@ -2,6 +2,7 @@ package com.diosoft.trsine.calendar.service;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.DataStore;
+import com.diosoft.trsine.calendar.util.DateHelper;
 import org.junit.Test;
 
 import java.util.*;
@@ -86,12 +87,27 @@ public class CalendarServiceImpTest {
         DataStore storeMock = mock(DataStore.class);
         CalendarService service = new CalendarServiceImp(storeMock);
 
-        Date date = new Date();
+        Date date = DateHelper.getDateFromSimpleString("2014-09-09 11:33:44");
 
         //checks
         service.searchByDay(date);
         verify(storeMock, times(1)).searchByDay(date);
         service.searchByDay(date);
         verify(storeMock, times(2)).searchByDay(date);
+    }
+
+    @Test
+    public void testVerifyServiceCallDataStoreSearchByIntervalOnSearchingByInterval() throws Exception {
+        //Mocks
+        DataStore storeMock = mock(DataStore.class);
+        CalendarService service = new CalendarServiceImp(storeMock);
+
+        Date date = DateHelper.getDateFromSimpleString("2014-09-09 11:33:44");
+
+        //checks
+        service.searchByInterval(date, date);
+        verify(storeMock, times(1)).searchByInterval(date, date);
+        service.searchByInterval(date, date);
+        verify(storeMock, times(2)).searchByInterval(date, date);
     }
 }

@@ -25,7 +25,7 @@ public class EventBuilderTest {
         builder2.setAttenders(set);
 
         //check
-        assertEquals(builder1, builder2);
+        assertEquals(builder1.getAttenders(), builder2.getAttenders());
     }
 
     @Test
@@ -45,6 +45,6 @@ public class EventBuilderTest {
         builder2.setAttenders(set);
 
         //check
-        assertEquals(builder1, builder2);
+        assertEquals(builder1.getAttenders(), builder2.getAttenders());
     }
 }

@@ -49,4 +49,9 @@ public class HashMapDataStore implements DataStore {
     public List<Event> searchByDay(Date day) {
         return null;
     }
+
+    @Override
+    public List<Event> searchByInterval(Date leftDate, Date rightDate) {
+        return null;
+    }
 }

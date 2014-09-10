@@ -2,6 +2,7 @@ package com.diosoft.trsine.calendar.common;
 
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
+import com.diosoft.trsine.calendar.util.DateHelper;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -30,8 +31,8 @@ public class EventTest {
                 return new HashSet<>();
             }
         }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
+                .setDateBegin(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"))
+                .setDateEnd(DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"))
                 .setId(id)
                 .setTitle("")
                 .setDescription("")
@@ -69,7 +70,9 @@ public class EventTest {
 
         Event testEvent1 = null;
         try {
-            testEvent1 = getDailyScrumTestEvent(new Date(), new Date(), id);
+            testEvent1 = getDailyScrumTestEvent(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"),
+                    DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"),
+                    id);
         } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
@@ -92,7 +95,9 @@ public class EventTest {
         //init
         Event testEvent = null;
         try {
-            testEvent = getDailyScrumTestEvent(new Date(), new Date(), UUID.randomUUID());
+            testEvent = getDailyScrumTestEvent(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"),
+                    DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"),
+                    UUID.randomUUID());
         } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
@@ -120,7 +125,9 @@ public class EventTest {
         //init
         try {
             @SuppressWarnings("unused")
-            Event testEvent = getDailyScrumTestEvent(new Date(), new Date(), null);
+            Event testEvent = getDailyScrumTestEvent(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"),
+                    DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"),
+                    null);
         } catch (IdIsNullException e) {
             //ok
             return;
@@ -137,7 +144,9 @@ public class EventTest {
         //init
         try {
             @SuppressWarnings("unused")
-            Event testEvent = getDailyScrumTestEvent(null, new Date(), UUID.randomUUID());
+            Event testEvent = getDailyScrumTestEvent(null,
+                    DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"),
+                    UUID.randomUUID());
         } catch (IdIsNullException e) {
             //not the subject of the test
         } catch (DateIntervalIsIncorrectException e) {
@@ -152,8 +161,8 @@ public class EventTest {
     @Test
     public void testThrowsDateIntervalIsIncorrectExceptionWhenRightDateIsGreaterThanLeftDate() {
         //init
-        Date leftDate = new Date();
-        Date rightDate = new Date(leftDate.getTime() - 1);
+        Date rightDate = DateHelper.getDateFromSimpleString("2014-09-09 14:55:11");
+        Date leftDate = DateHelper.dayIncrement(rightDate);
 
         try {
             @SuppressWarnings("unused")
@@ -176,7 +185,9 @@ public class EventTest {
 
         Event testEvent1 = null;
         try {
-            testEvent1 = getDailyScrumTestEvent(new Date(), new Date(), id);
+            testEvent1 = getDailyScrumTestEvent(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"),
+                    DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"),
+                    id);
         } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }
@@ -196,7 +207,9 @@ public class EventTest {
     public void testEventIsImmutable() {
         Event testEvent = null;
         try {
-            testEvent = getDailyScrumTestEvent(new Date(), new Date(), UUID.randomUUID());
+            testEvent = getDailyScrumTestEvent(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"),
+                    DateHelper.getDateFromSimpleString("2014-09-09 14:55:11")
+                    , UUID.randomUUID());
         } catch (IdIsNullException | DateIntervalIsIncorrectException e) {
             fail(e.getMessage());
         }

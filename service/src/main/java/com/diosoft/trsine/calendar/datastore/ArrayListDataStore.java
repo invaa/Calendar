@@ -53,4 +53,9 @@ public class ArrayListDataStore implements DataStore {
                 .filter(p -> p.getDateBegin().equals(day))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Event> searchByInterval(Date leftDate, Date rightDate) {
+        return null;
+    }
 }

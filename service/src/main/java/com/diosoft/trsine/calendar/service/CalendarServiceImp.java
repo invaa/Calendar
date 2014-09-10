@@ -80,4 +80,15 @@ public class CalendarServiceImp implements CalendarService {
     public List<Event> searchByDay(Date day) {
         return dataStore.searchByDay(day);
     }
+
+    /** Search for all <code>Event</code> in calendar service by given date of begining interval
+     *
+     * @param leftDate date of begining to search by
+     * @param rightDate date of begining to search by
+     * @return the list of <code>Event</code>s
+     */
+    @Override
+    public List<Event> searchByInterval(Date leftDate, Date rightDate){
+        return dataStore.searchByInterval(leftDate, rightDate);
+    }
 }

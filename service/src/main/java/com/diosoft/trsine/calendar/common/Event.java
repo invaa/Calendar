@@ -148,6 +148,7 @@ public class Event implements Comparable<Event> {
     public static abstract class Builder {
 
         private String description;
+
         private Set<String> attenders;
         private Date dateBegin;
         private Date dateEnd;
@@ -183,6 +184,10 @@ public class Event implements Comparable<Event> {
         public Builder setDescription(String description) {
             this.description = description;
             return this;
+        }
+
+        public Set<String> getAttenders() {
+            return attenders;
         }
 
         public Builder setAttenders(Set<String> attenders) {
@@ -283,11 +288,11 @@ public class Event implements Comparable<Event> {
 
             if (id == null) {
                 throw new IdIsNullException();
-            }
+            } //end if
 
             if (dateBegin == null || (dateEnd != null && dateBegin.compareTo(dateEnd) > 0)) {
                 throw new DateIntervalIsIncorrectException();
-            }
+            } //end if
 
             return new Event(this);
         }

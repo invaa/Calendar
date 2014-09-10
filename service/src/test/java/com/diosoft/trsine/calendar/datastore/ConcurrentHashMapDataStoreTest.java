@@ -3,6 +3,7 @@ package com.diosoft.trsine.calendar.datastore;
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
+import com.diosoft.trsine.calendar.util.DateHelper;
 import org.junit.Test;
 
 import java.util.*;
@@ -20,8 +21,8 @@ public class ConcurrentHashMapDataStoreTest {
      */
     private Event getDailyScrumTestEvent() throws IdIsNullException, DateIntervalIsIncorrectException {
         return new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
+                .setDateBegin(DateHelper.getDateFromSimpleString("2014-09-08 10:11:44"))
+                .setDateEnd(DateHelper.getDateFromSimpleString("2014-09-08 12:20:33"))
                 .setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
@@ -39,8 +40,8 @@ public class ConcurrentHashMapDataStoreTest {
      */
     private Event getAnnualMeetingTestEvent() throws IdIsNullException, DateIntervalIsIncorrectException {
         return new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
+                .setDateBegin(DateHelper.getDateFromSimpleString("2014-09-09 11:33:44"))
+                .setDateEnd(DateHelper.getDateFromSimpleString("2014-09-09 14:55:11"))
                 .setId(UUID.randomUUID())
                 .setTitle("Annual meeting")
                 .setDescription("Just ordinary annual meeting")
@@ -49,17 +50,32 @@ public class ConcurrentHashMapDataStoreTest {
                 .build();
     }
 
+    /**
+     * Instantiates ConcurrentHashMapDataStore implementation with HashSet<UUID> and ArrayList<Event>
+     *
+     * @return implementation with HashSet<UUID> and ArrayList<Event>
+     */
+    private ConcurrentHashMapDataStore getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults() {
+        return new ConcurrentHashMapDataStore() {
+            @Override
+            public Set<UUID> newUUIDSet()  {
+                return new HashSet<>();
+            }
+
+            @Override
+            public List<Event> newResultList()  {
+                return new ArrayList<>();
+            }
+        };
+    }
+
+
     @Test
     public void testAddReturnsListContainingEvent() throws Exception {
 
         Event testEvent = getDailyScrumTestEvent();
 
-        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-               return new HashSet<>();
-            }
-        };
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
         store.add(testEvent);
         List<Event> eventsAfterAdding = store.searchByDescription("Next daily scrum meeting");
 
@@ -79,12 +95,7 @@ public class ConcurrentHashMapDataStoreTest {
         arrayToAdd.add(testEvent1);
         arrayToAdd.add(testEvent2);
 
-        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-        };
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
         store.addAll(arrayToAdd);
 
         store
@@ -103,12 +114,7 @@ public class ConcurrentHashMapDataStoreTest {
             Event testEvent1 = getDailyScrumTestEvent();
             Event testEvent2 = getAnnualMeetingTestEvent();
 
-            ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
-                @Override
-                public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-            };
+            ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
             store.add(testEvent1);
             store.add(testEvent2);
 
@@ -129,20 +135,15 @@ public class ConcurrentHashMapDataStoreTest {
         Event testEvent1 = getDailyScrumTestEvent();
         Event testEvent2 = getAnnualMeetingTestEvent();
 
-        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-        };
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
         ArrayList<Event> arrayToAdd = new ArrayList<>();
         arrayToAdd.add(testEvent1);
         arrayToAdd.add(testEvent2);
         store.addAll(arrayToAdd);
 
         assertTrue(store
-                 .searchByDescription(testEvent1.getDescription())
-                 .contains(testEvent1));
+                .searchByDescription(testEvent1.getDescription())
+                .contains(testEvent1));
 
         assertTrue(store
                 .searchByDescription(testEvent2.getDescription())
@@ -154,12 +155,7 @@ public class ConcurrentHashMapDataStoreTest {
         Event testEvent1 = getDailyScrumTestEvent();
         Event testEvent2 = getAnnualMeetingTestEvent();
 
-        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-        };
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
         ArrayList<Event> arrayToAdd = new ArrayList<>();
         arrayToAdd.add(testEvent1);
         arrayToAdd.add(testEvent2);
@@ -179,12 +175,7 @@ public class ConcurrentHashMapDataStoreTest {
         Event testEvent1 = getDailyScrumTestEvent();
         Event testEvent2 = getAnnualMeetingTestEvent();
 
-        ConcurrentHashMapDataStore store = new ConcurrentHashMapDataStore() {
-            @Override
-            public Set<UUID> newSet() {
-                return new HashSet<>();
-            }
-        };
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
         ArrayList<Event> arrayToAdd = new ArrayList<>();
         arrayToAdd.add(testEvent1);
         arrayToAdd.add(testEvent2);
@@ -197,5 +188,28 @@ public class ConcurrentHashMapDataStoreTest {
         assertTrue(store
                 .searchByDay(testEvent2.getDateBegin())
                 .contains(testEvent2));
+    }
+
+    @Test
+    public void testSearchByInterval() throws Exception {
+        Event testEvent1 = getDailyScrumTestEvent();
+        Event testEvent2 = getAnnualMeetingTestEvent();
+        //Event testEvent3 = getAnnualMeetingTestEvent();
+
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
+        ArrayList<Event> arrayToAdd = new ArrayList<>();
+        arrayToAdd.add(testEvent1);
+        arrayToAdd.add(testEvent2);
+        store.addAll(arrayToAdd);
+
+        Date leftDate = DateHelper.getDateFromSimpleString("2014-09-09 11:33:44");
+        Date rightDate = DateHelper.dayIncrement(leftDate);
+
+        ArrayList<Event> expectedResult = new ArrayList<>();
+        expectedResult.add(testEvent2);
+        List<Event> result = store.searchByInterval(leftDate, rightDate);
+
+        assertEquals(expectedResult, result);
+
     }
 }

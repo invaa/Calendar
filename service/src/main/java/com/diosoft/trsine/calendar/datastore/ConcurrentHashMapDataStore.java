@@ -1,6 +1,7 @@
 package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
+import com.diosoft.trsine.calendar.util.DateHelper;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -25,9 +26,14 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     ConcurrentHashMap<Object, Set<UUID>> descriptionsMap = new ConcurrentHashMap<>();
 
     /**
-     * method to instantiate the attenders <code>Set</code>
+     * method to instantiate the <code>Set</code> of UUIDs
      */
-    abstract public Set<UUID> newSet();
+    abstract public Set<UUID> newUUIDSet();
+
+    /**
+     * method to instantiate the <code>List</code> of Events
+     */
+    abstract public List<Event> newResultList();
 
     /**
      * Adds <code>Event</code> to data store
@@ -40,7 +46,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
 
         //rebuild indexes
         rebuildIndexOnAdd(titlesMap, event.getTitle(), eventId);
-        rebuildIndexOnAdd(daysMap, event.getDateBegin(), eventId);
+        rebuildIndexOnAdd(daysMap, DateHelper.getOnlyDate(event.getDateBegin()), eventId); //we need only date without time
         rebuildIndexOnAdd(descriptionsMap, event.getDescription(), eventId);
     }
 
@@ -54,7 +60,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         Set<UUID> currentSet;
         currentSet = indexMap.get(key);
         if (currentSet == null) {
-            currentSet = newSet();
+            currentSet = newUUIDSet();
             currentSet.add(eventId);
             indexMap.put(key, currentSet);
         } else {
@@ -102,7 +108,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
 
         //rebuild indexes
         rebuildIndexOnRemove(titlesMap, event.getTitle(), id);
-        rebuildIndexOnRemove(daysMap, event.getDateBegin(), id);
+        rebuildIndexOnRemove(daysMap, DateHelper.getOnlyDate(event.getDateBegin()), id); //we need only date without time
         rebuildIndexOnRemove(descriptionsMap, event.getDescription(), id);
     }
 
@@ -114,15 +120,16 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
      * @return collection of events found
      */
     private List<Event> searchByField(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key) {
-        List<Event> eventsFound = new ArrayList<>();
+        List<Event> eventsFound = newResultList();
 
-        indexMap.get(key)
-                .parallelStream()
-                .forEach(p -> {
-                    Event event = eventsMap.get(p);
-                    if (event != null) eventsFound.add(event);
-                });
-
+        Set<UUID> value = indexMap.get(key);
+        if (value != null){
+            value.parallelStream()
+                    .forEach(p -> {
+                        Event event = eventsMap.get(p);
+                        if (event != null) eventsFound.add(event);
+                    });
+        }
         return eventsFound;
     }
 
@@ -153,6 +160,48 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
      */
     @Override
     public List<Event> searchByDay(Date day) {
-        return searchByField(daysMap, day);
+        List<Event> eventsFound = newResultList();
+
+        Set<UUID> value = daysMap.get(DateHelper.getOnlyDate(day));
+        if (value != null) {
+            value
+                    .parallelStream()
+                    .forEach(p -> {
+                        Event event = eventsMap.get(p);
+                        if (event != null && event.getDateBegin().equals(day)) eventsFound.add(event);
+                    });
+        }
+        return eventsFound;
+    }
+
+    /** Search for all <code>Event</code> in data store by given date of begining interval
+     *
+     * @param leftDate date of begining to search by
+     * @param rightDate date of begining to search by
+     * @return the list of <code>Event</code>s
+     */
+    public List<Event> searchByInterval(Date leftDate, Date rightDate) {
+
+        List<Event> eventsFound = newResultList();
+        Date leftDateOnlyDate = DateHelper.getOnlyDate(leftDate);
+        Date rightDateOnlyDate = DateHelper.getOnlyDate(rightDate);
+        Date currentDate = leftDateOnlyDate;
+
+        while (currentDate.compareTo(rightDateOnlyDate) <= 0) {
+            Date dateToSearch = currentDate;
+            Set<UUID> value = daysMap.get(DateHelper.getOnlyDate(dateToSearch));
+            if (value != null) {
+                value
+                        .parallelStream()
+                        .forEach(p -> {
+                            Event event = eventsMap.get(p);
+                            if (event != null && event.getDateBegin().compareTo(leftDate) >= 0 && event.getDateBegin().compareTo(rightDate) <= 0)
+                                eventsFound.add(event);
+                        });
+            }
+            currentDate = DateHelper.dayIncrement(currentDate);
+        }
+
+        return eventsFound;
     }
 }

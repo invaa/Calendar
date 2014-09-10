@@ -6,10 +6,7 @@ import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Basic demo of how to cope with the Calendar service and ConcurrentHashMap data store
@@ -41,9 +38,12 @@ public class ConcurrentHashMapDataStoreMain {
 
         CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
             @Override
-            public Set<UUID> newSet() {
+            public Set<UUID> newUUIDSet()  {
                 return new HashSet<>();
             }
+
+            @Override
+            public List<Event> newResultList()  { return new ArrayList<>(); }
         });
         service.add(testEvent);
 
