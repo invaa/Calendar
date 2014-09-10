@@ -2,6 +2,7 @@ package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.ArrayListDataStore;
+import com.diosoft.trsine.calendar.exeptions.IncorrectPeriodDates;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 public class ArrayListDataStoreMain {
 
-    public static void main(String ... args) {
+    public static void main(String ... args) throws IncorrectPeriodDates {
         Event testEvent = new Event.Builder() {
             @Override
             public Set newSet() {
@@ -20,7 +21,7 @@ public class ArrayListDataStoreMain {
         }//end of Builder implementation
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
+                //.setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
                 .addParticipant("alex@zamkovyi.name")
