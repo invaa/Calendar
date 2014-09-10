@@ -1,5 +1,6 @@
 package com.diosoft.trsine.calendar.common;
 
+import com.diosoft.trsine.calendar.exeptions.IncorrectPeriodDates;
 import com.rits.cloning.Cloner;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -14,7 +15,10 @@ public class Event {
     private final String title;
 
     //format dateBegin, dateEnd
-    private SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
+    protected SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
+
+    //clone objects
+    protected final Cloner cloner = new Cloner();
 
     private Event(Builder builder) {
         this.description = builder.description;
@@ -22,7 +26,7 @@ public class Event {
         this.dateBegin = builder.dateBegin;
         this.dateEnd = builder.dateEnd;
         this.title = builder.title;
-        this.id = builder.id;
+        this.id = UUID.randomUUID();
     }
 
     public String getDescription() {
@@ -30,17 +34,15 @@ public class Event {
     }
 
     public Set<String> getAttenders() {
-        Cloner cloner = new Cloner();
-        Set<String> clone = cloner.deepClone(attenders);
-        return clone;
+        return cloner.deepClone(attenders);
     }
 
     public Date getDateBegin() {
-        return dateBegin;
+        return cloner.deepClone(dateBegin);
     }
 
     public Date getDateEnd() {
-        return dateEnd;
+        return cloner.deepClone(dateEnd);
     }
 
     public String getTitle() {
@@ -75,8 +77,8 @@ public class Event {
                 ", title = '" + title +
                 ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
-                ", dateBegin = " + dateBegin +
-                ", dateEnd = " + dateEnd + '\'' +
+                ", dateBegin = " + df.format(dateBegin) +
+                ", dateEnd = " + df.format(dateEnd) + '\'' +
                 '}';
     }
 
@@ -86,7 +88,6 @@ public class Event {
         private Set<String> attenders;
         private Date dateBegin;
         private Date dateEnd;
-        private UUID id;
         private String title;
 
         public Builder() {
@@ -97,13 +98,7 @@ public class Event {
             this.attenders = original.attenders;
             this.dateBegin = original.dateBegin;
             this.dateEnd = original.dateEnd;
-            this.id = original.id;
             this.title = original.title;
-        }
-
-        public Builder setId(UUID id) {
-            this.id = id;
-            return this;
         }
 
         public Builder setTitle(String title) {
@@ -166,10 +161,10 @@ public class Event {
 
         abstract public Set newSet();
 
-        public Event build() {
+        public Event build() throws IncorrectPeriodDates {
 
             if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
-                //TODO throw exception;
+                throw new IncorrectPeriodDates();
             }
 
             return new Event(this);
