@@ -57,7 +57,8 @@ public class DateHelper {
         try {
             calendar.setTime( dateFormat.parse(inputStringDate));
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.err.println("Error parsing date " + e.getMessage());
+            return null;
         }
 
         return calendar.getTime();

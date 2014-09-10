@@ -8,4 +8,8 @@ package com.diosoft.trsine.calendar.exceptions;
  */
 
 public class IdIsNullException extends Exception {
+    @Override
+    public String getMessage() {
+        return "Event id could not be null";
+    }
 }
