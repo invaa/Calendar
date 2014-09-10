@@ -6,7 +6,6 @@ import com.diosoft.trsine.calendar.exeptions.IncorrectPeriodDates;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 public class EventTest {
     public static void main(String ... args) throws IncorrectPeriodDates {
@@ -22,8 +21,8 @@ public class EventTest {
                 //.setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
-                .addParticipant("alex@zamkovyi.name")
-                .addParticipant("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
                 .build();
 
         //Output
@@ -35,6 +34,8 @@ public class EventTest {
 
         //Output
         System.out.println(testEvent.getAttenders().toString());
+
+        System.out.println(testEvent);
 
 
 

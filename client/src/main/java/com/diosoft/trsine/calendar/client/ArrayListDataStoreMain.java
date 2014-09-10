@@ -8,7 +8,6 @@ import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 public class ArrayListDataStoreMain {
 
@@ -24,8 +23,8 @@ public class ArrayListDataStoreMain {
                 //.setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
-                .addParticipant("alex@zamkovyi.name")
-                .addParticipant("igor.vartanian@gmail.com")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
                 .build();
 
         CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());

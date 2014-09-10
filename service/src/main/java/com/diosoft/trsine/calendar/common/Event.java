@@ -50,7 +50,7 @@ public class Event {
     }
 
     public UUID getId() {
-        return id;
+        return cloner.deepClone(id);
     }
 
     @Override
@@ -73,12 +73,11 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "id = " + id +
-                ", title = '" + title +
+                "title = '" + title +
                 ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
                 ", dateBegin = " + df.format(dateBegin) +
-                ", dateEnd = " + df.format(dateEnd) + '\'' +
+                ", dateEnd = " + df.format(dateEnd) +
                 '}';
     }
 
@@ -126,27 +125,27 @@ public class Event {
             return this;
         }
 
-        public Builder addParticipant(String participant) {
+        public Builder addAttender(String attender) {
             checkAttenders();
-            attenders.add(participant);
+            attenders.add(attender);
             return this;
         }
 
-        public Builder removeParticipant(String participant) {
+        public Builder removeAttender(String attender) {
             checkAttenders();
-            attenders.remove(participant);
+            attenders.remove(attender);
             return this;
         }
 
-        public Builder addParticipant(String participant, OperationResult resultAdd) {
+        public Builder addAttender(String attender, OperationResult resultAdd) {
             checkAttenders();
-            resultAdd.setResult(attenders.add(participant));
+            resultAdd.setResult(attenders.add(attender));
             return this;
         }
 
-        public Builder removeParticipant(String participant, OperationResult resultRemove) {
+        public Builder removeAttender(String attender, OperationResult resultRemove) {
             checkAttenders();
-            resultRemove.setResult(attenders.remove(participant));
+            resultRemove.setResult(attenders.remove(attender));
             return this;
         }
 
@@ -164,7 +163,7 @@ public class Event {
         public Event build() throws IncorrectPeriodDates {
 
             if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
-                 throw new IncorrectPeriodDates();
+                 throw new IncorrectPeriodDates("Date begin can't be greater than date end");
             }
 
             return new Event(this);
