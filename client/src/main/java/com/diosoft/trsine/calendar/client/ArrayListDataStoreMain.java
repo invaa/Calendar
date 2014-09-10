@@ -32,8 +32,7 @@ public class ArrayListDataStoreMain {
                 .addParticipant("igor.vartanian@gmail.com")
                 .build();
 
-        //CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
-        CalendarServiceImp service = new CalendarServiceImp(new DataStoreImp<>());
+        CalendarServiceImp service = new CalendarServiceImp(new ArrayListDataStore());
         service.add(testEvent);
 
         //find  all occurencies by description and remove by ids

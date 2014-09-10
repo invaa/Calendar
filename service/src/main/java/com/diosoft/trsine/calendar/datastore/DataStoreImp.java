@@ -12,20 +12,20 @@ import java.util.*;
  * @since 1.8
 */
 
-public class DataStoreImp<T extends List<UUID>> implements DataStore {
+public class DataStoreImp<T1 extends List<UUID>> implements DataStore {
 
     Map<UUID, Event> eventsMap;
 
-    Map<String, T> titlesMap;
-    Map<Date, T> daysMap;
-    Map<String, T> descriptionsMap;
+    Map<String, T1> titlesMap;
+    Map<Date, T1> daysMap;
+    Map<String, T1> descriptionsMap;
 
-//    public DataStoreImp(Map T1) {
-//        this.eventsMap = T1;
-//        this.titlesMap = T1;
-//        this.daysMap = T1;
-//        this.descriptionsMap = T1;
-//    }
+    public DataStoreImp(Map typeStore) {
+        this.eventsMap = typeStore;
+        this.titlesMap = typeStore;
+        this.daysMap = typeStore;
+        this.descriptionsMap = typeStore;
+    }
 
     public Map<UUID, Event> getEventsMap() {
         return eventsMap;
