@@ -1,11 +1,9 @@
 package com.diosoft.trsine.calendar.common;
 
+import com.diosoft.trsine.calendar.exeptions.IncorrectPeriodDates;
 import com.rits.cloning.Cloner;
-
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 public class Event {
 
@@ -13,15 +11,22 @@ public class Event {
     private final Set<String> attenders;
     private final Date dateBegin;
     private final Date dateEnd;
+    private final UUID id;
+    private final String title;
 
     //format dateBegin, dateEnd
-    private SimpleDateFormat df = new SimpleDateFormat ("E dd MMMM yyyy 'at' hh:mm", new Locale("en","En"));
+    protected SimpleDateFormat df = new SimpleDateFormat("E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
+
+    //clone objects
+    protected final Cloner cloner = new Cloner();
 
     private Event(Builder builder) {
         this.description = builder.description;
         this.attenders = builder.attenders;
         this.dateBegin = builder.dateBegin;
         this.dateEnd = builder.dateEnd;
+        this.title = builder.title;
+        this.id = UUID.randomUUID();
     }
 
     public String getDescription() {
@@ -29,17 +34,23 @@ public class Event {
     }
 
     public Set<String> getAttenders() {
-        Cloner cloner = new Cloner();
-        Set<String> clone = cloner.deepClone(attenders);
-        return clone;
+        return cloner.deepClone(attenders);
     }
 
     public Date getDateBegin() {
-        return dateBegin;
+        return cloner.deepClone(dateBegin);
     }
 
     public Date getDateEnd() {
-        return dateEnd;
+        return cloner.deepClone(dateEnd);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     @Override
@@ -49,30 +60,25 @@ public class Event {
 
         Event event = (Event) o;
 
-        if (!attenders.equals(event.attenders)) return false;
-        if (!dateBegin.equals(event.dateBegin)) return false;
-        if (!dateEnd.equals(event.dateEnd)) return false;
-        if (!description.equals(event.description)) return false;
+        if (id != null ? !id.equals(event.id) : event.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = description.hashCode();
-        result = 31 * result + attenders.hashCode();
-        result = 31 * result + dateBegin.hashCode();
-        result = 31 * result + dateEnd.hashCode();
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Event{" +
-                "description = '" + description + '\'' +
+                "id = " + id +
+                ", title = '" + title +
+                ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
                 ", dateBegin = " + df.format(dateBegin) +
-                ", dateEnd = " + df.format(dateEnd) +
+                ", dateEnd = " + df.format(dateEnd) + '\'' +
                 '}';
     }
 
@@ -82,6 +88,7 @@ public class Event {
         private Set<String> attenders;
         private Date dateBegin;
         private Date dateEnd;
+        private String title;
 
         public Builder() {
         }
@@ -91,6 +98,12 @@ public class Event {
             this.attenders = original.attenders;
             this.dateBegin = original.dateBegin;
             this.dateEnd = original.dateEnd;
+            this.title = original.title;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
         }
 
         public Builder setDescription(String description) {
@@ -103,7 +116,7 @@ public class Event {
             return this;
         }
 
-        public Builder setDateBegin(Date dateBegin) {
+        public Builder setDateBegin(int dateBegin) {
             this.dateBegin = dateBegin;
             return this;
         }
@@ -113,32 +126,33 @@ public class Event {
             return this;
         }
 
-        public Builder addParticipant(String participant){
+        public Builder addParticipant(String participant) {
             checkAttenders();
             attenders.add(participant);
             return this;
         }
 
-        public Builder removeParticipant(String participant){
+        public Builder removeParticipant(String participant) {
             checkAttenders();
             attenders.remove(participant);
             return this;
         }
-        public Builder addParticipant(String participant, boolean resultAdd){
+
+        public Builder addParticipant(String participant, OperationResult resultAdd) {
             checkAttenders();
-            resultAdd = attenders.add(participant);
+            resultAdd.setResult(attenders.add(participant));
             return this;
         }
 
-        public Builder removeParticipant(String participant, boolean resultRemove){
+        public Builder removeParticipant(String participant, OperationResult resultRemove) {
             checkAttenders();
-            resultRemove = attenders.remove(participant);
+            resultRemove.setResult(attenders.remove(participant));
             return this;
         }
 
         private void checkAttenders() {
-            if (attenders == null){
-                synchronized(this) {
+            if (attenders == null) {
+                synchronized (this) {
                     if (attenders == null)
                         attenders = newSet();
                 }
@@ -147,10 +161,29 @@ public class Event {
 
         abstract public Set newSet();
 
-        public Event build(){
+        public Event build() throws IncorrectPeriodDates {
+
+            if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
+                 throw new IncorrectPeriodDates();
+            }
+
             return new Event(this);
         }
 
+        public abstract Builder setUid(UUID uuid);
     }
 
+    public class OperationResult {
+
+        public boolean isResult() {
+            return result;
+        }
+
+        public void setResult(boolean result) {
+            this.result = result;
+        }
+
+        boolean result = false;
+
+    }
 }
