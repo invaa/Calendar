@@ -2,7 +2,6 @@ package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.ArrayListDataStore;
-import com.diosoft.trsine.calendar.datastore.DataStoreImp;
 import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
 

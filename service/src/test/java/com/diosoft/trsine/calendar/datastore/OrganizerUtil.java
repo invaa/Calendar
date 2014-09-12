@@ -30,7 +30,7 @@ public class OrganizerUtil {
     }
 
 
-    public Set<String> createAttenders(int numberAttenders, String attender) throws IncorrectPeriodDates {
+    public Set<String> createAttenders(int numberAttenders, String attender) {
 
         if (numberAttenders <= 0){
             return null;

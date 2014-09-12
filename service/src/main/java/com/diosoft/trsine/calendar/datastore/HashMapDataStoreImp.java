@@ -12,7 +12,7 @@ import java.util.*;
  * @since 1.8
  */
 
-public class DataStoreImp implements DataStore {
+public class HashMapDataStoreImp implements DataStore {
 
     private Map<UUID, Event> eventsMap = new HashMap<>();
 
