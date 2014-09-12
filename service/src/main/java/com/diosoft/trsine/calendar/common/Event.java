@@ -50,7 +50,7 @@ public class Event {
     }
 
     public UUID getId() {
-        return cloner.deepClone(id);
+        return id;
     }
 
     @Override
@@ -73,11 +73,12 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "title = '" + title +
+                "id = " + id +
+                ", title = '" + title +
                 ", description = '" + description + '\'' +
                 ", attenders = " + attenders +
                 ", dateBegin = " + df.format(dateBegin) +
-                ", dateEnd = " + df.format(dateEnd) +
+                ", dateEnd = " + df.format(dateEnd) + '\'' +
                 '}';
     }
 
@@ -115,7 +116,7 @@ public class Event {
             return this;
         }
 
-        public Builder setDateBegin(Date dateBegin) {
+        public Builder setDateBegin(int dateBegin) {
             this.dateBegin = dateBegin;
             return this;
         }
@@ -125,27 +126,27 @@ public class Event {
             return this;
         }
 
-        public Builder addAttender(String attender) {
+        public Builder addParticipant(String participant) {
             checkAttenders();
-            attenders.add(attender);
+            attenders.add(participant);
             return this;
         }
 
-        public Builder removeAttender(String attender) {
+        public Builder removeParticipant(String participant) {
             checkAttenders();
-            attenders.remove(attender);
+            attenders.remove(participant);
             return this;
         }
 
-        public Builder addAttender(String attender, OperationResult resultAdd) {
+        public Builder addParticipant(String participant, OperationResult resultAdd) {
             checkAttenders();
-            resultAdd.setResult(attenders.add(attender));
+            resultAdd.setResult(attenders.add(participant));
             return this;
         }
 
-        public Builder removeAttender(String attender, OperationResult resultRemove) {
+        public Builder removeParticipant(String participant, OperationResult resultRemove) {
             checkAttenders();
-            resultRemove.setResult(attenders.remove(attender));
+            resultRemove.setResult(attenders.remove(participant));
             return this;
         }
 
@@ -163,12 +164,13 @@ public class Event {
         public Event build() throws IncorrectPeriodDates {
 
             if ((dateBegin == null | dateEnd == null) || (dateBegin.compareTo(dateEnd) > 0)) {
-                 throw new IncorrectPeriodDates("Date begin can't be greater than date end");
+                 throw new IncorrectPeriodDates();
             }
 
             return new Event(this);
         }
 
+        public abstract Builder setUid(UUID uuid);
     }
 
     public class OperationResult {
