@@ -19,6 +19,7 @@ public interface DataStore {
     void add(Event event);
     void addAll(Collection<Event> events);
     void remove(UUID id);
+    Map<UUID, Event> getEventsMap();
     List<Event> searchByDescription(String description);
     List<Event> searchByTitle(String title);
     List<Event> searchByDay(Date day);

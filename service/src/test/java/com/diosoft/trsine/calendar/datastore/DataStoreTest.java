@@ -1,7 +1,7 @@
 package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
-import com.diosoft.trsine.calendar.common.TestEventChield;
+//import com.diosoft.trsine.calendar.common.TestEventChield;
 import com.diosoft.trsine.calendar.comparison.ComparatorDateBegin;
 import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
 import com.diosoft.trsine.calendar.service.CalendarServiceImp;
@@ -12,50 +12,64 @@ import java.util.*;
 
 public class DataStoreTest {
 
+    OrganizerUtil util = new OrganizerUtil();
+
     @Test
     public void testDataStore() throws IncorrectPeriodDates {
 
-//        Event testEvent = new Event.Builder() {
-//            @Override
-//            public Set newSet() {
-//                return new HashSet<String>();
-//            }
-//        }//end of Builder implementation
-//                .setDateBegin(new Date())
-//                .setDateEnd(new Date())
-//                .setTitle("Daily Scrum")
-//                .setDescription("Next daily scrum meeting")
-//                .addAttender("alex@zamkovyi.name")
-//                .addAttender("igor.vartanian@gmail.com")
-//                .build();
-//
-//        DataStore dataStore = new DataStoreImp();
-//        CalendarServiceImp service = new CalendarServiceImp(dataStore);
-//        service.add(testEvent);
+        DataStore ds = new DataStoreImp();
+
+        Set<String> attenders = util.createAttenders(5, "user");
+        Date date = new GregorianCalendar(2014, 10, 12, 10, 0, 0).getTime();
+
+        Map<UUID, Event> currentDataStore = ds.getEventsMap();
+
+        //resultHelpMap
+        Map<UUID, Event> resultHelpMap = new HashMap<>();
 
 
-        Event.Builder builder = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com");
-        Event testEvent = builder.build();
+        //add
+        for (int i = 0; i < 3; i++) {
+            Event eventAdd = util.createEvent(i, date, date, String.valueOf(i) + "_" + "Event",
+                    String.valueOf(i) + "_" + "DescriptionEvent", attenders);
+            ds.add(eventAdd);
+            resultHelpMap.put(eventAdd.getId(), eventAdd);
+        }
+        currentDataStore = ds.getEventsMap();
+        Assert.assertEquals(resultHelpMap, currentDataStore);
 
-        DataStore dataStore = new DataStoreImp();
-        CalendarServiceImp service = new CalendarServiceImp(dataStore);
-        service.add(testEvent);
-        TestEventChield testEvent2 = new TestEventChield(builder);
+        //remove
+//        currentDataStore.
+//        resultHelpMap.remove();
+//        ds.remove(eventRemove.getId());
 
+        //addAll
+        HashSet<Event> hashEvents = new HashSet<>();
+        for (int i = 3; i < 7; i++) {
+            Event eventAddAll = util.createEvent(i, date, date, String.valueOf(i) + "_" + "Event",
+                    String.valueOf(i) + "_" + "DescriptionEvent", attenders);
+            hashEvents.add(eventAddAll);
+        }
+        ds.addAll(hashEvents);
 
-        ComparatorDateBegin compar = new ComparatorDateBegin();
-        compar.compare(testEvent, testEvent2);
+        //searchByDescription
+        List<Event> resultSearchByDescription = new ArrayList<>();
+        resultSearchByDescription.add(util.createEvent(3, date, date, String.valueOf(3) + "_" + "Event",
+                String.valueOf(3) + "_" + "DescriptionEvent", attenders));
+        resultSearchByDescription.add(util.createEvent(3, date, date, String.valueOf(3) + "_" + "Event",
+                String.valueOf(3) + "_" + "DescriptionEvent", attenders));
+
+        List<Event> searchByDescription = ds.searchByDescription("3_DescriptionEvent");
+        Assert.assertEquals(resultSearchByDescription, searchByDescription);
+
+        //searchByTitle
+        List<Event> resultSearchByTitle = new ArrayList<>();
+        resultSearchByTitle.add(util.createEvent(2, date, date, String.valueOf(2) + "_" + "Event",
+                String.valueOf(2) + "_" + "DescriptionEvent", attenders));
+
+        List<Event> searchDescription = ds.searchByDescription("2_DescriptionEvent");
+        Assert.assertEquals(resultSearchByDescription, searchDescription);
+
 
 
 

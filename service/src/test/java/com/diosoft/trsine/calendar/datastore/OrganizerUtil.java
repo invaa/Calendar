@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class OrganizerUtil {
 
-    public Event createEvent(int numberEvents, Date dateBegin, Date dateEnd, String title, String description, List attenders) throws IncorrectPeriodDates {
+    public Event createEvent(int prefix, Date dateBegin, Date dateEnd, String title, String description, Set<String> attenders) throws IncorrectPeriodDates {
 
         Event event = new Event.Builder() {
             @Override
@@ -18,12 +18,11 @@ public class OrganizerUtil {
                 return new HashSet<String>();
             }
         }//end of Builder implementation
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
+                .setDateBegin(dateBegin)
+                .setDateEnd(dateEnd)
+                .setTitle(String.valueOf(prefix) + "_" + title)
+                .setDescription(String.valueOf(prefix) + "_" + description)
+                .setAttenders(attenders)
                 .build();
 
         return event;
@@ -31,13 +30,13 @@ public class OrganizerUtil {
     }
 
 
-    public List createAttenders(int numberAttenders, String attender) throws IncorrectPeriodDates {
+    public Set<String> createAttenders(int numberAttenders, String attender) throws IncorrectPeriodDates {
 
         if (numberAttenders <= 0){
             return null;
         }
 
-        ArrayList attenders = new ArrayList();
+        HashSet<String> attenders = new HashSet<>();
 
         for (int i = 0; i <= numberAttenders; i++) {
             attenders.add(String.valueOf(i) + "_" + attender);

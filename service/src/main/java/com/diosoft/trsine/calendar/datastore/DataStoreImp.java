@@ -20,13 +20,7 @@ public class DataStoreImp implements DataStore {
     private Map<Date, List<UUID>> daysMap = new HashMap<>();
     private Map<String, List<UUID>> descriptionsMap = new HashMap<>();
 
-//    public DataStoreImp(Map typeStore) {
-//        this.eventsMap = typeStore;
-//        this.titlesMap = typeStore;
-//        this.daysMap = typeStore;
-//        this.descriptionsMap = typeStore;
-//    }
-
+    @Override
     public Map<UUID, Event> getEventsMap() {
         return eventsMap;
     }
