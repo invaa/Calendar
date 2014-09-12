@@ -12,7 +12,7 @@ import java.util.*;
  * @since 1.8
  */
 
-public class HashMapDataStoreImp implements DataStore {
+public class HashMapDataStoreImp implements DataStore<Map> {
 
     private Map<UUID, Event> eventsMap = new HashMap<>();
 
@@ -20,10 +20,7 @@ public class HashMapDataStoreImp implements DataStore {
     private Map<Date, List<UUID>> daysMap = new HashMap<>();
     private Map<String, List<UUID>> descriptionsMap = new HashMap<>();
 
-    @Override
-    public Map<UUID, Event> getEventsMap() {
-        return eventsMap;
-    }
+
 
     @Override
     public void add(Event event) {
@@ -108,6 +105,11 @@ public class HashMapDataStoreImp implements DataStore {
         removeIndexDescription(event);
 
 
+    }
+
+    @Override
+    public Map getDataStore() {
+        return eventsMap;
     }
 
     private void removeIndexDescription(Event event) {

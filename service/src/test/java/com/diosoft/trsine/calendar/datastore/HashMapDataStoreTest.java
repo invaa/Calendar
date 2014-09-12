@@ -100,7 +100,7 @@ public class HashMapDataStoreTest {
     @Test(timeout = 10)
     public void testAddDataStore() {
 
-        currentDataStore = ds.getEventsMap();
+        currentDataStore = ds.getDataStore();
         Assert.assertEquals(resultHelpMap, currentDataStore);
 
     }
@@ -109,7 +109,7 @@ public class HashMapDataStoreTest {
     public void testAddAllDataStore() {
 
         ds.addAll(hashEvents);
-        currentDataStore = ds.getEventsMap();
+        currentDataStore = ds.getDataStore();
         Assert.assertEquals(resultHelpMap, currentDataStore);
 
     }
@@ -119,7 +119,7 @@ public class HashMapDataStoreTest {
 
         ds.remove(rememberEvent.getId());
         resultHelpMap.remove(rememberEvent.getId());
-        currentDataStore = ds.getEventsMap();
+        currentDataStore = ds.getDataStore();
         Assert.assertEquals(resultHelpMap, currentDataStore);
 
     }

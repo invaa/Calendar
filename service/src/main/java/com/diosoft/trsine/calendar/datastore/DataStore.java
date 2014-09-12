@@ -11,15 +11,12 @@ import java.util.*;
  * @since 1.5
  */
 
-public interface DataStore {
-//    Map<UUID,Event>
-//    Map<String, List<UUID>>
-//    Map<Date, List<UUID>>
+public interface DataStore<K extends Map> {
 
     void add(Event event);
     void addAll(Collection<Event> events);
     void remove(UUID id);
-    Map<UUID, Event> getEventsMap();
+    K getDataStore();
     List<Event> searchByDescription(String description);
     List<Event> searchByTitle(String title);
     List<Event> searchByDay(Date day);
