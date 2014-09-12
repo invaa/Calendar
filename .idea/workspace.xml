@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f8a5f82-6f94-4a34-abca-cea1086596e3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/TestEventChield.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/OrganizerUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java" afterPath="$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SampleProject.iws" />
@@ -31,18 +30,8 @@
       <file leaf-file-name="Event.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="24" max-vertical-offset="3580">
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="3043">
               <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cloner.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/uk/com/robust-it/cloning/1.9.0/cloning-1.9.0.jar!/com/rits/cloning/Cloner.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1420" max-vertical-offset="2120">
-              <caret line="71" column="17" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -51,7 +40,7 @@
       <file leaf-file-name="DataStoreImp.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/datastore/DataStoreImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3640">
+            <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="3162">
               <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
               <folding />
             </state>
@@ -61,7 +50,7 @@
       <file leaf-file-name="Collections.java" pinned="false" current="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_11/src.zip!/java/util/Collections.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="61820" max-vertical-offset="112580">
+            <state vertical-scroll-proportion="0.0" vertical-offset="52547" max-vertical-offset="95693">
               <caret line="3091" column="18" selection-start-line="3091" selection-start-column="18" selection-end-line="3091" selection-end-column="18" />
               <folding />
             </state>
@@ -71,7 +60,7 @@
       <file leaf-file-name="Class.java" pinned="false" current="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_11/src.zip!/java/lang/Class.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2360" max-vertical-offset="70660">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2006" max-vertical-offset="60061">
               <caret line="118" column="19" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
               <folding />
             </state>
@@ -81,7 +70,7 @@
       <file leaf-file-name="ArrayListDataStore.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/datastore/ArrayListDataStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="400" max-vertical-offset="1100">
+            <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1054">
               <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
               <folding />
             </state>
@@ -91,11 +80,9 @@
       <file leaf-file-name="ComparatorDateBegin.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/comparison/ComparatorDateBegin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4" max-vertical-offset="820">
+            <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="697">
               <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -103,19 +90,31 @@
       <file leaf-file-name="CalendarServiceImp.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/service/CalendarServiceImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1220">
+            <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1037">
               <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataStoreTest.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DataStoreTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55857384" vertical-offset="611" max-vertical-offset="1200">
-              <caret line="57" column="44" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="231" max-vertical-offset="1037">
+              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrganizerUtil.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/OrganizerUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5483871" vertical-offset="0" max-vertical-offset="918">
+              <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,12 +122,9 @@
       <file leaf-file-name="TestEventChield.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/TestEventChield.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="400">
+            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="340">
               <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-              <folding>
-                <element signature="e#203#204#0" expanded="true" />
-                <element signature="e#233#234#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -171,8 +167,9 @@
         <option value="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/comparison/Compare.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/comparison/ComparatorDateBegin.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/TestEventChield.java" />
-        <option value="$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java" />
+        <option value="$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java" />
+        <option value="$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/OrganizerUtil.java" />
       </list>
     </option>
   </component>
@@ -189,8 +186,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="width" value="1696" />
+    <option name="height" value="984" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -220,8 +217,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -938,6 +935,7 @@
       <workItem from="1410376715703" duration="2408000" />
       <workItem from="1410379963496" duration="5495000" />
       <workItem from="1410388113320" duration="1157000" />
+      <workItem from="1410531929498" duration="1018000" />
     </task>
     <task id="LOCAL-00001" summary="workspace">
       <created>1410209211023</created>
@@ -963,10 +961,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49846000" />
+    <option name="totallyTimeSpent" value="50864000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1696" height="984" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -982,19 +980,19 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282532" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232705" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25402635" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25396827" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32232705" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1028,14 +1026,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1880" max-vertical-offset="4020">
-          <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/src/test/java/nonunittests/EventTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="980">
@@ -1354,7 +1344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3313433" vertical-offset="3589" max-vertical-offset="23260">
           <caret line="211" column="6" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1394,10 +1383,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="400">
           <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding>
-            <element signature="e#203#204#0" expanded="true" />
-            <element signature="e#233#234#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1405,9 +1391,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4" max-vertical-offset="820">
           <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="231" max-vertical-offset="1037">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1419,11 +1411,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/DataStoreTest.java">
+    <entry file="file://$PROJECT_DIR$/service/src/test/java/com/diosoft/trsine/calendar/datastore/OrganizerUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55857384" vertical-offset="611" max-vertical-offset="1200">
-          <caret line="57" column="44" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
-          <folding />
+        <state vertical-scroll-proportion="0.5483871" vertical-offset="0" max-vertical-offset="918">
+          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
