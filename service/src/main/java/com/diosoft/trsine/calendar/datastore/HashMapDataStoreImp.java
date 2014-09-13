@@ -21,7 +21,6 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
     private Map<String, List<UUID>> descriptionsMap = new HashMap<>();
 
 
-
     @Override
     public void add(Event event) {
 
@@ -118,7 +117,11 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
         if (!descriptionsMap.containsKey(keyDescription)) {
             return;
         }
-        descriptionsMap.remove(keyDescription);
+        List<UUID> resultList = descriptionsMap.get(keyDescription);
+        if (!checkedResult(event, resultList)) {
+            descriptionsMap.remove(keyDescription);
+        }
+
     }
 
     private void removeIndexDateBegin(Event event) {
@@ -126,7 +129,11 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
         if (!daysMap.containsKey(keyDate)) {
             return;
         }
-        daysMap.remove(keyDate);
+        List<UUID> resultList = daysMap.get(keyDate);
+        if (!checkedResult(event, resultList)) {
+            daysMap.remove(keyDate);
+        }
+
     }
 
     private void removeIndexTitle(Event event) {
@@ -134,7 +141,25 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
         if (!titlesMap.containsKey(keyTitle)) {
             return;
         }
-        titlesMap.remove(keyTitle);
+        List<UUID> resultList = titlesMap.get(keyTitle);
+        if (!checkedResult(event, resultList)) {
+            titlesMap.remove(keyTitle);
+        }
+
+    }
+
+    private boolean checkedResult(Event event, List<UUID> resultList) {
+        if (resultList == null) {
+            return true;
+        }
+        boolean containsData = resultList.contains(event.getId());
+        if (resultList.size() > 1 && containsData) {
+            resultList.remove(event.getId());
+            return true;
+        } else if (resultList.size() > 1) {
+            return true;
+        }
+        return false;
     }
 
     @Override

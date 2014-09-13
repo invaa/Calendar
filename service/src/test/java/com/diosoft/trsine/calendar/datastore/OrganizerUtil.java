@@ -46,4 +46,12 @@ public class OrganizerUtil {
 
     }
 
+    public Date createDate(int year, int month, int day, int hours, int minutes, int seconds){
+        return new GregorianCalendar(year, month, day, hours, minutes, seconds).getTime();
+    }
+
+    public Date createDate(int year, int month, int day){
+        return createDate(year, month, day, 0, 0, 0);
+    }
+
 }

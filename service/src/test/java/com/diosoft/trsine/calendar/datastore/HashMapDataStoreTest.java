@@ -48,11 +48,11 @@ public class HashMapDataStoreTest {
 
         Set<String> attenders = util.createAttenders(10, "User");
 
-        eventAdd0 = util.createEvent(0, date, date, "Event", "DescriptionEvent", attenders);
-        eventAdd1 = util.createEvent(1, date, date, "Event", "DescriptionEvent", attenders);
-        eventAdd2 = util.createEvent(2, date, date, "Event", "DescriptionEvent", attenders);
-        eventAdd3 = util.createEvent(1, date, date, "Event", "DescriptionEvent", attenders);
-        eventAdd4 = util.createEvent(3, date, date, "Event", "DescriptionEvent", attenders);
+        eventAdd0 = util.createEvent(0, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
+        eventAdd1 = util.createEvent(1, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
+        eventAdd2 = util.createEvent(2, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
+        eventAdd3 = util.createEvent(1, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
+        eventAdd4 = util.createEvent(3, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
         eventAddNull = null;
 
     }
@@ -104,9 +104,11 @@ public class HashMapDataStoreTest {
         ds.add(eventAdd0);
         ds.add(eventAdd1);
         ds.add(eventAdd2);
+        ds.add(eventAdd3);
 
         resultHelpMap.put(eventAdd0.getId(), eventAdd0);
         resultHelpMap.put(eventAdd2.getId(), eventAdd2);
+        resultHelpMap.put(eventAdd3.getId(), eventAdd3);
 
         ds.remove(eventAdd1.getId());
         currentDataStore = ds.getDataStore();
