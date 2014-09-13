@@ -8,18 +8,23 @@ import java.util.*;
 
 public class HashMapDataStoreTest {
 
-    int indexTest = 2;
-
+    //help util
     OrganizerUtil util = new OrganizerUtil();
-    DataStore dsAdd = new HashMapDataStoreImp();
-    DataStore dsAddAll = new HashMapDataStoreImp();
+
+    //dataStore
+    HashMapDataStoreImp ds = new HashMapDataStoreImp();
+
+    //events
+    Event eventAdd0;
+    Event eventAdd1;
+    Event eventAdd2;
+    Event eventAdd3;
+    Event eventAdd4;
+    Event eventAddNull;
+
 
     //expectedHelpMap
-    Map<UUID, Event> resultHelpMapAdd = new HashMap<>();
-    Map<UUID, Event> resultHelpMapAddAll = new HashMap<>();
-
-    //this event will be remove, search
-    Event rememberEvent;
+    Map<UUID, Event> resultHelpMap = new HashMap<>();
 
     //current data in store
     Map<UUID, Event> currentDataStore;
@@ -28,13 +33,13 @@ public class HashMapDataStoreTest {
     HashSet<Event> hashEvents = new HashSet<>();
 
     //result searchByDescription
-    List<Event> resultSearchByDescription;
+    List<Event> resultSearchByDescription = new ArrayList<>();
 
     //result searchByTitle
-    List<Event> resultSearchByTitle;
+    List<Event> resultSearchByTitle = new ArrayList<>();
 
     //result searchByDate
-    List<Event> resultSearchByDate;
+    List<Event> resultSearchByDate = new ArrayList<>();
 
     @Before
     public void fillData() throws IncorrectPeriodDates {
@@ -43,132 +48,121 @@ public class HashMapDataStoreTest {
 
         Set<String> attenders = util.createAttenders(10, "User");
 
-        Event eventAdd0 = util.createEvent(0, date, date, "Event", "DescriptionEvent", attenders);
-        Event eventAdd1 = util.createEvent(1, date, date, "Event", "DescriptionEvent", attenders);
-        Event eventAdd2 = util.createEvent(2, date, date, "Event", "DescriptionEvent", attenders);
-        Event eventAdd3 = util.createEvent(1, date, date, "Event", "DescriptionEvent", attenders);
-        Event eventAdd4 = util.createEvent(3, date, date, "Event", "DescriptionEvent", attenders);
-        Event eventAdd5 = util.createEvent(4, date, date, "Event", "DescriptionEvent", attenders);
+        eventAdd0 = util.createEvent(0, date, date, "Event", "DescriptionEvent", attenders);
+        eventAdd1 = util.createEvent(1, date, date, "Event", "DescriptionEvent", attenders);
+        eventAdd2 = util.createEvent(2, date, date, "Event", "DescriptionEvent", attenders);
+        eventAdd3 = util.createEvent(1, date, date, "Event", "DescriptionEvent", attenders);
+        eventAdd4 = util.createEvent(3, date, date, "Event", "DescriptionEvent", attenders);
+        eventAddNull = null;
 
-        //data for Add
-        for (int i = 0; i < 2; i++) {
-            Event eventAdd = util.createEvent(i, date, date, "Event", "DescriptionEvent", attenders);
-            resultHelpMapAdd.put(eventAdd.getId(), eventAdd);
-            dsAdd.add(eventAdd);
-            if (i == indexTest) {
-                rememberEvent = eventAdd;
-            }
-            addResultSearch(date, eventAdd);
-
-        }
-
-        //data for addAll
-        for (int i = 0; i < 1; i++) {
-
-            Event eventAddAll = util.createEvent(i, date, date, "Event", "DescriptionEvent", attenders);
-            hashEvents.add(eventAddAll);
-            resultHelpMapAddAll.put(eventAddAll.getId(), eventAddAll);
-
-            addResultSearch(date, eventAddAll);
-
-        }
-
-    }
-
-    private void addResultSearch(Date date, Event eventAdd) {
-
-        //expected SearchByDescription
-        if (eventAdd.getDescription() == String.valueOf(indexTest) + "_" + "DescriptionEvent") {
-            if (resultSearchByDescription == null) {
-                resultSearchByDescription = new ArrayList<>();
-            }
-
-            resultSearchByDescription.add(eventAdd);
-        }
-        //expected SearchByTitle
-        if (eventAdd.getTitle() == String.valueOf(indexTest) + "_" + "Event") {
-            if (resultSearchByTitle == null) {
-                resultSearchByTitle = new ArrayList<>();
-            }
-            resultSearchByTitle.add(eventAdd);
-        }
-        //expected SearchByDate
-        if (eventAdd.getDateBegin() == date) {
-            if (resultSearchByDate == null) {
-                resultSearchByDate = new ArrayList<>();
-            }
-
-            resultSearchByDate.add(eventAdd);
-        }
     }
 
     @After
     public void clearData() {
-        dsAdd = new HashMapDataStoreImp();
-        dsAddAll = new HashMapDataStoreImp();
-        resultHelpMapAdd = new HashMap<>();
-        resultHelpMapAddAll = new HashMap<>();
+        ds = new HashMapDataStoreImp();
+        resultHelpMap = new HashMap<>();
     }
 
-    @Test(timeout = 1000)
-    public void testAddDataStore() {
+    @Test
+    public void testDataStoreAdd() {
 
-        currentDataStore = dsAdd.getDataStore();
-        Assert.assertEquals(resultHelpMapAdd, currentDataStore);
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
 
-    }
+        resultHelpMap.put(eventAdd0.getId(), eventAdd0);
+        resultHelpMap.put(eventAdd1.getId(), eventAdd1);
 
-    @Test(timeout = 5000)
-    public void testAddAllDataStore() {
-
-        dsAddAll.addAll(hashEvents);
-        currentDataStore = dsAddAll.getDataStore();
-        Assert.assertEquals(resultHelpMapAddAll, currentDataStore);
+        currentDataStore = ds.getDataStore();
+        Assert.assertEquals(resultHelpMap, currentDataStore);
 
     }
 
-    @Ignore
-    @Test(timeout = 1000)
-    public void testRemoveDataStore() {
+    @Test
+    public void testDataStoreAddAll() {
 
-        if (rememberEvent == null){
-            Assert
-        }
+        hashEvents.add(eventAdd0);
+        hashEvents.add(eventAdd1);
+        hashEvents.add(eventAdd2);
+        hashEvents.add(eventAdd3);
+        hashEvents.add(eventAdd4);
 
-        dsAdd.remove(rememberEvent.getId());
-        resultHelpMapAdd.remove(rememberEvent.getId());
-        currentDataStore = dsAdd.getDataStore();
-        Assert.assertEquals(resultHelpMapAdd, currentDataStore);
+        resultHelpMap.put(eventAdd0.getId(), eventAdd0);
+        resultHelpMap.put(eventAdd1.getId(), eventAdd1);
+        resultHelpMap.put(eventAdd2.getId(), eventAdd2);
+        resultHelpMap.put(eventAdd3.getId(), eventAdd3);
+        resultHelpMap.put(eventAdd4.getId(), eventAdd4);
 
-    }
-
-    @Test(timeout = 1000)
-    public void testSearchByDescriptionDataStore() {
-
-        List<Event> searchByDescription = dsAdd.searchByDescription(String.valueOf(indexTest) + "_" + "DescriptionEvent");
-        if (resultSearchByDescription == null) {
-            Assert.assertTrue(resultSearchByDescription == searchByDescription);
-        }else{
-            Assert.assertEquals(resultSearchByDescription, searchByDescription);
-        }
-
+        ds.addAll(hashEvents);
+        currentDataStore = ds.getDataStore();
+        Assert.assertEquals(resultHelpMap, currentDataStore);
 
     }
 
-    @Test(timeout = 1000)
+    @Test
+    public void testDataStoreRemove() {
+
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+
+        resultHelpMap.put(eventAdd0.getId(), eventAdd0);
+        resultHelpMap.put(eventAdd2.getId(), eventAdd2);
+
+        ds.remove(eventAdd1.getId());
+        currentDataStore = ds.getDataStore();
+        Assert.assertEquals(resultHelpMap, currentDataStore);
+
+    }
+
+    @Test
+    public void testDataStoreSearchByDescription() {
+
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+        ds.add(eventAdd3);
+        ds.add(eventAdd4);
+
+        resultSearchByDescription.add(eventAdd2);
+
+        List<Event> currentResult = ds.searchByDescription(eventAdd2.getDescription());
+        Assert.assertEquals(resultSearchByDescription, currentResult);
+
+    }
+
+    @Test
     public void testSearchByTitleDataStore() {
 
-        List<Event> resultSearchByTitle = dsAdd.searchByTitle(String.valueOf(indexTest) + "_" + "Event");
-        Assert.assertEquals(resultSearchByTitle, resultSearchByTitle);
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+        ds.add(eventAdd3);
+        ds.add(eventAdd4);
+
+        resultSearchByTitle.add(eventAdd2);
+
+        List<Event> currentResult = ds.searchByTitle(eventAdd2.getTitle());
+        Assert.assertEquals(resultSearchByTitle, currentResult);
 
     }
 
-    @Test(timeout = 1000)
+    @Test
     public void testSearchByDateDataStore() {
 
-        Date dateSearch = new GregorianCalendar(2014, 10, 12, 10, 0, 0).getTime();
-        List<Event> resultSearchByDate = dsAdd.searchByDay(dateSearch);
-        Assert.assertEquals(resultSearchByDate, resultSearchByDate);
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+        ds.add(eventAdd3);
+        ds.add(eventAdd4);
+
+        resultSearchByDate.add(eventAdd0);
+        resultSearchByDate.add(eventAdd1);
+        resultSearchByDate.add(eventAdd2);
+        resultSearchByDate.add(eventAdd3);
+        resultSearchByDate.add(eventAdd4);
+
+        List<Event> currentResult = ds.searchByDay(eventAdd2.getDateBegin());
+        Assert.assertEquals(resultSearchByDate, currentResult);
 
     }
 

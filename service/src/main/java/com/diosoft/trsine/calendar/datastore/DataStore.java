@@ -11,7 +11,7 @@ import java.util.*;
  * @since 1.5
  */
 
-public interface DataStore<K extends Map> {
+public interface DataStore<K> {
 
     void add(Event event);
     void addAll(Collection<Event> events);
