@@ -199,12 +199,12 @@ public class Event implements Comparable<Event> {
         }
 
         public Builder setDateBegin(Date dateBegin) {
-            this.dateBegin = dateBegin;
+            this.dateBegin = dateBegin == null ? null : new Date(dateBegin.getTime());
             return this;
         }
 
         public Builder setDateEnd(Date dateEnd) {
-            this.dateEnd = dateEnd;
+            this.dateEnd = dateEnd == null ? null : new Date(dateEnd.getTime());
             return this;
         }
 
@@ -265,15 +265,10 @@ public class Event implements Comparable<Event> {
         /**
          * Lazy instantiation of attenders set using abstract method <code>newSet()</code>
          */
-        private void checkAttenders() {
-            if (this.attenders == null) {
-                synchronized (this) {
-                    if (this.attenders == null) {
-                        this.attenders = newSet();
-                    }
-                } //end if
-            }
-            //end if
+        private synchronized void checkAttenders() {
+               if (this.attenders == null) {
+                    this.attenders = newSet();
+               } //end if
         }
 
         /**
@@ -292,11 +287,11 @@ public class Event implements Comparable<Event> {
         public Event build() throws IdIsNullException, DateIntervalIsIncorrectException {
 
             if (id == null) {
-                throw new IdIsNullException();
+                throw new IdIsNullException("Event id could not be null");
             } //end if
 
             if (dateBegin == null || (dateEnd != null && dateBegin.compareTo(dateEnd) > 0)) {
-                throw new DateIntervalIsIncorrectException();
+                throw new DateIntervalIsIncorrectException("Either left date is null, or left date is greater than right date");
             } //end if
 
             return new Event(this);
@@ -325,6 +320,7 @@ public class Event implements Comparable<Event> {
     /**
      * Helper that helps to return Set add() and remove() operation results by reference
      */
+
     public class OperationResult {
 
         @SuppressWarnings("unused")

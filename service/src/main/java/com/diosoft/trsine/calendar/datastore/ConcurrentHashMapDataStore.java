@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * as <code>ConcurrentHashMap</code>s to optimize access speed
  * implement method <code>newSet()</code> to instantiate <code>Set</code> of <code>UUID</code>s
  *
- * @author  Alexander Zamkovyi
+ * @author  Alexander Zamkovyi, Igor Vartanian
  * @version 1.0
  * @since 1.0
 */
@@ -47,7 +47,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     @Override
     public void add(Event event) {
         UUID eventId = event.getId();
-        eventsMap.putIfAbsent(eventId, event);
+        Event oldEvent = eventsMap.putIfAbsent(eventId, event);
 
         //rebuild indexes
         rebuildIndexOnAdd(titlesMap, event.getTitle(), eventId);
@@ -61,15 +61,16 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
      * @param key index map key that needs an update
      * @param eventId id to be added to index map
      */
-    private void rebuildIndexOnAdd(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key, UUID eventId) {
-        Set<UUID> currentSet;
-        currentSet = indexMap.get(key);
-        if (currentSet == null) {
-            currentSet = newUUIDSet();
-            currentSet.add(eventId);
-            indexMap.put(key, currentSet);
+    private synchronized void rebuildIndexOnAdd(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key, UUID eventId) {
+        Set<UUID> uuidSet;
+        uuidSet = indexMap.get(key);
+        if (uuidSet == null) {
+            uuidSet = newUUIDSet();
+
+            uuidSet.add(eventId);
+            uuidSet = indexMap.putIfAbsent(key, uuidSet);
         } else {
-            currentSet.add(eventId);
+            uuidSet.add(eventId);
         } //end if
     }
 
@@ -80,11 +81,18 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
      * @param eventId id to be removed from the index map
      */
     private void rebuildIndexOnRemove(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key, UUID eventId) {
-        Set<UUID> currentSet;
-        currentSet = indexMap.get(key);
-        if (currentSet != null) {
-            indexMap.remove(eventId);
-            currentSet.remove(eventId);
+        if (!indexMap.containsKey(key)) {
+            //nothing to do
+            return;
+        } //end if
+
+        Set<UUID> uuidSet;
+        uuidSet = indexMap.get(key);
+        if (uuidSet != null) {
+            uuidSet.remove(eventId);
+                if (uuidSet.size() == 0) {
+                    indexMap.remove(key);
+                } //end if
         } //end if
     }
 
@@ -103,6 +111,11 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
      */
     @Override
     public void remove(UUID id) {
+        if (!eventsMap.containsKey(id)) {
+            //nothing to remove
+            return;
+        }  //end if
+
         Event event = eventsMap.get(id);
         if (event == null) {
             //Nothing to do here

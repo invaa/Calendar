@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Contract of Calendar service
+ * Contract of Calendar serviceю.
  *
  * @author  Vasyl Tegza
  * @version 1.0
@@ -17,39 +17,41 @@ import java.util.UUID;
 
 public interface CalendarService {
     /**
-     * Adds <code>Event</code> to calendar service
+     * Adds <code>Event</code> to calendar service.
      * @param event to be added
      */
     void add(Event event);
     /**
-     * Adds the <code>Event</code> collection to calendar service
+     * Adds the <code>Event</code> collection to calendar service.
      * @param events to be added
      */
     void addAll(Collection<Event> events);
     /**
-     * Removes the <code>Event</code> from calendar service
+     * Removes the <code>Event</code> from calendar service.
      * @param id of <code>Event</code>
      */
     void remove(UUID id);
-    /** Search for all <code>Event</code> in calendar service by given description
+    /** Search for all <code>Event</code> in calendar service by description.
      *
      * @param description to search by
      * @return the list of <code>Event</code>s
      */
     List<Event> searchByDescription(String description);
-    /** Search for all <code>Event</code> in calendar service by given title
+    /** Search for all <code>Event</code> in calendar service by title.
      *
      * @param title to search by
      * @return the list of <code>Event</code>s
      */
     List<Event> searchByTitle(String title);
-    /** Search for all <code>Event</code> in calendar service by given date of begining
+    /** Search for all <code>Event</code> in calendar service
+     * by given date of begining.
      *
      * @param day date of begining to search by
      * @return the list of <code>Event</code>s
      */
     List<Event> searchByDay(Date day);
-    /** Search for all <code>Event</code> in calendar service by given date of begining interval
+    /** Search for all <code>Event</code> in calendar service
+     * by given date of begining interval.
      *
      * @param leftDate date of begining to search by
      * @param rightDate date of begining to search by

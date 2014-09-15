@@ -1,7 +1,7 @@
 package com.diosoft.trsine.calendar.exceptions;
 
 /**
- * Checked exception throwing when id is null
+ * Checked exception throwing when id is null.
  *
  * @author  Alexander Zamkovyi
  * @version 1.0
@@ -9,8 +9,15 @@ package com.diosoft.trsine.calendar.exceptions;
  */
 
 public class IdIsNullException extends Exception {
-    @Override
-    public String getMessage() {
-        return "Event id could not be null";
+    /** Noargument constructor.
+     *
+     */
+    public IdIsNullException() { }
+
+    /** Constructor with message.
+     * @param message Message to throw
+     */
+    public IdIsNullException(final String message) {
+        super(message);
     }
 }
