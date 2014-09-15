@@ -5,6 +5,16 @@ import com.diosoft.trsine.calendar.common.Event;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Implements <code>DataStore</code> interface
+ * Stores <code>Event</code>s as ArrayList.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
+ */
+
+@SuppressWarnings("unused")
 public class ArrayListDataStore implements DataStore {
 
     ArrayList<Event> events = new ArrayList<>();
@@ -43,6 +53,14 @@ public class ArrayListDataStore implements DataStore {
     public List<Event> searchByDay(Date day) {
         return events.parallelStream()
                 .filter(p -> p.getDateBegin().equals(day))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Event> searchByInterval(Date leftDate, Date rightDate) {
+        return events.parallelStream()
+                .filter(p -> p.getDateBegin().compareTo(leftDate) >= 0
+                        && p.getDateBegin().compareTo(rightDate) <= 0 )
                 .collect(Collectors.toList());
     }
 }
