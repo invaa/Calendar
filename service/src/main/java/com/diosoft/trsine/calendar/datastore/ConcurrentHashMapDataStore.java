@@ -10,7 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implements <code>DataStore</code> interface
  * Stores <code>Event</code>s, event descriptions, titles and begin dates
  * as <code>ConcurrentHashMap</code>s to optimize access speed
- * implement method <code>newSet()</code> to instantiate <code>Set</code> of <code>UUID</code>s
+ * implement method <code>newSet()</code>
+ * to instantiate <code>Set</code> of <code>UUID</code>s.
  *
  * @author  Alexander Zamkovyi, Igor Vartanian
  * @version 1.0
@@ -27,27 +28,28 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     ConcurrentHashMap<Object, Set<UUID>> descriptionsMap = new ConcurrentHashMap<>();
 
     /**
-     * method to instantiate the <code>Set</code> of UUIDs
+     * method to instantiate the <code>Set</code> of UUIDs.
      *
      * @return <code>Set</code> of <code>UUID</code>s
      */
     abstract public Set<UUID> newUUIDSet();
 
     /**
-     * method to instantiate the <code>List</code> of Events
+     * method to instantiate the <code>List</code> of Events.
      *
      * @return <code>Set</code> of <code>Event</code>s
      */
     abstract public List<Event> newResultList();
 
     /**
-     * Adds <code>Event</code> to data store
+     * Adds <code>Event</code> to data store.
      * @param event to be added
      */
     @Override
-    public void add(Event event) {
+    public void add(final Event event) {
         UUID eventId = event.getId();
-        Event oldEvent = eventsMap.putIfAbsent(eventId, event);
+        @SuppressWarnings("unused")
+        Event actualEvent = eventsMap.putIfAbsent(eventId, event);
 
         //rebuild indexes
         rebuildIndexOnAdd(titlesMap, event.getTitle(), eventId);
@@ -55,26 +57,30 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         rebuildIndexOnAdd(descriptionsMap, event.getDescription(), eventId);
     }
 
-    /** Rebuilds HashMaps intended to optimize search operations after new Event added
+    /** Rebuilds HashMaps intended to optimize search operations
+     * after new Event added.
      *
      * @param indexMap index map to be updated
      * @param key index map key that needs an update
      * @param eventId id to be added to index map
      */
     private synchronized void rebuildIndexOnAdd(ConcurrentHashMap<Object, Set<UUID>> indexMap, Object key, UUID eventId) {
-        Set<UUID> uuidSet;
-        uuidSet = indexMap.get(key);
+        Set<UUID> uuidSet = indexMap.get(key);
         if (uuidSet == null) {
-            uuidSet = newUUIDSet();
+            final Set<UUID> value = newUUIDSet();
 
+            uuidSet = indexMap.putIfAbsent(key, value);
+            if (uuidSet == null) {
+                uuidSet = value;
+            } //end if
             uuidSet.add(eventId);
-            uuidSet = indexMap.putIfAbsent(key, uuidSet);
         } else {
             uuidSet.add(eventId);
         } //end if
     }
 
-    /** Rebuilds HashMaps intended to optimize search operations after Event was removed
+    /** Rebuilds HashMaps intended to optimize search operations
+     * after Event was removed.
      *
      * @param indexMap index map to be updated
      * @param key index map key that needs an update
@@ -97,7 +103,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     }
 
     /**
-     * Adds the <code>Event</code> collection to data store
+     * Adds the <code>Event</code> collection to data store.
      * @param events to be added
      */
     @Override
@@ -106,7 +112,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     }
 
     /**
-     * Removes the <code>Event</code> from data store
+     * Removes the <code>Event</code> from data store.
      * @param id of <code>Event</code>
      */
     @Override
@@ -131,7 +137,7 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     }
 
     /**
-     * Search events by key using index map
+     * Search events by key using index map.
      *
      * @param indexMap index map to use
      * @param key search criteria
@@ -151,7 +157,8 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return eventsFound;
     }
 
-    /** Search for all <code>Event</code> in data store by given description
+    /** Search for all <code>Event</code> in data store
+     * by given description.
      *
      * @param description to search by
      * @return the list of <code>Event</code>s
@@ -161,7 +168,8 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return searchByField(descriptionsMap, description);
     }
 
-    /** Search for all <code>Event</code> in data store by given title
+    /** Search for all <code>Event</code> in data store
+     * by given title.
      *
      * @param title to search by
      * @return the list of <code>Event</code>s
@@ -171,7 +179,8 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return searchByField(titlesMap, title);
     }
 
-    /** Search for all <code>Event</code> in data store by given date of begining
+    /** Search for all <code>Event</code> in data store
+     * by given date of begining.
      *
      * @param day date of begining to search by
      * @return the list of <code>Event</code>s
@@ -192,7 +201,8 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return eventsFound;
     }
 
-    /** Search for all <code>Event</code> in data store by given date of begining interval
+    /** Search for all <code>Event</code> in data store
+     * by given date of begining interval.
      *
      * @param leftDate date of begining to search by
      * @param rightDate date of begining to search by

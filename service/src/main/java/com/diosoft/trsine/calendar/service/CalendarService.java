@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Contract of Calendar serviceю.
+ * Contract of Calendar service.
  *
  * @author  Vasyl Tegza
  * @version 1.0

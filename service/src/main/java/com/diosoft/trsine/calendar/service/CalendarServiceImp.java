@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Implementation of Calendar service, using data store <code>DataStore</code>
+ * Implementation of Calendar service, using data store <code>DataStore</code>.
  *
  * @author  Vasyl Tegza, Alexander Zamkovyi
  * @version 1.0
@@ -18,78 +18,93 @@ import java.util.UUID;
 
 public class CalendarServiceImp implements CalendarService {
 
-    //DataStore is the resource
+    /**
+     * Data store resource.
+     */
     private final DataStore dataStore;
 
-    public CalendarServiceImp(DataStore dataStore) {
-        this.dataStore = dataStore;
+    /**
+     * Constructor.
+     *
+     * @param ds data store to inject
+     */
+    public CalendarServiceImp(final DataStore ds) {
+        this.dataStore = ds;
     }
 
     /**
-     * Adds <code>Event</code> to calendar service
+     * Adds <code>Event</code> to calendar service.
+     *
      * @param event to be added
      */
     @Override
-    public void add(Event event) {
+    public final void add(final Event event) {
         dataStore.add(event);
     }
 
     /**
-     * Adds the <code>Event</code> collection to calendar service
+     * Adds the <code>Event</code> collection to calendar service.
+     *
      * @param events to be added
      */
     @Override
-    public void addAll(Collection<Event> events) {
+    public final void addAll(final Collection<Event> events) {
         dataStore.addAll(events);
     }
 
     /**
-     * Removes the <code>Event</code> from calendar service
+     * Removes the <code>Event</code> from calendar service.
+     *
      * @param id of <code>Event</code>
      */
     @Override
-    public void remove(UUID id) {
+    public final void remove(final UUID id) {
         dataStore.remove(id);
     }
 
-    /** Search for all <code>Event</code> in calendar service by given title
+    /** Search for all <code>Event</code> in calendar service
+     * by given title.
      *
      * @param title to search by
      * @return the list of <code>Event</code>s
      */
     @Override
-    public List<Event> searchByTitle(String title) {
+    public final List<Event> searchByTitle(final String title) {
         return dataStore.searchByTitle(title);
     }
 
-    /** Search for all <code>Event</code> in calendar service by given description
+    /** Search for all <code>Event</code> in calendar service
+     * by given description.
      *
      * @param description to search by
      * @return the list of <code>Event</code>s
      */
     @Override
-    public List<Event> searchByDescription(String description) {
+    public final List<Event> searchByDescription(final String description) {
         return dataStore.searchByDescription(description);
     }
 
-    /** Search for all <code>Event</code> in calendar service by given date of begining
+    /** Search for all <code>Event</code> in calendar service
+     * by given date of begining.
      *
      * @param day date of begining to search by
      * @return the list of <code>Event</code>s
      */
     @Override
-    public List<Event> searchByDay(Date day) {
+    public final List<Event> searchByDay(final Date day) {
         return dataStore.searchByDay(day);
     }
 
-    /** Search for all <code>Event</code> in calendar service by given date of begining interval
+    /** Search for all <code>Event</code> in calendar service
+     * by given date of begining interval.
      *
      * @param leftDate date of begining to search by
      * @param rightDate date of begining to search by
      * @return the list of <code>Event</code>s
      */
     @Override
-    public List<Event> searchByInterval(Date leftDate, Date rightDate){
+    public final List<Event> searchByInterval(final Date leftDate,
+                                              final Date rightDate) {
         return dataStore.searchByInterval(leftDate, rightDate);
     }
 }

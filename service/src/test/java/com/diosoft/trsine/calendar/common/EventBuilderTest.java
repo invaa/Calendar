@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.HashSet;
 
+import static com.diosoft.trsine.calendar.common.Event.*;
 import static org.junit.Assert.*;
 
 public class EventBuilderTest {
@@ -11,7 +12,7 @@ public class EventBuilderTest {
     @Test
     public void testSetAttendersWithHashSet() throws Exception {
         //init
-        Event.Builder builder1 = new Event.HashSetBuilder();
+        Builder builder1 = new HashSetBuilder();
 
         builder1
                 .addAttender("alex@zamkovyi.name")
@@ -21,7 +22,7 @@ public class EventBuilderTest {
         set.add("alex@zamkovyi.name");
         set.add("igor.vartanian@gmail.com");
 
-        Event.Builder builder2 = new Event.HashSetBuilder();
+        Builder builder2 = new HashSetBuilder();
         builder2.setAttenders(set);
 
         //check
@@ -31,7 +32,7 @@ public class EventBuilderTest {
     @Test
     public void testRemoveAttender() throws Exception {
         //init
-        Event.Builder builder1 = new Event.HashSetBuilder();
+        Builder builder1 = new HashSetBuilder();
 
         builder1
                 .addAttender("alex@zamkovyi.name")
@@ -41,10 +42,34 @@ public class EventBuilderTest {
         HashSet<String> set = new HashSet<>();
         set.add("igor.vartanian@gmail.com");
 
-        Event.Builder builder2 = new Event.HashSetBuilder();
+        Builder builder2 = new HashSetBuilder();
         builder2.setAttenders(set);
 
         //check
         assertEquals(builder1.getAttenders(), builder2.getAttenders());
+    }
+
+    @Test
+    public void testRemoveAttenderAndReturnTrue() throws Exception {
+        //init
+        Builder builder1 = new HashSetBuilder();
+
+        Event.OperationResult operationResult = new Event.OperationResult();
+        assertTrue(!operationResult.resultOk());
+
+        builder1
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
+                .removeAttender("alex@zamkovyi.name", operationResult);
+
+        HashSet<String> set = new HashSet<>();
+        set.add("igor.vartanian@gmail.com");
+
+        Builder builder2 = new HashSetBuilder();
+        builder2.setAttenders(set);
+
+        //check
+        assertEquals(builder1.getAttenders(), builder2.getAttenders());
+        assertTrue(operationResult.resultOk());
     }
 }

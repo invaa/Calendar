@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * Implements <code>DataStore</code> interface
- * Stores <code>Event</code>s as ArrayList
+ * Stores <code>Event</code>s as ArrayList.
  *
  * @author  Alexander Zamkovyi
  * @version 1.0
@@ -58,6 +58,9 @@ public class ArrayListDataStore implements DataStore {
 
     @Override
     public List<Event> searchByInterval(Date leftDate, Date rightDate) {
-        return null;
+        return events.parallelStream()
+                .filter(p -> p.getDateBegin().compareTo(leftDate) >= 0
+                        && p.getDateBegin().compareTo(rightDate) <= 0 )
+                .collect(Collectors.toList());
     }
 }
