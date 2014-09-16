@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataStore" class="com.diosoft.trsine.calendar.datastore.SimpleConcurrentHashMapDataStore" >
+        <constructor-arg ref="eventsMap" />
+        <constructor-arg ref="titlesMap" />
+        <constructor-arg ref="daysMap" />
+        <constructor-arg ref="descriptionsMap" />
+    </bean>
+
+    <bean id="eventsMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <bean id="titlesMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <bean id="daysMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <bean id="descriptionsMap" class="java.util.concurrent.ConcurrentHashMap"/>
+
+</beans>
