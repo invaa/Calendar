@@ -28,10 +28,34 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
     ConcurrentHashMap<Object, Set<UUID>> descriptionsMap = new ConcurrentHashMap<>();
 
     /**
-     * method to instantiate the <code>Set</code> of UUIDs.
+     * Constructor
      *
-     * @return <code>Set</code> of <code>UUID</code>s
      */
+    public ConcurrentHashMapDataStore() { }
+
+    /**
+     * Constructor
+     *
+     * @param eventsMap events
+     * @param titlesMap index for titles
+     * @param daysMap index for days
+     * @param descriptionsMap index for descriptions
+     */
+    public ConcurrentHashMapDataStore(ConcurrentHashMap<UUID, Event> eventsMap,
+                                            ConcurrentHashMap<Object, Set<UUID>> titlesMap,
+                                            ConcurrentHashMap<Object, Set<UUID>> daysMap,
+                                            ConcurrentHashMap<Object, Set<UUID>> descriptionsMap) {
+
+        this.eventsMap = eventsMap;
+        this.titlesMap = titlesMap;
+        this.daysMap = daysMap;
+        this.descriptionsMap = descriptionsMap;
+    }
+        /**
+         * method to instantiate the <code>Set</code> of UUIDs.
+         *
+         * @return <code>Set</code> of <code>UUID</code>s
+         */
     abstract public Set<UUID> newUUIDSet();
 
     /**

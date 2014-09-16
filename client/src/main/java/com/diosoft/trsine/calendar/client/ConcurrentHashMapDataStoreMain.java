@@ -32,7 +32,7 @@ public class ConcurrentHashMapDataStoreMain {
         if (!flagInputParametersProvided) {
             System.out.print("Please enter the number of events to create: ");
             input = scanner.nextLine();
-            eventsToEnter = Integer.valueOf(input);
+            eventsToEnter = Integer.parseInt(input);
         } else {
             eventsToEnter = args.length;
         }//end if
