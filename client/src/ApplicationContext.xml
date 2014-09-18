@@ -8,7 +8,7 @@
         </bean>
 
         <bean id="remoteCalendarService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-            <property name="serviceUrl" value="rmi://192.168.56.1:1199/CalendarService"/>
+            <property name="serviceUrl" value="rmi://localhost:1199/CalendarService"/>
             <property name="serviceInterface" value="com.diosoft.trsine.calendar.service.CalendarService"/>
         </bean>
 
