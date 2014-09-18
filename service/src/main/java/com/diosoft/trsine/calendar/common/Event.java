@@ -142,14 +142,18 @@ public class Event implements Comparable<Event>, Serializable {
     @Override
     public String toString() {
 
-        return "Event{"
-                + "id = " + id
-                + ", title = '" + title
-                + ", description = '" + description + '\''
-                + ", attenders = " + attenders
-                + ", dateBegin = " + EventUtil.df.format(dateBegin)
-                + ", dateEnd = " + EventUtil.df.format(dateEnd) + '\''
-                + '}';
+        synchronized(EventUtil.df) {
+
+            String result = "Event{"
+                    + "id = " + id
+                    + ", title = '" + title
+                    + ", description = '" + description + '\''
+                    + ", attenders = " + attenders
+                    + ", dateBegin = " + EventUtil.df.format(dateBegin)
+                    + ", dateEnd = " + EventUtil.df.format(dateEnd) + '\''
+                    + '}';
+            return result;
+        }
     }
 
     @SuppressWarnings("NullableProblems")
@@ -459,7 +463,7 @@ public class Event implements Comparable<Event>, Serializable {
         /**
          * Date format in toString() method implementation.
          */
-        public static SimpleDateFormat df = new SimpleDateFormat(""
+        public static final SimpleDateFormat df = new SimpleDateFormat(""
                 + "E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
     }
 }

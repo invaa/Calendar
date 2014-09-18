@@ -4,7 +4,6 @@ import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.diosoft.trsine.calendar.service.CalendarService;
-import com.diosoft.trsine.calendar.service.CalendarServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

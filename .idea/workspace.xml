@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f8a5f82-6f94-4a34-abca-cea1086596e3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/ApplicationContext.xml" afterPath="$PROJECT_DIR$/client/src/ApplicationContext.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java" afterPath="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java" afterPath="$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="bdfc49bf-c772-4322-ac09-7efc5b3c2382" name="New changelist" comment="" />
@@ -59,20 +58,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Event.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Event.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-293.08" vertical-offset="0" max-vertical-offset="7667">
-              <caret line="451" column="0" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.2791411" vertical-offset="2204" max-vertical-offset="7735">
+              <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2253#2254#0" expanded="true" />
                 <element signature="e#2306#2307#0" expanded="true" />
                 <element signature="e#2952#2953#0" expanded="true" />
                 <element signature="e#3005#3006#0" expanded="true" />
-                <element signature="e#7990#8017#0" expanded="true" />
-                <element signature="e#8549#8576#0" expanded="true" />
-                <element signature="e#10561#10588#0" expanded="true" />
+                <element signature="e#8106#8133#0" expanded="true" />
+                <element signature="e#8665#8692#0" expanded="true" />
+                <element signature="e#10677#10704#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -142,17 +141,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RmiClient.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="RmiClient.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5976331" vertical-offset="427" max-vertical-offset="1037">
-              <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="682" max-vertical-offset="1020">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#715#716#0" expanded="true" />
-                <element signature="e#769#770#0" expanded="true" />
-                <element signature="e#812#813#0" expanded="true" />
-                <element signature="e#850#851#0" expanded="true" />
+                <element signature="e#651#652#0" expanded="true" />
+                <element signature="e#705#706#0" expanded="true" />
+                <element signature="e#748#749#0" expanded="true" />
+                <element signature="e#786#787#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -239,8 +238,8 @@
         <option value="$PROJECT_DIR$/service/src/main/java/xml-beans.xml" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/server/RmiServer.java" />
         <option value="$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/SpringMain.java" />
-        <option value="$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java" />
         <option value="$PROJECT_DIR$/client/src/ApplicationContext.xml" />
+        <option value="$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java" />
       </list>
     </option>
@@ -991,7 +990,7 @@
       <workItem from="1410636306451" duration="1167000" />
       <workItem from="1410774760740" duration="6179000" />
       <workItem from="1410789637449" duration="15239000" />
-      <workItem from="1410853651017" duration="12334000" />
+      <workItem from="1410853651017" duration="12631000" />
     </task>
     <task id="LOCAL-00001" summary="workspace">
       <created>1410209211023</created>
@@ -1169,11 +1168,15 @@
       <created>1411021131076</created>
       <updated>1411021131076</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="rmi server changes">
+      <created>1411024391135</created>
+      <updated>1411024391135</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119949000" />
+    <option name="totallyTimeSpent" value="120246000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1197,7 +1200,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1211,7 +1214,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24903722" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24967907" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44645342" sideWeight="0.75738126" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44645342" sideWeight="0.75738126" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32749325" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1245,7 +1248,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="exceptions added, comments added" />
     <MESSAGE value="comments added" />
     <MESSAGE value="EventsTest" />
     <MESSAGE value="fixed bug with Date mutability in Event" />
@@ -1270,7 +1272,8 @@
     <MESSAGE value="spring main changes" />
     <MESSAGE value="refactoring and rmi server" />
     <MESSAGE value="rmi server" />
-    <option name="LAST_COMMIT_MESSAGE" value="rmi server" />
+    <MESSAGE value="rmi server changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="rmi server changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1677,23 +1680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-293.08" vertical-offset="0" max-vertical-offset="7667">
-          <caret line="451" column="0" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2253#2254#0" expanded="true" />
-            <element signature="e#2306#2307#0" expanded="true" />
-            <element signature="e#2952#2953#0" expanded="true" />
-            <element signature="e#3005#3006#0" expanded="true" />
-            <element signature="e#7990#8017#0" expanded="true" />
-            <element signature="e#8549#8576#0" expanded="true" />
-            <element signature="e#10561#10588#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/SpringMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="533" max-vertical-offset="850">
@@ -1706,14 +1692,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/main/java/com/diosoft/trsine/calendar/client/RmiClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5976331" vertical-offset="427" max-vertical-offset="1037">
-          <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="682" max-vertical-offset="1020">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#715#716#0" expanded="true" />
-            <element signature="e#769#770#0" expanded="true" />
-            <element signature="e#812#813#0" expanded="true" />
-            <element signature="e#850#851#0" expanded="true" />
+            <element signature="e#651#652#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#748#749#0" expanded="true" />
+            <element signature="e#786#787#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/diosoft/trsine/calendar/common/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2791411" vertical-offset="2204" max-vertical-offset="7735">
+          <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2253#2254#0" expanded="true" />
+            <element signature="e#2306#2307#0" expanded="true" />
+            <element signature="e#2952#2953#0" expanded="true" />
+            <element signature="e#3005#3006#0" expanded="true" />
+            <element signature="e#8106#8133#0" expanded="true" />
+            <element signature="e#8665#8692#0" expanded="true" />
+            <element signature="e#10677#10704#0" expanded="true" />
           </folding>
         </state>
       </provider>
