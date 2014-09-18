@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="CalendarService"/>
+        <property name="service" ref="calendarService"/>
+        <property name="serviceInterface" value="com.diosoft.trsine.calendar.service.CalendarService"/>
+        <property name="registryPort" value="1199"/>
+    </bean>
+
+    <bean id="calendarService" class="com.diosoft.trsine.calendar.service.CalendarServiceImpl" >
+        <constructor-arg ref="dataStore" />
+    </bean>
+
+    <bean id="dataStore" class="com.diosoft.trsine.calendar.datastore.SimpleConcurrentHashMapDataStore" >
+        <constructor-arg ref="eventsMap" />
+        <constructor-arg ref="titlesMap" />
+        <constructor-arg ref="daysMap" />
+        <constructor-arg ref="descriptionsMap" />
+    </bean>
+
+    <bean id="eventsMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <bean id="titlesMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <bean id="daysMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <bean id="descriptionsMap" class="java.util.concurrent.ConcurrentHashMap"/>
+
+</beans>
