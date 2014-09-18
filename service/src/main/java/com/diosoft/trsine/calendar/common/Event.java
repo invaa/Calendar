@@ -4,6 +4,7 @@ import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
 import com.rits.cloning.Cloner;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.HashSet;
  * @since 1.0
  */
 
-public class Event implements Comparable<Event> {
+public class Event implements Comparable<Event>, Serializable {
 
     /**
      * Event description.
@@ -45,16 +46,6 @@ public class Event implements Comparable<Event> {
      * Event title.
      */
     private final String title;
-    /**
-     * Cloner object to clone fields.
-     */
-    private final Cloner cloner = new Cloner();
-
-    /**
-     * Date format in toString() method implementation.
-     */
-    private SimpleDateFormat df = new SimpleDateFormat(""
-            + "E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
 
     /**
      * Private constructor according to the Builder Pattern.
@@ -83,7 +74,7 @@ public class Event implements Comparable<Event> {
      * @return Set&lt;String&gt; of Event attenders
      */
     public Set<String> getAttenders() {
-        return cloner.deepClone(attenders);
+        return EventUtil.cloner.deepClone(attenders);
     }
 
     /**
@@ -91,7 +82,7 @@ public class Event implements Comparable<Event> {
      * @return Date when Event begins
      */
     public Date getDateBegin() {
-        return cloner.deepClone(dateBegin);
+        return EventUtil.cloner.deepClone(dateBegin);
     }
 
     /**
@@ -99,7 +90,7 @@ public class Event implements Comparable<Event> {
      * @return Date when Event ends
      */
     public Date getDateEnd() {
-        return cloner.deepClone(dateEnd);
+        return EventUtil.cloner.deepClone(dateEnd);
     }
 
     /**
@@ -115,7 +106,7 @@ public class Event implements Comparable<Event> {
      * @return Event id
      */
     public UUID getId() {
-        return cloner.deepClone(id);
+        return EventUtil.cloner.deepClone(id);
     }
 
     /**
@@ -150,13 +141,14 @@ public class Event implements Comparable<Event> {
 
     @Override
     public String toString() {
+
         return "Event{"
                 + "id = " + id
                 + ", title = '" + title
                 + ", description = '" + description + '\''
                 + ", attenders = " + attenders
-                + ", dateBegin = " + df.format(dateBegin)
-                + ", dateEnd = " + df.format(dateEnd) + '\''
+                + ", dateBegin = " + EventUtil.df.format(dateBegin)
+                + ", dateEnd = " + EventUtil.df.format(dateEnd) + '\''
                 + '}';
     }
 
@@ -456,5 +448,18 @@ public class Event implements Comparable<Event> {
          */
         private boolean result = false;
 
+    }
+
+    static class EventUtil {
+        /**
+         * Cloner object to clone fields.
+         */
+        public static final Cloner cloner = new Cloner();
+
+        /**
+         * Date format in toString() method implementation.
+         */
+        public static SimpleDateFormat df = new SimpleDateFormat(""
+                + "E dd MMMM yyyy 'at' hh:mm", new Locale("en", "En"));
     }
 }
