@@ -7,6 +7,7 @@ import com.diosoft.trsine.calendar.service.CalendarService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class RmiClient {
         return calendarService;
     }
 
-    public static void main(String[] args) throws IdIsNullException, DateIntervalIsIncorrectException {
+    public static void main(String[] args) throws IdIsNullException, DateIntervalIsIncorrectException, RemoteException {
         ApplicationContext factory = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         CalendarService service = ((RmiClient) factory.getBean("rmiClient")).getService();
 
@@ -42,10 +43,15 @@ public class RmiClient {
 
         System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
 
-        //find  all occurencies by description and remove by ids
-        service.searchByDescription("Next daily scrum meeting")
-                .parallelStream()
-                .forEach(p -> service.remove(p.getId()));
+//        //find  all occurencies by description and remove by ids
+//        service.searchByDescription("Next daily scrum meeting")
+//                .parallelStream()
+//                .forEach(p ->
+//                        try {
+//                        service.remove(p.getId()
+//                        }
+//                        )
+//        });
 
         System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
 

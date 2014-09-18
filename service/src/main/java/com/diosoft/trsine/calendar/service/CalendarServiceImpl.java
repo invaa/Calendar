@@ -3,6 +3,7 @@ package com.diosoft.trsine.calendar.service;
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.DataStore;
 
+import java.rmi.Remote;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
