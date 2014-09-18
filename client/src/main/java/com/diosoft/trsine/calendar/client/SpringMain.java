@@ -3,7 +3,7 @@ package com.diosoft.trsine.calendar.client;
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
-import com.diosoft.trsine.calendar.service.CalendarServiceImp;
+import com.diosoft.trsine.calendar.service.CalendarServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,7 +18,7 @@ public class SpringMain {
        ApplicationContext appContext =
                new ClassPathXmlApplicationContext("ApplicationContext.xml");
 
-       CalendarServiceImp service = (CalendarServiceImp) appContext.getBean("calendarService", CalendarServiceImp.class);
+       CalendarServiceImpl service = (CalendarServiceImpl) appContext.getBean("calendarService", CalendarServiceImpl.class);
 
        Event testEvent = new Event.HashSetBuilder()
                .setDateBegin(new Date())

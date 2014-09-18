@@ -9,14 +9,14 @@ import java.util.*;
 
 import static org.mockito.Mockito.*;
 
-public class CalendarServiceImpTest {
+public class CalendarServiceImplTest {
 
     @Test
     public void testVerifyServiceCallDataStoreAddOnAdding() throws Exception {
         //Mocks
         Event eventMock = mock(Event.class);
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         //checks
         service.add(eventMock);
@@ -32,7 +32,7 @@ public class CalendarServiceImpTest {
         Collection<Event> collectionMock = mock(Collection.class);
 
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         //checks
         service.addAll(collectionMock);
@@ -46,7 +46,7 @@ public class CalendarServiceImpTest {
         //Mocks
         UUID id = UUID.randomUUID();
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         //checks
         service.remove(id);
@@ -59,7 +59,7 @@ public class CalendarServiceImpTest {
     public void testVerifyServiceCallDataStoreSearchByTitleOnSearchingByTitle() throws Exception {
         //Mocks
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         //checks
         service.searchByTitle("Some title");
@@ -72,7 +72,7 @@ public class CalendarServiceImpTest {
     public void testVerifyServiceCallDataStoreSearchByDescriptionOnSearchingByDescription() throws Exception {
         //Mocks
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         //checks
         service.searchByDescription("Some description");
@@ -85,7 +85,7 @@ public class CalendarServiceImpTest {
     public void testVerifyServiceCallDataStoreSearchByDayOnSearchingByDay() throws Exception {
         //Mocks
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         Date date = DateHelper.getDateFromSimpleString("2014-09-09 11:33:44");
 
@@ -100,7 +100,7 @@ public class CalendarServiceImpTest {
     public void testVerifyServiceCallDataStoreSearchByIntervalOnSearchingByInterval() throws Exception {
         //Mocks
         DataStore storeMock = mock(DataStore.class);
-        CalendarService service = new CalendarServiceImp(storeMock);
+        CalendarService service = new CalendarServiceImpl(storeMock);
 
         Date date = DateHelper.getDateFromSimpleString("2014-09-09 11:33:44");
 

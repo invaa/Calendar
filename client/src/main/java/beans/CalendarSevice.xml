@@ -3,9 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="../beans/DataStore.xml"/>
+    <import resource="/DataStore.xml"/>
 
-    <bean id="calendarService" class="com.diosoft.trsine.calendar.service.CalendarServiceImp" >
+    <bean id="calendarService" class="com.diosoft.trsine.calendar.service.CalendarServiceImpl" >
         <constructor-arg ref="dataStore" />
     </bean>
 

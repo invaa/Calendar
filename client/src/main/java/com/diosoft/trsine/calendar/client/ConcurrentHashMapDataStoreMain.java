@@ -4,7 +4,7 @@ import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.ConcurrentHashMapDataStore;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
-import com.diosoft.trsine.calendar.service.CalendarServiceImp;
+import com.diosoft.trsine.calendar.service.CalendarServiceImpl;
 import com.diosoft.trsine.calendar.util.DateHelper;
 
 import java.util.*;
@@ -94,7 +94,7 @@ public class ConcurrentHashMapDataStoreMain {
                 .addAttender("igor.vartanian@gmail.com")
                 .build();
 
-        CalendarServiceImp service = new CalendarServiceImp(new ConcurrentHashMapDataStore() {
+        CalendarServiceImpl service = new CalendarServiceImpl(new ConcurrentHashMapDataStore() {
             @Override
             public Set<UUID> newUUIDSet()  {
                 return new HashSet<>();

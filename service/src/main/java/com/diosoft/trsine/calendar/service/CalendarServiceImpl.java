@@ -16,7 +16,7 @@ import java.util.UUID;
  * @since 1.0
  */
 
-public class CalendarServiceImp implements CalendarService {
+public class CalendarServiceImpl implements CalendarService {
 
     /**
      * Data store resource.
@@ -28,7 +28,7 @@ public class CalendarServiceImp implements CalendarService {
      *
      * @param ds data store to inject
      */
-    public CalendarServiceImp(final DataStore ds) {
+    public CalendarServiceImpl(final DataStore ds) {
         this.dataStore = ds;
     }
 
@@ -107,4 +107,6 @@ public class CalendarServiceImp implements CalendarService {
                                               final Date rightDate) {
         return dataStore.searchByInterval(leftDate, rightDate);
     }
+
+
 }
