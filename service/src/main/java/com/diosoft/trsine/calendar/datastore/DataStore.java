@@ -19,6 +19,6 @@ public interface DataStore<K> {
     K getDataStore();
     List<Event> searchByDescription(String description);
     List<Event> searchByTitle(String title);
+    List<Event> searchWithStartTitle(String startTitle);
     List<Event> searchByDay(Date day);
-
 }

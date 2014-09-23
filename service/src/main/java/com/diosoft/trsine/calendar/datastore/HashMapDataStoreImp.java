@@ -199,4 +199,27 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
         }
         return foundItems;
     }
+
+    @Override
+    public List<Event> searchWithStartTitle(String startTitle) {
+        List<Event> events = new ArrayList<>();
+
+        if (startTitle == null){
+            return events;
+        }
+
+        Set<String> titles = titlesMap.keySet();
+        System.out.println(titles);
+        for (String title : titles) {
+            if (title.startsWith(startTitle)) {
+                System.out.println(title);
+                List<UUID> uuids = titlesMap.get(title);
+                for (UUID uuid : uuids)
+                    events.add(eventsMap.get(uuid));
+            }
+        }
+
+        return events;
+
+    }
 }

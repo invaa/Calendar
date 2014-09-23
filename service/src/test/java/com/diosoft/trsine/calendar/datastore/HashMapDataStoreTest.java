@@ -6,13 +6,15 @@ import org.junit.*;
 
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+
 public class HashMapDataStoreTest {
 
     //help util
     OrganizerUtil util = new OrganizerUtil();
 
     //dataStore
-    HashMapDataStoreImp ds = new HashMapDataStoreImp();
+    HashMapDataStoreImp ds;
 
     //events
     Event eventAdd0;
@@ -32,34 +34,26 @@ public class HashMapDataStoreTest {
     //collectionToAddAll
     HashSet<Event> hashEvents = new HashSet<>();
 
-    //result searchByDescription
-    List<Event> resultSearchByDescription = new ArrayList<>();
-
-    //result searchByTitle
-    List<Event> resultSearchByTitle = new ArrayList<>();
-
-    //result searchByDate
-    List<Event> resultSearchByDate = new ArrayList<>();
 
     @Before
     public void fillData() throws IncorrectPeriodDates {
 
         Date date = new GregorianCalendar(2014, 10, 12, 10, 0, 0).getTime();
-
+        ds = new HashMapDataStoreImp();
         Set<String> attenders = util.createAttenders(10, "User");
 
         eventAdd0 = util.createEvent(0, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
-        eventAdd1 = util.createEvent(1, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
-        eventAdd2 = util.createEvent(2, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
+        eventAdd1 = util.createEvent(1, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Birthday", "DescriptionEvent", attenders);
+        eventAdd2 = util.createEvent(2, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Meeting", "DescriptionEvent", attenders);
         eventAdd3 = util.createEvent(1, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
-        eventAdd4 = util.createEvent(3, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Event", "DescriptionEvent", attenders);
+        eventAdd4 = util.createEvent(3, util.createDate(2014, 10, 1), util.createDate(2014, 10, 1), "Meeting", "DescriptionEvent", attenders);
         eventAddNull = null;
 
     }
 
     @After
     public void clearData() {
-        ds = new HashMapDataStoreImp();
+
         resultHelpMap = new HashMap<>();
     }
 
@@ -73,7 +67,7 @@ public class HashMapDataStoreTest {
         resultHelpMap.put(eventAdd1.getId(), eventAdd1);
 
         currentDataStore = ds.getDataStore();
-        Assert.assertEquals(resultHelpMap, currentDataStore);
+        assertEquals(resultHelpMap, currentDataStore);
 
     }
 
@@ -94,7 +88,7 @@ public class HashMapDataStoreTest {
 
         ds.addAll(hashEvents);
         currentDataStore = ds.getDataStore();
-        Assert.assertEquals(resultHelpMap, currentDataStore);
+        assertEquals(resultHelpMap, currentDataStore);
 
     }
 
@@ -112,7 +106,7 @@ public class HashMapDataStoreTest {
 
         ds.remove(eventAdd1.getId());
         currentDataStore = ds.getDataStore();
-        Assert.assertEquals(resultHelpMap, currentDataStore);
+        assertEquals(resultHelpMap, currentDataStore);
 
     }
 
@@ -125,10 +119,13 @@ public class HashMapDataStoreTest {
         ds.add(eventAdd3);
         ds.add(eventAdd4);
 
+        //result searchByDescription
+        List<Event> resultSearchByDescription = new ArrayList<>();
+
         resultSearchByDescription.add(eventAdd2);
 
         List<Event> currentResult = ds.searchByDescription(eventAdd2.getDescription());
-        Assert.assertEquals(resultSearchByDescription, currentResult);
+        assertEquals(resultSearchByDescription, currentResult);
 
     }
 
@@ -141,10 +138,13 @@ public class HashMapDataStoreTest {
         ds.add(eventAdd3);
         ds.add(eventAdd4);
 
+        //result searchByTitle
+        List<Event> resultSearchByTitle = new ArrayList<>();
+
         resultSearchByTitle.add(eventAdd2);
 
         List<Event> currentResult = ds.searchByTitle(eventAdd2.getTitle());
-        Assert.assertEquals(resultSearchByTitle, currentResult);
+        assertEquals(resultSearchByTitle, currentResult);
 
     }
 
@@ -157,6 +157,9 @@ public class HashMapDataStoreTest {
         ds.add(eventAdd3);
         ds.add(eventAdd4);
 
+        //result searchByDate
+        List<Event> resultSearchByDate = new ArrayList<>();
+
         resultSearchByDate.add(eventAdd0);
         resultSearchByDate.add(eventAdd1);
         resultSearchByDate.add(eventAdd2);
@@ -164,9 +167,68 @@ public class HashMapDataStoreTest {
         resultSearchByDate.add(eventAdd4);
 
         List<Event> currentResult = ds.searchByDay(eventAdd2.getDateBegin());
-        Assert.assertEquals(resultSearchByDate, currentResult);
+        assertEquals(resultSearchByDate, currentResult);
 
     }
 
+    @Test
+    public void testSearchWithStartTitle() {
+
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+        ds.add(eventAdd3);
+        ds.add(eventAdd4);
+        ds.add(eventAddNull);
+
+        List<Event> resultSearchWithStartTitle = new ArrayList<>();
+
+        resultSearchWithStartTitle.add(eventAdd1);
+        resultSearchWithStartTitle.add(eventAdd3);
+
+        List<Event> expectedResult = ds.searchWithStartTitle("1_");
+
+        assertEquals(resultSearchWithStartTitle, expectedResult);
+
+    }
+
+
+    @Test
+    public void testSearchWithStartTitleNull() {
+
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+        ds.add(eventAdd3);
+        ds.add(eventAdd4);
+        ds.add(eventAddNull);
+
+        List<Event> resultSearchWithStartTitle = new ArrayList<>();
+
+
+        List<Event> expectedResult = ds.searchWithStartTitle(null);
+
+        assertEquals(resultSearchWithStartTitle, expectedResult);
+
+    }
+
+    @Test
+    public void testSearchByAttender(String attender) {
+
+        ds.add(eventAdd0);
+        ds.add(eventAdd1);
+        ds.add(eventAdd2);
+        ds.add(eventAdd3);
+        ds.add(eventAdd4);
+        ds.add(eventAddNull);
+
+        List<Event> resultSearchByAttender = new ArrayList<>();
+
+
+        List<Event> expectedResult = ds.searchByAttender(null);
+
+        assertEquals(resultSearchByAttender, expectedResult);
+
+    }
 
 }
