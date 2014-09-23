@@ -21,4 +21,6 @@ public interface DataStore<K> {
     List<Event> searchByTitle(String title);
     List<Event> searchWithStartTitle(String startTitle);
     List<Event> searchByDay(Date day);
+
+    List<Event> searchByAttender(String s);
 }

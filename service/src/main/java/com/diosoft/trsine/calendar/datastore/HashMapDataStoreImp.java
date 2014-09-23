@@ -222,4 +222,25 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
         return events;
 
     }
+
+    @Override
+    public List<Event> searchByAttender(String attender) {
+
+        List<Event> events = new ArrayList<>();
+
+        if (attender == null){
+            return events;
+        }
+
+        Collection<Event> values = eventsMap.values();
+
+        for(Event event : values){
+            if (event.getAttenders().contains(attender)){
+                events.add(event);
+            }
+        }
+
+        return events;
+
+    }
 }
