@@ -11,15 +11,10 @@ import java.util.UUID;
 public class EventTest {
     public static void main(String ... args) throws IncorrectPeriodDates {
 
-        Event testEvent = new Event.Builder() {
-            @Override
-            public Set newSet() {
-                return new HashSet<String>();
-            }
-        }//end of Builder implementation
+        Event testEvent = new Event.Builder()
                 .setDateBegin(new Date())
                 .setDateEnd(new Date())
-                //.setId(UUID.randomUUID())
+                .setId(UUID.randomUUID())
                 .setTitle("Daily Scrum")
                 .setDescription("Next daily scrum meeting")
                 .addAttender("alex@zamkovyi.name")

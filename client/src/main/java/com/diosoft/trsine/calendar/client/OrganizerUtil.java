@@ -1,4 +1,4 @@
-package com.diosoft.trsine.calendar.datastore;
+package com.diosoft.trsine.calendar.client;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;

@@ -33,7 +33,7 @@ public class Event {
         this.dateBegin = builder.dateBegin;
         this.dateEnd = builder.dateEnd;
         this.title = builder.title;
-        this.id = UUID.randomUUID();
+        this.id = builder.id;
     }
 
     public String getDescription() {
@@ -79,22 +79,25 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "title = '" + title +
-                ", description = '" + description + '\'' +
-                ", attenders = " + attenders +
-                ", dateBegin = " + df.format(dateBegin) +
-                ", dateEnd = " + df.format(dateEnd) +
-                '}';
+        final StringBuffer sb = new StringBuffer("Event{");
+        sb.append("title='").append(title).append('\'');
+        sb.append(", id=").append(id);
+        sb.append(", dateEnd=").append(dateEnd);
+        sb.append(", dateBegin=").append(dateBegin);
+        sb.append(", attenders=").append(attenders);
+        sb.append(", description='").append(description).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
-    public static abstract class Builder {
+    public static class Builder {
 
         private String description;
         private Set<String> attenders;
         private Date dateBegin;
         private Date dateEnd;
         private String title;
+        private UUID id;
 
         public Builder() {
         }
@@ -105,6 +108,7 @@ public class Event {
             this.dateBegin = original.dateBegin;
             this.dateEnd = original.dateEnd;
             this.title = original.title;
+            this.id = original.id;
         }
 
         public Builder setTitle(String title) {
@@ -129,6 +133,11 @@ public class Event {
 
         public Builder setDateEnd(Date dateEnd) {
             this.dateEnd = dateEnd;
+            return this;
+        }
+
+        public Builder setId(UUID id) {
+            this.id = id;
             return this;
         }
 
@@ -165,7 +174,9 @@ public class Event {
             }
         }
 
-        abstract public Set newSet();
+        public Set newSet(){
+            return Collections.emptySet();
+        }
 
         public Event build() throws IncorrectPeriodDates {
 
