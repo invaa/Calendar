@@ -258,20 +258,36 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return eventsFound;
     }
 
-    @Override
-    public List<Event> searchByTitleStartWith(String title) {
+    public List<Event> searchLambdaByTitleStartWith(String title) {
         return eventsMap.entrySet()
                 .parallelStream()
                 .filter( p ->
-                        titlesMap.entrySet()
-                                .parallelStream()
-                                .filter(  b -> ((String)b.getKey()).startsWith(title))
-                                .map(e -> e.getValue()).flatMap((uuidList) -> uuidList.parallelStream())
-                                .collect(Collectors.toList()).contains(p.getKey())
+                                titlesMap.entrySet()
+                                        .parallelStream()
+                                        .filter(  b -> ((String)b.getKey()).startsWith(title))
+                                        .map(e -> e.getValue()).flatMap((uuidList) -> uuidList.parallelStream())
+                                        .collect(Collectors.toList()).contains(p.getKey())
                 )
                 .map(e -> e.getValue())
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Event> searchByTitleStartWith(String title) {
+        List resultList = new ArrayList<Event>();
 
+        for (Map.Entry<Object, Set<UUID>> entry: titlesMap.entrySet()) {
+            if (((String) entry.getKey()).startsWith(title)) {
+                for (UUID uuid : entry.getValue()) {
+                    Event event = eventsMap.get(uuid);
+
+                    if (event != null) {
+                        resultList.add(event);
+                    }
+                }
+            }
+        }
+
+        return resultList;
+    }
 }
