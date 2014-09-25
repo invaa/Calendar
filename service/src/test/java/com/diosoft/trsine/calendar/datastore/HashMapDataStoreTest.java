@@ -1,9 +1,15 @@
 package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
+import com.diosoft.trsine.calendar.common.EventAdapter;
 import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
 import org.junit.*;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -248,5 +254,53 @@ public class HashMapDataStoreTest {
         assertEquals(resultSearchByAttender, currentResult);
 
     }
+
+    @Test
+    public void testConvertToXML() {
+
+        EventAdapter eventAdapter0 = new EventAdapter();
+        eventAdapter0.setDateBegin(new Date());
+        eventAdapter0.setDateEnd(new Date());
+        eventAdapter0.setDescription("Description");
+        eventAdapter0.setTitle("Title");
+        eventAdapter0.setId(UUID.randomUUID().toString());
+
+        //output
+        try {
+
+            File file = new File("D:\\file.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // output pretty printed
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            jaxbMarshaller.marshal(eventAdapter0, file);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
+        //input
+        try {
+
+            File file = new File("D:\\file.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            EventAdapter eventAdapter = (EventAdapter) jaxbUnmarshaller.unmarshal(file);
+
+            Event event = eventAdapter.createEvent();
+
+            System.out.println(event);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (IncorrectPeriodDates incorrectPeriodDates) {
+            incorrectPeriodDates.printStackTrace();
+        }
+
+    }
+
 
 }

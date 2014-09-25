@@ -2,7 +2,9 @@ package nonunittests;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
+import com.sun.xml.internal.fastinfoset.tools.FI_SAX_Or_XML_SAX_DOM_SAX_SAXEvent;
 
+import java.io.FileInputStream;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +32,6 @@ public class EventTest {
 
         //Output
         System.out.println(testEvent.getAttenders().toString());
-
-
 
     }
 
