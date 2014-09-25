@@ -212,4 +212,53 @@ public class ConcurrentHashMapDataStoreTest {
         assertEquals(expectedResult, result);
 
     }
+
+    @Test
+    public void testSearchTitleStartWith() throws Exception {
+        Event testEvent1 = getDailyScrumTestEvent(); //Title: "Daily Scrum"
+        Event testEvent2 = getAnnualMeetingTestEvent(); //Title: "Annual meeting"
+        Event testEvent3 = new Event.HashSetBuilder()
+                .setDateBegin(DateHelper.getDateFromSimpleString("2014-09-08 10:11:44"))
+                .setDateEnd(DateHelper.getDateFromSimpleString("2014-09-08 12:20:33"))
+                .setId(UUID.randomUUID())
+                .setTitle("Daily meeting")
+                .setDescription("Next daily scrum meeting")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
+                .build();
+        Event testEvent4 = new Event.HashSetBuilder()
+                .setDateBegin(DateHelper.getDateFromSimpleString("2014-09-08 10:11:44"))
+                .setDateEnd(DateHelper.getDateFromSimpleString("2014-09-08 12:20:33"))
+                .setId(UUID.randomUUID())
+                .setTitle("New daily meeting")
+                .setDescription("Next daily scrum meeting")
+                .addAttender("alex@zamkovyi.name")
+                .addAttender("igor.vartanian@gmail.com")
+                .build();
+
+        ConcurrentHashMapDataStore store = getConcurrentHashMapDataStoreImplementationWithHashSetUUIDAndArrayListResults();
+        ArrayList<Event> arrayToAdd = new ArrayList<>();
+        arrayToAdd.add(testEvent1);
+        arrayToAdd.add(testEvent2);
+        arrayToAdd.add(testEvent3);
+        arrayToAdd.add(testEvent4);
+        store.addAll(arrayToAdd);
+
+        assertTrue(store
+                .searchByTitleStartWith("Daily")
+                .contains(testEvent1));
+
+        assertTrue(store
+                .searchByTitleStartWith("Daily")
+                .contains(testEvent3));
+
+        assertFalse(store
+                .searchByTitleStartWith("Daily")
+                .contains(testEvent2));
+
+        assertFalse(store
+                .searchByTitleStartWith("Daily")
+                .contains(testEvent4));
+    }
+
 }

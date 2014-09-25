@@ -63,4 +63,9 @@ public class ArrayListDataStore implements DataStore {
                         && p.getDateBegin().compareTo(rightDate) <= 0 )
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Event> searchByTitleStartWith(String description) {
+        return new ArrayList<Event>();
+    }
 }

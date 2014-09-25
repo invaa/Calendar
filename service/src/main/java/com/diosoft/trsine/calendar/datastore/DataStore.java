@@ -58,4 +58,10 @@ public interface DataStore {
      * @return the list of <code>Event</code>s
      */
     List<Event> searchByInterval(Date leftDate, Date rightDate);
+    /** Search for all <code>Event</code> in data store by given title beginning.
+     *
+     * @param description to search by
+     * @return the list of <code>Event</code>s
+     */
+    List<Event> searchByTitleStartWith(String description);
 }
