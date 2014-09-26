@@ -74,9 +74,8 @@
 </head>
 <body>
 
-<div class="container">
-    <h2>Calendar Service</h2>
-
+<div class="container" style="padding-top: 10px">
+    <h1>Calendar Service</h1>
 </div>
 
 <div id='script-warning'>
