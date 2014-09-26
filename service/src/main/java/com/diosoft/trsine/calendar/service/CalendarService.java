@@ -60,4 +60,10 @@ public interface CalendarService extends Remote {
      * @return the list of <code>Event</code>s
      */
     List<Event> searchByInterval(Date leftDate, Date rightDate) throws RemoteException;
+    /** Search for all <code>Event</code> in calendar service
+     *
+     * @param id to search by
+     * @return <code>Event</code>
+     */
+    Event getById(UUID id) throws RemoteException;
 }

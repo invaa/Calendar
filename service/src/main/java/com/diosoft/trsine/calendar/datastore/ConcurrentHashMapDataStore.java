@@ -204,6 +204,11 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
         return searchByField(titlesMap, title);
     }
 
+    @Override
+    public Event getById(UUID id) {
+       return eventsMap.get(id);
+    }
+
     /** Search for all <code>Event</code> in data store
      * by given date of begining.
      *

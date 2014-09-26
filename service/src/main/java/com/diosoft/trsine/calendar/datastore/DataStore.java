@@ -43,6 +43,12 @@ public interface DataStore {
      * @return the list of <code>Event</code>s
      */
     List<Event> searchByTitle(String title);
+    /** Search for all <code>Event</code> in data store by given title.
+     *
+     * @param id to search by
+     * @return <code>Event</code>
+     */
+    Event getById(UUID id);
     /** Search for all <code>Event</code> in data store
      * by given date of begining.
      *

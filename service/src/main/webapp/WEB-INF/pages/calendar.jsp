@@ -30,6 +30,36 @@
                 },
                 loading: function(bool) {
                     $('#loading').toggle(bool);
+                },
+                eventDrop: function(event, delta, revertFunc) {
+
+                    alert(event.title + " was dropped on " + event.start.format());
+
+                    if (!confirm("Are you sure about this change?")) {
+                        revertFunc();
+                    } else {
+                        //update in db
+                        $.getJSON("${pageContext.request.contextPath}/updateEventOnDrop",
+                                {
+                                    id: event.id,
+                                    start: event.start.format()
+                                },
+                                function (data) {
+
+                                    var data = JSON.stringify(data);
+                                    var json = JSON.parse(data);
+
+                                    //TODO: check result?
+                                })
+                                .done(function () {
+
+                                })
+                                .fail(function () {
+                                })
+                                .complete(function () {
+                                });
+                    }
+
                 }
             });
 

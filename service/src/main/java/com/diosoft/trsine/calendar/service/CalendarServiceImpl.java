@@ -4,6 +4,7 @@ import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.DataStore;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -107,6 +108,16 @@ public class CalendarServiceImpl implements CalendarService {
     public final List<Event> searchByInterval(final Date leftDate,
                                               final Date rightDate) {
         return dataStore.searchByInterval(leftDate, rightDate);
+    }
+
+    /** Search for all <code>Event</code> in calendar service
+     *
+     * @param id to search by
+     * @return <code>Event</code>
+     */
+    @Override
+    public final Event getById(UUID id) {
+        return dataStore.getById(id);
     }
 
 

@@ -50,6 +50,20 @@ public class ArrayListDataStore implements DataStore {
     }
 
     @Override
+    public Event getById(UUID id) {
+        Event event = null;
+
+
+        List<Event> list = events.parallelStream()
+                .filter(p -> p.getId().equals(id))
+                .collect(Collectors.toList());
+
+        if (list.size() > 0) event = list.get(0);
+
+        return event;
+    }
+
+    @Override
     public List<Event> searchByDay(Date day) {
         return events.parallelStream()
                 .filter(p -> p.getDateBegin().equals(day))
