@@ -72,4 +72,26 @@ public final class DateHelper {
 
         return calendar.getTime();
     }
+
+    /**
+     * Converts String of  given format into <code>Date</code>.
+     *
+     * @param inputStringDate input <code>Date</code>
+     *                        in format given, 24h
+     *
+     * @return result <code>Date</code>
+     */
+    public static Date getDateFromString(final String inputStringDate, final String format) {
+        SimpleDateFormat dateFormat =
+                new SimpleDateFormat(format);
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(dateFormat.parse(inputStringDate));
+        } catch (ParseException e) {
+            System.err.println("Error parsing date " + e.getMessage());
+            return null;
+        }
+
+        return calendar.getTime();
+    }
 }

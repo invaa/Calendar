@@ -2,6 +2,7 @@ package com.diosoft.trsine.calendar.common;
 
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rits.cloning.Cloner;
 
 import java.io.Serializable;
@@ -33,10 +34,12 @@ public class Event implements Comparable<Event>, Serializable {
     /**
      * Date of the beginning.
      */
+    @JsonProperty("start")
     private final Date dateBegin;
     /**
      * End date.
      */
+    @JsonProperty("end")
     private final Date dateEnd;
     /**
      * Unique event identifier.

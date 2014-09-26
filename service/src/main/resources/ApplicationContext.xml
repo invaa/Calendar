@@ -9,4 +9,6 @@
         <constructor-arg ref="dataStore" />
     </bean>
 
+    <bean id="applicationContextProvider" class="com.diosoft.trsine.calendar.context.ApplicationContextProvider"/>
+
 </beans>
