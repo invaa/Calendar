@@ -57,6 +57,40 @@ public class CalendarController {
         return result;
 	}
 
+    @RequestMapping(value = "/addEvent", method = RequestMethod.GET)
+    public @ResponseBody
+    String addEvent(@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd' 'HH:mm:ss") Date start,
+                    @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd' 'HH:mm:ss") Date end,
+                    @RequestParam String description,
+                    @RequestParam String attenders,
+                    @RequestParam String title
+    ) {
+        String result = "{\"result\":true}";
+
+        CalendarServiceImpl service = ApplicationContextProvider.getApplicationContext().getBean("calendarService", CalendarServiceImpl.class);
+
+        //TODO: attenders from Event
+
+        Event event = null;
+        try {
+            event = new Event.HashSetBuilder()
+                    .setDateBegin(start)
+                    .setDateEnd(end)
+                    .setId(UUID.randomUUID())
+                    .setTitle(title)
+                    .setDescription(description)
+                    .build();
+        } catch (IdIsNullException e) {
+            e.printStackTrace();
+        } catch (DateIntervalIsIncorrectException e) {
+            e.printStackTrace();
+        }
+
+        service.add(event);
+
+        return result;
+    }
+
     @RequestMapping(value = "/updateEventOnDrop", method = RequestMethod.GET)
     public @ResponseBody
     String updateEventOnDrop(@RequestParam String id, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date start) {
@@ -67,7 +101,7 @@ public class CalendarController {
         Event oldEvent = service.getById(UUID.fromString(id));
         long offset = oldEvent.getDateBegin().getTime() - start.getTime();
 
-        Event event = null;
+        Event event;
         try {
             event = new Event.HashSetBuilder(oldEvent)
                     .setDateBegin(new Date(oldEvent.getDateBegin().getTime() - offset))
