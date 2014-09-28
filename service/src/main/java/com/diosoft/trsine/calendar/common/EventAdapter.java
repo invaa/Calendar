@@ -30,6 +30,15 @@ public class EventAdapter implements Serializable{
     public EventAdapter() {
     }
 
+    public EventAdapter(Event event) {
+        this.description = event.getDescription();
+        this.attenders = event.getAttenders();
+        this.dateBegin = event.getDateBegin();
+        this.dateEnd = event.getDateEnd();
+        this.id = event.getId().toString();
+        this.title = event.getTitle();
+    }
+
     public String getDescription() {
         return description;
     }

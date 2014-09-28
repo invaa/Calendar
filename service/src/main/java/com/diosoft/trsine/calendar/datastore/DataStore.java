@@ -17,6 +17,7 @@ public interface DataStore<K> {
     void addAll(Collection<Event> events);
     void remove(UUID id);
     K getDataStore();
+    String getDataPath();
     List<Event> searchByDescription(String description);
     List<Event> searchByTitle(String title);
     List<Event> searchWithStartTitle(String startTitle);

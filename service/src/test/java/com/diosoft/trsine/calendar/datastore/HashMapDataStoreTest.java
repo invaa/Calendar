@@ -3,6 +3,7 @@ package com.diosoft.trsine.calendar.datastore;
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.common.EventAdapter;
 import com.diosoft.trsine.calendar.exceptions.IncorrectPeriodDates;
+import com.diosoft.trsine.calendar.utilities.ConvertData;
 import org.junit.*;
 
 import javax.xml.bind.JAXBContext;
@@ -10,6 +11,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -41,7 +45,8 @@ public class HashMapDataStoreTest {
     public void fillData() throws IncorrectPeriodDates {
 
         Date date = new GregorianCalendar(2014, 10, 12, 10, 0, 0).getTime();
-        ds = new HashMapDataStoreImp();
+
+        ds = new HashMapDataStoreImp("D:\\IGOR\\Temp");
         Set<String> attenders5 = util.createAttenders(5, "User");
         Set<String> attenders2 = util.createAttenders(2, "User");
 
@@ -256,51 +261,33 @@ public class HashMapDataStoreTest {
     }
 
     @Test
-    public void testConvertToXML() {
+    public void testConvertFromEventToXML() {
 
-        EventAdapter eventAdapter0 = new EventAdapter();
-        eventAdapter0.setDateBegin(new Date());
-        eventAdapter0.setDateEnd(new Date());
-        eventAdapter0.setDescription("Description");
-        eventAdapter0.setTitle("Title");
-        eventAdapter0.setId(UUID.randomUUID().toString());
+        HashSet<EventAdapter> events = new HashSet<>();
 
-        //output
-        try {
+        events.add(new EventAdapter(eventAdd0));
+        events.add(new EventAdapter(eventAdd1));
+        events.add(new EventAdapter(eventAdd2));
 
-            File file = new File("D:\\file.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-            // output pretty printed
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            jaxbMarshaller.marshal(eventAdapter0, file);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-
-        //input
-        try {
-
-            File file = new File("D:\\file.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);
-
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            EventAdapter eventAdapter = (EventAdapter) jaxbUnmarshaller.unmarshal(file);
-
-            Event event = eventAdapter.createEvent();
-
-            System.out.println(event);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (IncorrectPeriodDates incorrectPeriodDates) {
-            incorrectPeriodDates.printStackTrace();
-        }
+        ConvertData.convertFromEventsToXML(events, ds.getDataPath());
 
     }
 
+    @Test
+    public void testConvertFromXMLToEvent() {
+
+        File file = new File(ds.getDataPath());
+        String[] list = file.list();
+
+        try {
+            ConvertData.convertFromXMLToEvent(ds);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        currentDataStore = ds.getDataStore();
+        assertEquals(list.length, currentDataStore.size());
+
+    }
 
 }

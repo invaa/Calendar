@@ -21,4 +21,5 @@ public interface CalendarService {
     List<Event> searchByTitle(String title);
     List<Event> searchByDescription(String description);
     List<Event> searchByDay(Date day);
+    List<Event> searchByAttender(String s);
 }

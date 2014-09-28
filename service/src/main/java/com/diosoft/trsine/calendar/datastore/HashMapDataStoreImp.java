@@ -2,6 +2,8 @@ package com.diosoft.trsine.calendar.datastore;
 
 import com.diosoft.trsine.calendar.common.Event;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -14,12 +16,21 @@ import java.util.*;
 
 public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
 
+    private String dataPath;
+
     private Map<UUID, Event> eventsMap = new HashMap<>();
 
     private Map<String, List<UUID>> titlesMap = new HashMap<>();
     private Map<Date, List<UUID>> daysMap = new HashMap<>();
     private Map<String, List<UUID>> descriptionsMap = new HashMap<>();
 
+    public HashMapDataStoreImp(String dataPath) {
+        this.dataPath = dataPath;
+    }
+
+    public String getDataPath() {
+        return dataPath;
+    }
 
     @Override
     public void add(Event event) {
@@ -37,6 +48,8 @@ public class HashMapDataStoreImp implements DataStore<Map<UUID, Event>> {
         addIndexDateBegin(event);
         // add index dateBegin
         addIndexDescription(event);
+
+
 
     }
 
