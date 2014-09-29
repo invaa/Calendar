@@ -14,11 +14,12 @@
         <constructor-arg ref="dataStore" />
     </bean>
 
-    <bean id="dataStore" class="com.diosoft.trsine.calendar.datastore.SimpleConcurrentHashMapDataStore" >
-        <constructor-arg ref="eventsMap" />
-        <constructor-arg ref="titlesMap" />
-        <constructor-arg ref="daysMap" />
-        <constructor-arg ref="descriptionsMap" />
+    <bean id="dataStore" class="com.diosoft.trsine.calendar.datastore.NioConcurrentHashMapDataStore" >
+        <constructor-arg name="filePath" value="D:\\!datastore\" />
+        <constructor-arg name="eventsMap" ref="eventsMap" />
+        <constructor-arg name="titlesMap" ref="titlesMap" />
+        <constructor-arg name="daysMap" ref="daysMap" />
+        <constructor-arg name="descriptionsMap" ref="descriptionsMap" />
     </bean>
 
     <bean id="eventsMap" class="java.util.concurrent.ConcurrentHashMap"/>

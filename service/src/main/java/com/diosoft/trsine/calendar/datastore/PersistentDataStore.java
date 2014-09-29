@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Component
 @Transactional
-public class PersistentDataStore implements DataStore{
+public class PersistentDataStore implements DataStore {
 
     // Injected database connection:
     @PersistenceContext
@@ -194,5 +194,13 @@ public class PersistentDataStore implements DataStore{
                 .parallelStream()
                 .map(EventAdapter::getEvent)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Initialization if needed.
+     */
+    @Override
+    public void init() {
+        //stub
     }
 }

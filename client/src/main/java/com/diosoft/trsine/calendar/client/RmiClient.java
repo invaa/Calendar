@@ -26,32 +26,8 @@ public class RmiClient {
     }
 
     public static void main(String[] args) throws IdIsNullException, DateIntervalIsIncorrectException, RemoteException {
-        ApplicationContext factory = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+        ApplicationContext factory = new ClassPathXmlApplicationContext("ClientContext.xml");
         CalendarService service = ((RmiClient) factory.getBean("rmiClient")).getService();
-
-         Event testEvent = new Event.HashSetBuilder()
-                .setDateBegin(new Date())
-                .setDateEnd(new Date())
-                .setId(UUID.randomUUID())
-                .setTitle("Daily Scrum")
-                .setDescription("Next daily scrum meeting")
-                .addAttender("alex@zamkovyi.name")
-                .addAttender("igor.vartanian@gmail.com")
-                .build();
-
-        service.add(testEvent);
-
-        System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
-
-//        //find  all occurencies by description and remove by ids
-//        service.searchByDescription("Next daily scrum meeting")
-//                .parallelStream()
-//                .forEach(p ->
-//                        try {
-//                        service.remove(p.getId()
-//                        }
-//                        )
-//        });
 
         System.out.println(service.searchByDescription("Next daily scrum meeting").toString());
 

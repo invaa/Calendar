@@ -66,4 +66,9 @@ public interface CalendarService extends Remote {
      * @return <code>Event</code>
      */
     Event getById(UUID id) throws RemoteException;
+
+    /**
+     * Initialization if needed.
+     */
+    void init() throws RemoteException;
 }

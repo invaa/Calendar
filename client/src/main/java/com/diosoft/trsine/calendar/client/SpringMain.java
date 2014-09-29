@@ -18,7 +18,7 @@ public class SpringMain {
 
    public static void main(String ... args) throws IdIsNullException, DateIntervalIsIncorrectException {
        ApplicationContext appContext =
-               new ClassPathXmlApplicationContext("src/ApplicationContext.xml");
+               new ClassPathXmlApplicationContext("src/ClientContext.xml");
 
        CalendarServiceImpl service = (CalendarServiceImpl) appContext.getBean("calendarService", CalendarServiceImpl.class);
 

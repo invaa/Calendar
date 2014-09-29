@@ -124,5 +124,13 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.getById(id);
     }
 
+    /**
+     * Initialization if needed.
+     */
+    @Override
+    public void init() {
+        dataStore.init();
+    }
+
 
 }

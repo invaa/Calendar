@@ -71,4 +71,9 @@ public interface DataStore {
      */
     @SuppressWarnings("unused")
     List<Event> searchByTitleStartWith(String description);
+
+    /**
+     * Initialization if needed.
+     */
+    void init();
 }

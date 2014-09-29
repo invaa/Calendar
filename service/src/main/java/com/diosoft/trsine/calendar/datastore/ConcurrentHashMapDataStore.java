@@ -295,4 +295,12 @@ public abstract class ConcurrentHashMapDataStore implements DataStore {
 
         return resultList;
     }
+
+    /**
+     * Initialization if needed.
+     */
+    @Override
+    public void init() {
+        //stub
+    }
 }
