@@ -69,5 +69,6 @@ public interface DataStore {
      * @param description to search by
      * @return the list of <code>Event</code>s
      */
+    @SuppressWarnings("unused")
     List<Event> searchByTitleStartWith(String description);
 }

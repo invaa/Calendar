@@ -1,12 +1,12 @@
 package com.diosoft.trsine.calendar.controller;
 
 import com.diosoft.trsine.calendar.common.Event;
-import com.diosoft.trsine.calendar.context.ApplicationContextProvider;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
-import com.diosoft.trsine.calendar.service.CalendarServiceImpl;
+import com.diosoft.trsine.calendar.service.CalendarService;
 import com.diosoft.trsine.calendar.util.DateHelper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,13 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CalendarController {
+
+    public void setService(CalendarService service) {
+        this.calendarService = service;
+    }
+
+    @Autowired
+    private CalendarService calendarService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView getPages() {
@@ -33,12 +41,10 @@ public class CalendarController {
 
 	@RequestMapping(value = "/getEvents", method = RequestMethod.GET)
 	public @ResponseBody
-	String getEvents(@RequestParam String start, @RequestParam String end) {
+	String getEvents(@RequestParam String start, @RequestParam String end) throws RemoteException {
         String result = "";
 
-        CalendarServiceImpl service = ApplicationContextProvider.getApplicationContext().getBean("calendarService", CalendarServiceImpl.class);
-
-        List<Event> list = service.searchByInterval(
+         List<Event> list = calendarService.searchByInterval(
                 DateHelper.getDateFromString(start, "yyyy-MM-dd"),
                 DateHelper.getDateFromString(end, "yyyy-MM-dd"))
                 .parallelStream()
@@ -64,10 +70,8 @@ public class CalendarController {
                     @RequestParam String description,
                     @RequestParam String attenders,
                     @RequestParam String title
-    ) {
+    ) throws RemoteException {
         String result = "{\"result\":true}";
-
-        CalendarServiceImpl service = ApplicationContextProvider.getApplicationContext().getBean("calendarService", CalendarServiceImpl.class);
 
         //TODO: attenders from Event
 
@@ -86,19 +90,17 @@ public class CalendarController {
             e.printStackTrace();
         }
 
-        service.add(event);
+        calendarService.add(event);
 
         return result;
     }
 
     @RequestMapping(value = "/updateEventOnDrop", method = RequestMethod.GET)
     public @ResponseBody
-    String updateEventOnDrop(@RequestParam String id, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date start) {
+    String updateEventOnDrop(@RequestParam String id, @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date start) throws RemoteException {
         String result = "{\"result\":true}";
 
-        CalendarServiceImpl service = ApplicationContextProvider.getApplicationContext().getBean("calendarService", CalendarServiceImpl.class);
-
-        Event oldEvent = service.getById(UUID.fromString(id));
+        Event oldEvent = calendarService.getById(UUID.fromString(id));
         long offset = oldEvent.getDateBegin().getTime() - start.getTime();
 
         Event event;
@@ -118,8 +120,8 @@ public class CalendarController {
             return result;
         }
 
-        service.remove(UUID.fromString(id));
-        service.add(event);
+        calendarService.remove(UUID.fromString(id));
+        calendarService.add(event);
 
         return result;
     }

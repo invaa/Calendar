@@ -7,11 +7,7 @@ import com.rits.cloning.Cloner;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Set;
-import java.util.Date;
-import java.util.UUID;
-import java.util.Locale;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Calendar <code>Event</code> POJO.
@@ -22,6 +18,8 @@ import java.util.HashSet;
  */
 
 public class Event implements Comparable<Event>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Event description.
@@ -44,6 +42,7 @@ public class Event implements Comparable<Event>, Serializable {
     /**
      * Unique event identifier.
      */
+
     private final UUID id;
     /**
      * Event title.

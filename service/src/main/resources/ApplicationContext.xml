@@ -3,11 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="DataStore.xml"/>
+    <!--<import resource="DataStore.xml"/>-->
 
-    <bean id="calendarService" class="com.diosoft.trsine.calendar.service.CalendarServiceImpl" >
-        <constructor-arg ref="dataStore" />
-    </bean>
+    <!--<bean id="calendarService" class="com.diosoft.trsine.calendar.service.CalendarServiceImpl" >-->
+        <!--<constructor-arg ref="dataStore" />-->
+    <!--</bean>-->
+
+    <!--<bean id="calendarController" class="com.diosoft.trsine.calendar.controller.CalendarController" >-->
+        <!--<constructor-arg ref="dataStore" />-->
+    <!--</bean>-->
 
     <bean id="applicationContextProvider" class="com.diosoft.trsine.calendar.context.ApplicationContextProvider"/>
 

@@ -5,7 +5,9 @@ import com.diosoft.trsine.calendar.datastore.DataStore;
 import com.diosoft.trsine.calendar.util.DateHelper;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 

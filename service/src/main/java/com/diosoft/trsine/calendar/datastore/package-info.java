@@ -1,5 +1,5 @@
 /**
- * Contains classes to store and manage calendar data.
+ * Data store implementations.
  *
  * @since 1.0
  */

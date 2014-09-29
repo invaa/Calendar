@@ -1,19 +1,11 @@
 package com.diosoft.trsine.calendar.client;
 
+import com.diosoft.trsine.calendar.adapter.EventAdapter;
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.exceptions.DateIntervalIsIncorrectException;
 import com.diosoft.trsine.calendar.exceptions.IdIsNullException;
-import com.diosoft.trsine.calendar.filesystem.EventAdater;
-import com.diosoft.trsine.calendar.service.CalendarServiceImpl;
-import com.sun.xml.internal.ws.util.Pool;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.util.Date;
 import java.util.UUID;
 
@@ -34,7 +26,7 @@ public class JaxbMain {
                .addAttender("igor.vartanian@gmail.com")
                .build();
 
-       EventAdater ea = new EventAdater();
+       EventAdapter ea = new EventAdapter();
        ea.setFieldsFromEvent(testEvent);
 
        try {

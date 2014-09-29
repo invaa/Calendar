@@ -3,16 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dataStore" class="com.diosoft.trsine.calendar.datastore.SimpleConcurrentHashMapDataStore" >
-        <constructor-arg ref="eventsMap" />
-        <constructor-arg ref="titlesMap" />
-        <constructor-arg ref="daysMap" />
-        <constructor-arg ref="descriptionsMap" />
-    </bean>
+    <!--<bean id="dataStore" class="com.diosoft.trsine.calendar.datastore.PersistentDataStore" >-->
+        <!--&lt;!&ndash;<constructor-arg ref="eventsMap" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<constructor-arg ref="titlesMap" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<constructor-arg ref="daysMap" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<constructor-arg ref="descriptionsMap" />&ndash;&gt;-->
+    <!--</bean>-->
 
-    <bean id="eventsMap" class="java.util.concurrent.ConcurrentHashMap"/>
-    <bean id="titlesMap" class="java.util.concurrent.ConcurrentHashMap"/>
-    <bean id="daysMap" class="java.util.concurrent.ConcurrentHashMap"/>
-    <bean id="descriptionsMap" class="java.util.concurrent.ConcurrentHashMap"/>
+    <!--<bean id="eventsMap" class="java.util.concurrent.ConcurrentHashMap"/>-->
+    <!--<bean id="titlesMap" class="java.util.concurrent.ConcurrentHashMap"/>-->
+    <!--<bean id="daysMap" class="java.util.concurrent.ConcurrentHashMap"/>-->
+    <!--<bean id="descriptionsMap" class="java.util.concurrent.ConcurrentHashMap"/>-->
 
 </beans>

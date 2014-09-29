@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import java.util.HashSet;
 
-import static com.diosoft.trsine.calendar.common.Event.*;
-import static org.junit.Assert.*;
+import static com.diosoft.trsine.calendar.common.Event.Builder;
+import static com.diosoft.trsine.calendar.common.Event.HashSetBuilder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EventBuilderTest {
 

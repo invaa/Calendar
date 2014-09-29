@@ -2,9 +2,9 @@ package com.diosoft.trsine.calendar.service;
 
 import com.diosoft.trsine.calendar.common.Event;
 import com.diosoft.trsine.calendar.datastore.DataStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -18,11 +18,14 @@ import java.util.UUID;
  * @since 1.0
  */
 
+
+@Component
 public class CalendarServiceImpl implements CalendarService {
 
     /**
      * Data store resource.
      */
+
     private final DataStore dataStore;
 
     /**
@@ -30,6 +33,7 @@ public class CalendarServiceImpl implements CalendarService {
      *
      * @param ds data store to inject
      */
+    @Autowired
     public CalendarServiceImpl(final DataStore ds) {
         this.dataStore = ds;
     }
