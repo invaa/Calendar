@@ -63,11 +63,6 @@ public class PersistentDataStore implements DataStore {
         EventAdapter ea = em.find(EventAdapter.class, id.toString());
 
         em.remove(ea);
-
-//        em.createQuery(
-//                "DELETE FROM EventAdapter e "
-//                        + "WHERE e.id = :id ", EventAdapter.class)
-//                .setParameter("id", id);
     }
 
     /**

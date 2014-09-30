@@ -17,20 +17,9 @@ import java.io.Serializable;
 public class AttenderAdapter implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    public EventAdapter getEvent() {
-        return event;
-    }
-
-    public String getEmail() {
-
-        return email;
-    }
-
     @Id  @XmlElement
     private String email;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Id @ManyToOne(fetch = FetchType.LAZY)
     private EventAdapter event;
 
     public AttenderAdapter(String email, EventAdapter event) {
@@ -39,5 +28,14 @@ public class AttenderAdapter implements Serializable {
     }
 
     public AttenderAdapter() {
+    }
+
+    public EventAdapter getEvent() {
+        return event;
+    }
+
+    public String getEmail() {
+
+        return email;
     }
 }
