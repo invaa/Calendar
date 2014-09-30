@@ -22,6 +22,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Controllers for Calendar pages.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
+ */
+
 @Controller
 public class CalendarController {
 

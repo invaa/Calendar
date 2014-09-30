@@ -4,7 +4,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
- * Created by a.zamkovyi on 26.09.2014.
+ * Custom context for Spring MVC.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 public class ApplicationContextProvider implements ApplicationContextAware {
     private static ApplicationContext context;

@@ -13,7 +13,8 @@ import java.util.*;
  * Basic demo of how to cope with the Calendar service and ConcurrentHashMap data store
  *
  * @author  Alexander Zamkovyi
- * @since 1.8
+ * @version 1.0
+ * @since 1.0
  */
 
 public class ConcurrentHashMapDataStoreMain {

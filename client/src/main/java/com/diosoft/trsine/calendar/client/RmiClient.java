@@ -12,7 +12,11 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * Rmi client for calendar service
+ * Rmi client for calendar service.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 public class RmiClient {
     private CalendarService calendarService;

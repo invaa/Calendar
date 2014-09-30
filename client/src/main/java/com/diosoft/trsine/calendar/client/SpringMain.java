@@ -12,7 +12,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Spring implementation of calendar service client
+ * Spring implementation of calendar service client.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 public class SpringMain {
 

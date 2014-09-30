@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Calendar <code>Event</code> POJO.
  *
- * @author  Igor Vartanian
+ * @author  Igor Vartanian, Alexander Zamkovyi
  * @version 1.0
  * @since 1.0
  */

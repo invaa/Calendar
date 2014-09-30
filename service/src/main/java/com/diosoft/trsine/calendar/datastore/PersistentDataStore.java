@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 
 /**
  * Data store, storing events in JPA-compatible db.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 
 @Component

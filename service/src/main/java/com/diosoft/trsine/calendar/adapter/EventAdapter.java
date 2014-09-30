@@ -23,7 +23,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * Serializing Event with JAXB
+ * Serializing Event with JAXB.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 
 @Entity

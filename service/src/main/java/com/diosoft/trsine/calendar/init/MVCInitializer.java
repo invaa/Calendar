@@ -5,6 +5,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * Spring MVC Custom initialization.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 public class MVCInitializer extends InternalResourceViewResolver {
 

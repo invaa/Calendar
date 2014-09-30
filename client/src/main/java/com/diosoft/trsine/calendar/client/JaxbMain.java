@@ -11,6 +11,10 @@ import java.util.UUID;
 
 /**
  * Spring+JAXB main
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 public class JaxbMain {
 

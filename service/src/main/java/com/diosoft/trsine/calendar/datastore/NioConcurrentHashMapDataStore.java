@@ -21,6 +21,10 @@ import static java.nio.file.FileVisitResult.*;
 
 /**
  * All the same as SimpleConcurrentHashMapDataStore, but with file system.
+ *
+ * @author  Alexander Zamkovyi
+ * @version 1.0
+ * @since 1.0
  */
 public class NioConcurrentHashMapDataStore extends SimpleConcurrentHashMapDataStore {
 
