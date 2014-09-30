@@ -42,7 +42,7 @@ public class NioConcurrentHashMapDataStore extends SimpleConcurrentHashMapDataSt
      */
     @Override
     public void add(Event event) {
-        super.add(event);
+        callAddFromSuper(event);
         //persist with nio
 
         EventAdapter ea = new EventAdapter();
@@ -54,6 +54,10 @@ public class NioConcurrentHashMapDataStore extends SimpleConcurrentHashMapDataSt
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+    private void callAddFromSuper(Event event) {
+        super.add(event);
     }
 
     /**
@@ -85,7 +89,7 @@ public class NioConcurrentHashMapDataStore extends SimpleConcurrentHashMapDataSt
             System.err.format("%s not empty%n", path);
         } catch (IOException x) {
             // File permission problems are caught here.
-            System.err.println(x);
+            System.err.println(x.getMessage());
         }
     }
 
@@ -110,12 +114,8 @@ public class NioConcurrentHashMapDataStore extends SimpleConcurrentHashMapDataSt
                             EventAdapter ea = new EventAdapter();
                             try {
                                 Event event = ea.readEvent(filePath + file.getFileName().toString()).getEvent();
-                                NioConcurrentHashMapDataStore.super.add(event);
-                            } catch (JAXBException e) {
-                                e.printStackTrace();
-                            } catch (IdIsNullException e) {
-                                e.printStackTrace();
-                            } catch (DateIntervalIsIncorrectException e) {
+                                callAddFromSuper(event);
+                            } catch (JAXBException | IdIsNullException | DateIntervalIsIncorrectException e) {
                                 e.printStackTrace();
                             }
                         }
