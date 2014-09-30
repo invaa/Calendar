@@ -31,7 +31,7 @@ public class AttenderAdapter implements Serializable {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private transient EventAdapter event;
+    private EventAdapter event;
 
     public AttenderAdapter(String email, EventAdapter event) {
         this.email = email;

@@ -22,7 +22,18 @@ import static java.nio.file.FileVisitResult.*;
 /**
  * All the same as SimpleConcurrentHashMapDataStore, but with file system.
  */
-public class NioConcurrentHashMapDataStore extends  SimpleConcurrentHashMapDataStore {
+public class NioConcurrentHashMapDataStore extends SimpleConcurrentHashMapDataStore {
+
+    /**
+     * File path to save/load events.
+     */
+    //we'll inject it
+    private String filePath;
+
+    public NioConcurrentHashMapDataStore(ConcurrentHashMap<UUID, Event> eventsMap, ConcurrentHashMap<Object, Set<UUID>> titlesMap, ConcurrentHashMap<Object, Set<UUID>> daysMap, ConcurrentHashMap<Object, Set<UUID>> descriptionsMap, String filePath) {
+        super(eventsMap, titlesMap, daysMap, descriptionsMap);
+        this.filePath = filePath;
+    }
 
     /**
      * Adds <code>Event</code> to data store.
@@ -78,17 +89,6 @@ public class NioConcurrentHashMapDataStore extends  SimpleConcurrentHashMapDataS
         }
     }
 
-    /**
-     * File path to save/load events.
-     */
-    //we'll inject it
-    private String filePath;
-
-    public NioConcurrentHashMapDataStore(ConcurrentHashMap<UUID, Event> eventsMap, ConcurrentHashMap<Object, Set<UUID>> titlesMap, ConcurrentHashMap<Object, Set<UUID>> daysMap, ConcurrentHashMap<Object, Set<UUID>> descriptionsMap, String filePath) {
-        super(eventsMap, titlesMap, daysMap, descriptionsMap);
-        this.filePath = filePath;
-    }
-
     @Override
     public void init() {
         //load data store from file path
@@ -102,7 +102,7 @@ public class NioConcurrentHashMapDataStore extends  SimpleConcurrentHashMapDataS
                 public FileVisitResult visitFile(Path file,
                                                  BasicFileAttributes attr) {
                     if (attr.isRegularFile()) {
-                        Pattern p = Pattern.compile("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}[/.][x][m][l]", Pattern.CASE_INSENSITIVE);
+                        Pattern p = Pattern.compile("^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}[/.][x][m][l]$", Pattern.CASE_INSENSITIVE);
                         Matcher m = p.matcher(file.getFileName().toString());
                         if (m.matches()) {
                             System.out.println(filePath + file.getFileName().toString());
@@ -129,7 +129,6 @@ public class NioConcurrentHashMapDataStore extends  SimpleConcurrentHashMapDataS
 
 
     }
-
 
 
 }
